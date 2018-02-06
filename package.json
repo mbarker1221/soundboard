@@ -1,17 +1,32 @@
 {
-  "name": "soundboard",
+  "name": "soundboard1",
   "version": "1.0.0",
-  "description": "",
+  "description": "final attempt",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "node server.js"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "mocha": "0.0.1"
+  },
+  "directories": {
+    "test": "tests"
+  },
   "dependencies": {
     "express": "^4.16.2"
   },
-  "devDependencies": {
-    "mocha": "0.0.1"
-  }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbarker1221/soundboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mbarker1221/soundboard/issues"
+  },
+  "homepage": "https://github.com/mbarker1221/soundboard#readme"
 }
