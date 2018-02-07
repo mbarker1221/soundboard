@@ -4,13 +4,24 @@
 <head>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width">
+
    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.css" rel="stylesheet">
    <link href="index.css" rel="stylesheet" type="text/css">
    <link href="https://fonts.googleapis.com/css?family=Nunito:300i" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    
    <title>Live Music API</title>
+
 </head>
 <body>
 	<p class ="starter file">Hello!</p>
+
+<input type="button" onclick="showEvents()" value="Show Events "/> <br>
+<input type="button" onclick="searchEvents()" value="Search Events "/> <br>
+
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="index.js"></script>
+<script type="text/javascript" src="http://api.eventful.com/js/api"></script>
+
 </html>
