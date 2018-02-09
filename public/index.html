@@ -9,14 +9,32 @@
    <link href="index.css" rel="stylesheet" type="text/css">
    <link href="https://fonts.googleapis.com/css?family=Nunito:300i" rel="stylesheet">
     
-   <title>Live Music API</title>
+   <title>Live Music Event API</title>
 
 </head>
 <body>
-	<p class ="starter file">Hello!</p>
-
-<input type="button" onclick="showEvents()" value="Show Events "/> <br>
-<input type="button" onclick="searchEvents()" value="Search Events "/> <br>
+	<p class ="starter file">Sign up / Register for account</p>
+	<p class = "instructions">Enter your username</p>
+	<form class = "signUp" name = "sign-up" action="#" onsubmit = "return false;">
+		<input type = "text" name = "username" id = "username" placeholder="username" required/>
+		<button class="buttons" id="enterUN" type="submit" onclick="validateUsername();">submit</button>
+	<p class="signup">Enter a password</p>
+		<input type = "text" name = "password" id = "password" placeholder = "password" required/>
+		<button class="buttons" id="enterPASS" type="submit" onclick="validatePass();">submit</button>
+	</form>
+<br><br><br>
+<p class="home">Search for live music events</p>
+	<form>
+		<input type = "text" name = "title" id = "eventsSearch" placeholder="name of event" required/>
+		<button class="buttons" id="btnFindEvent" type="submit" onclick="getEvent();">search</button><br>
+		<input type = "text" name = "title" id = "artistSearch" placeholder="artist name" required/>
+		<button class="buttons" id="btnFindArtist" type="submit" onclick="getArtist();">search</button><br>
+	</form>
+	<p class="users">Search users by name or by event attending</p>
+	<input type = "text" name = "users" id = "userSearch" placeholder="user name" required/>
+		<button class="buttons" id="btnFindUser" type="submit" onclick="getUser();">search by username</button><br>
+		<input type = "text" name = "usersEvents" id = "userEventSearch" placeholder="event name" required/>
+		<button class="buttons" id="btnFindUserEvent" type="submit" onclick="getUserEvents();">search by event</button><br>
 
 </body>
 
