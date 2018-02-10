@@ -2,13 +2,15 @@
 'use strict';
 
 const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
 const express = require('express');
+const router = express.Router();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const {seed.data.json, PORT} = require('/config');
-const {User} = require('/models');
+const {DATABASE_URL, PORT} = require('/config');
+const {users} = require('/models');
 
 const app = express();
 
@@ -18,26 +20,26 @@ app.use(bodyParser.json());
 app.get('/users', (req, res) => {
   User
     .find()
-    .then(posts => {
-      res.json(users.map(post => user.serialize()));
+    .then(USERS => {
+      res.json(users.map(user => user.serialize()));
     })
     .catch(err => {
       console.error(err);
-      res.status(500).json({error: 'something went terribly wrong'});
+      res.status(500).json({error: 'did not retrieve'});
     });
 });
 
 app.get('/user/:id', (req, res) => {
    User
     .findById(req.params.id)
-    .then(post => res.json(post.serialize()))
+    .then(user=> res.json(user.serialize()))
     .catch(err => {
       console.error(err);
-      res.status(500).json({error: 'something went horribly awry'});
+      res.status(500).json({error: 'did not retrieve'});
     });
 });
 
-app.post('/users', (req, res) => {
+app.post('/users', jsonParser, (req, res) => {
   const requiredFields = ['username', 'password', 'email'];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -48,7 +50,7 @@ app.post('/users', (req, res) => {
     }
   }
 
-  BlogPost
+  User
     .create({
       username: req.body.username,
       password: req.body.password,
@@ -57,33 +59,22 @@ app.post('/users', (req, res) => {
     .then(user => res.status(201).json(user.serialize()))
     .catch(err => {
       console.error(err);
-      res.status(500).json({error: 'Something went wrong'});
+      res.status(500).json({error: 'did not create user'});
     });
 
 });
 
-
-app.delete('/user/:id', (req, res) => {
-  User
-    .findByIdAndRemove(req.params.id)
-    .then(() => {
-      res.status(204).json({message: 'success'});
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({error: 'something went terribly wrong'});
-    });
-});
-
-
-app.put('/users/:id', (req, res) => {
-  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-    res.status(400).json({
-      error: 'Request path id and request body id values must match'
-    });
+app.put('/user/:id', jsonParser, (req, res) => {
+  const requiredFields = ['id', 'username', 'password', 'email'];
+  for (let i=0; i<requiredFields.length; i++) {
+    const field = requiredFields[i];
+    if (!(field in req.body)) {
+      const message = `Missing \`${field}\` Please retry`
+      console.error(message);
+      return res.status(400).send(message);
+    }
   }
-
-  const updated = {};
+const updated = {};
   const updateableFields = ['username', 'password', 'email'];
   updateableFields.forEach(field => {
     if (field in req.body) {
@@ -91,22 +82,38 @@ app.put('/users/:id', (req, res) => {
     }
   });
 
+  if (req.params.id !== req.body.id) {
+    const message = `Request path id (${req.params.id}) and request body id (${req.body.id}) must match`;
+    console.error(message);
+    return res.status(400).send(message);
+  }
+  console.log(`Updating user \`${req.params.id}\``);
+
+ User.update({
+    id: req.params.id,
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email
+  });
+  res.status(204).end();
+});
+
   User
     .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
     .then(updatedUser => res.status(204).end())
-    .catch(err => res.status(500).json({message: 'Something went wrong'}));
+    .catch(err => res.status(500).json({message: 'did not update'}));
+};
+
+app.delete('/user/:id', (req, res) => {
+  User.delete(req.params.id);
+  console.log(`Deleted user \`${req.params.ID}\``);
+  res.status(204).end();
 });
-
-
-app.delete('/:id', (req, res) => {
-  User
-    .findByIdAndRemove(req.params.id)
-    .then(() => {
-      console.log(`Deleted user with id \`${req.params.id}\``);
-      res.status(204).end();
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({error: 'did not delete'});
     });
-});
-
+};
 
 app.use('*', function (req, res) {
   res.status(404).json({message: 'Not Found'});
@@ -146,6 +153,7 @@ function closeServer() {
   });
 }
 
+
 if (require.main === module) {
   runServer(/seed.data.json).catch(err => console.error(err));
 }
@@ -156,63 +164,5 @@ module.exports = {runServer, app, closeServer};
 
 
 
-
-
-'use strict';
-
-const bodyParser = require('body-parser');
-const express = require('express');
-const morgan = require('morgan');
-
-const {Events} = require('/models.js');
-const app = express();
-
-app.use(morgan('common'));
-app.use(bodyParser.json());
-app.use(express.static('/public'));
-app.use('/events', pageRouter.js);
-
-
-
-function fetchArtistData() {
-  let location = $('input[name=city_name]');
-  let performer = $('input[name=title]');
-
-  const city_name = location.val();
-  const title = performer.val();
-
-  let params = {
-    city : city_name,
-    artist : title
-  };
-
-$.getJSON(eventUrl, params, function(data){
-  showArtistData(data);
-});
-
-function showEvents() { 
-  var oArgs = {
-         app_key:"c7nd5jGWK8tkcThz",            
-         id: "20218701",
-         page_size: 25 ,
-  };
-
-  EVDB.API.call("/events/get", oArgs, function(oData) {
-  });
-}
-
-function searchShows() {
-  var oArgs = {
-      app_key: "c7nd5jGWK8tkcThz",
-      q: "music",
-      where: "Atlanta", 
-      "date": "2013061000-2015062000",
-      page_size: 5,
-      sort_order: "popularity",
-   };
-
- EVDB.API.call("/events/search", oArgs, function(oData) {   
-    });
-}
 
 

@@ -8,13 +8,20 @@ const venuesUrl = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8
 const usersList = "http://api.eventful.com/json/users/search?app_key=c7nd5jGWK8tkcThz&keywords=user";
 const usersAttending = "http://api.eventful.com/json/events/going/list?app_key=c7nd5jGWK8tkcThz&id=E0-001-000213902-2";
 
-const apiKey = "c7nd5jGWK8tkcThz";
+const eventfulApiKey = "c7nd5jGWK8tkcThz";
+const songkickApiKey = "ovLum2i3CCGRjtHA";
 const oAuthConsumerKey = "e6cbb961ca8fed6a95ed";
 const oAuthConsumerSecret = "7944db20d8d3f4d8c56f";
 
-const {event} = require ('models.js');
-const {router} = require ('router.js');
+const {event} = require ('/models');
+const {router} = require ('/router');
 
 module.exports = {event, router};
 
+exports.DATABASE_URL = process.env.DATABASE_URL || 'mongodb://localhost/soundboard';
+exports.PORT = process.env.PORT || 8080;
+
+
+
+exports.TEST_DATABASE_URL = process.env.TEST_DATABASE_URL || 'mongodb://localhost/test-soundboard';
 
