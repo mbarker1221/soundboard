@@ -11,7 +11,7 @@ const MOCK_EVENTS = {
 	},
 
 	{
-	  "id": "456",
+	 "id": "456",
 	 "title": "Rap Star",
      "venue_name" : "this place",
 	 "start_date" : "2018-25-02, 19:00:00",
@@ -21,7 +21,7 @@ const MOCK_EVENTS = {
 	},
 
 	{
-	  "id": "789",
+	 "id": "789",
 	 "title": "Country Star",
      "venue_name" : "that place",
 	 "start_date" : "2018-27-02, 19:00:00",
@@ -31,7 +31,7 @@ const MOCK_EVENTS = {
 	},
 	
 	{
-	  "id": "012",
+	 "id": "012",
 	 "title": "Electronic Star",
      "venue_name" : "the other place",
 	 "start_date" : "2018-20-02, 19:00:00",
@@ -52,41 +52,43 @@ function displayEvents(data) {
 		$('body').append(
 			'<p>' + data.Event[index].text + '<p>');
 	}
-};
+}
 
+function getAndDsiplayEvents() {
+	getEvents(displayEvents);
+}
+
+$(function() {
+	getAndDisplayEvents();
+})
 const MOCK_USERS = {
 	"users": [
 	{ 
 	 "username": "rock_on",
 	 "password": "pass",
      "email" : "rock@email.com",
-	 "myEvents" : ""
 	},
 
 	{"username": "rock_in",
 	 "password": "pass",
      "email" : "rockin@email.com",
-	 "myEvents" : ""
 	},
 
 	{
 	 "username": "rock_out",
 	 "password": "pass",
      "email" : "rockout@email.com",
-	 "myEvents" : ""
 	},
 	
 	{
 	"username": "rock_it",
 	 "password": "pass",
      "email" : "rockit@email.com",
-	 "myEvents" : ""
 	}
   ]
 };
-unction getUsers(callback) {
-setTimeout(function() { 
-	callback(MOCK_USERS)}, 2);
+function getUsers(callback) {
+setTimeout(function() {callback(MOCK_USERS)}, 100);
 }
 
 function displayUsers(data) {
@@ -94,4 +96,13 @@ function displayUsers(data) {
 		$('body').append(
 			'<p>' + data.Users[index].text + '<p>');
 	}
-};
+}
+
+function getAndDisplayUsers() {
+	getUsers(displayUsers);
+}
+
+$(function() {
+	getAndDisplayUsers();
+})
+
