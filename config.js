@@ -15,13 +15,15 @@ const oAuthConsumerSecret = "7944db20d8d3f4d8c56f";
 
 const {event} = require ('/models');
 const {router} = require ('/router');
+const {user} = require ('/models');
 
-module.exports = {event, router};
 
-exports.DATABASE_URL = process.env.DATABASE_URL || 'mongodb://localhost/soundboard';
+module.exports = {event, router, user};
+
+exports.DATABASE_URL = process.env.DATABASE_URL || 'mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users';
 exports.PORT = process.env.PORT || 8080;
 
 
 
-exports.TEST_DATABASE_URL = process.env.TEST_DATABASE_URL || 'mongodb://localhost/test-soundboard';
+//exports.TEST_DATABASE_URL = process.env.TEST_DATABASE_URL || 'mongodb://localhost/test-soundboard';
 
