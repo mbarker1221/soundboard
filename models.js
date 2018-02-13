@@ -9,7 +9,7 @@ function StorageException(message) {
 }
 
 const User = {
-  create: function(id, username, password, email) {
+  create: function(username, password, email) {
     console.log('Creating new user');
     const user = {
       id: uuid.v4(),
@@ -17,20 +17,29 @@ const User = {
       password: password,
       email: email
     };
-    this.users.push(user);
+    this.users[user.id] = user;
     return user;
-  },
-   get: function(id=null) {
-    if (id !== null) {
-      return this.users.find(user => user.id === id);
-    }
-  },
+    },
+   // this.users.push(user);
+    //return user;
+ // },
+
+ get:function() {
+console.log('retrieving user');
+return Object.keys(this.users).map(key => this.users[key]);
+ },
+   //get: function(id) {
+   // if (id !== null) {
+    //  return this.users.find(user => user.id === id);
+   // }
+// },
   delete: function(id) {
     console.log(`Deleting user \`${id}\``);
     delete this.users[id];
   },
+
   update: function(updatedItem) {
-    console.log(`Deleting user \`${updatedUser.id}\``);
+    console.log(`Updating user \`${updatedUser.id}\`.`);
     const {id} = updatedUser;
     if (!(id in this.users)) {
       throw StorageException(
@@ -47,11 +56,42 @@ function createUser() {
   return storage;
 }
 
+
+const Event = {
+  create: function(title, start_time, url) {
+    console.log('Creating new user');
+    const event = {
+      
+      title: title,
+      startTime: startTime,
+      url:url
+    };
+    this.events[event.title] = event;
+    return event;
+    },
+   // this.users.push(user);
+    //return user;
+ // },
+
+ get:function() {
+console.log('retrieving event');
+return Object.keys(this.events).map(key => this.events[key]);
+ },
+};
+
+function createEvent() {
+  const storage = Object.create(Event);
+  storage.itmes= {};
+  return storage;
+
+}
+
 module.exports = {
-  User: createUser(),
-}'use strict';
+  Event: createEvent(),
+  User: createUser()
+}
 
-
+/*
 const userSchema = mongoose.Schema({
   id: {type: String},
   username: {type: username, required: true},
@@ -72,5 +112,5 @@ const User = mongoose.model('User', userSchema);
 
 module.exports = {Users: createUser};
 
-
+*/
   

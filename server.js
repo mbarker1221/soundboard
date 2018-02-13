@@ -1,4 +1,4 @@
-'use strict';
+
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
@@ -8,23 +8,22 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const {DATABASE_URL, PORT} = require('/config');
-const {users} = require('/models');
-const {events} = require('/models');
-const jsonParser = bodyParser.json();
-const router = require('/router');
-
+const {DATABASE_URL, PORT} = require('./config');
+const {users} = require('./models');
+const {events} = require('./models');
+const userRouter = require('./userRouter');
+const eventRouter = require('./eventsRouter');
 const app = express();
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
-app.use('/router)');
+app.use('/user', userRouter);
+app.use('/events', eventRouter);
 
-
-app.get('/events', (req, res) => {
+app.get('/events', (req, res)=> {
     Event
         .find()
-        .then(EVENTS => {
+        .then(events => {
             res.json(events.map(event => event.serialize()));
         })
         .catch (err => {
@@ -34,10 +33,16 @@ app.get('/events', (req, res) => {
 });
 
 app.get('/user', (req, res) => {
-  res.json(User.get());
+    User
+        .find()
+        .then(user => {
+            res.json(user.map(user => user.serialize()));
+        })
+        .catch (err => {
+        console.error(err);
+        res.status(500).json({error: 'did not retrieve'});
+    });
 });
-
-
 
 app.get('/user/:id', (req, res) => {
     User
@@ -50,68 +55,74 @@ app.get('/user/:id', (req, res) => {
 });
 
 app.post('/users', jsonParser, (req, res) => {
-    const requiredFields = ['id", "username', 'password', 'email'];
+    const requiredFields = ['username', 'password', 'email'];
     for (let i = 0; i < requiredFields.length; i++) {
         const field = requiredFields[i];
         if (!(field in req.body)) {
-            const message = `Missing\` $ {field}\` in request body`;
+            const message = `Missing in request body`;
             console.error(message);
             return res.status(400).send(message);
         }
     }
-    const user = Users.create(req.body.username, req.body.password, req.body.email);
-  res.status(201).json(user);
-  });
 
-app.put('/user/:id', jsonParser, (req, res) => {
-    const requiredFields = ['id', 'username', 'password', 'email'];
-    for (let i = 0; i < requiredFields.length; i++) {
-        const field = requiredFields[i];
-        if (!(field in req.body)) {const message = `Missing\` $ {field}\`Please retry`
-            console.error(message);
-            return res.status(400).send(message);
-        }
-    }
-    const updated = {};
-    const updateableFields = ['id, username', 'password', 'email'];
-    updateableFields.forEach(field => {
-        if (field in req.body) {updated[field] = req.body[field];}
-    });
-
-    if (req.params.id !== req.body.id) {
-        const message = `Request path id($ {req.params.id}) and request body id($ {req.body.id}) must match`;
-        console.error(message);
-        return res.status(400).send(message);
-    }
-    console.log(`Updating user\` $ {req.params.id}\``);
-
-    User.update({
-        id: req.params.id,
-        username: req.body.username,
+    User
+    .create({
+        username:  req.body.username,
         password: req.body.password,
         email: req.body.email
+    })
+    .then(user => res.status(201).json(user.serialize()))
+    .catch(err => {
+        console.error(err);
+        res.status(500).json({error:'wrong'});
     });
-    res.status(204).end();
+});
+    
+    app.delete('/user/:id', (req, res) => {
+    User
+    .findByIdAndRemove(req.params.id)
+    .then(() => {
+        res.status(204).json({message: 'success'});
+    })
+    .catch(err => {
+        console.error(err);
+        res.status(500).json({error: 'wrong'});
+
+    });
 });
 
-  User
-    .findByIdAndUpdate(req.params.id, {$set: updated}, {
-        new: true
-    })
+app.put('/users/:id', (req, res) => {
+    if (!(req.params.id&&req.body.id===req.params.id&&req.body.id)) {
+        res.status(400).json({
+            error: 'do not match'
+        });
+    }
+
+  const updated = {};
+    const updateableFields = ['username', 'password', 'email'];
+    updateableFields.forEach(field => {
+        if (field in req.body) {
+            updated[field] = req.body[field];
+        }
+    });
+
+    User
+    .findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
     .then(updatedUser => res.status(204).end())
     .catch (err => res.status(500).json({message: 'Something went wrong'}));
-}
+});
 
-app.delete('/user/:id', (req, res) => {
-    User.delete(req.params.id);
-            console.log(`Deleted user \`${req.params.id}\``);
+app.delete('/:id', (req, res) => {
+        User
+        .findByIdAndRemove(req.params.id)
+        .then(() => {
+            console.log(`Deleted user`);
             res.status(204).end();
         });
+    });
 
 app.use('*', function(req, res) {
-    res.status(404).json({
-        message: 'Not Found'
-    });
+    res.status(404).json({message: 'Not Found'});
 });
 
 let server;
@@ -148,6 +159,6 @@ function closeServer() {
 }
 
 if (require.main === module) {
-    runServer(DATABASE_URL).
-    catch (err => console.error(err));
+    runServer(DATABASE_URL).catch (err => console.error(err));
+}
     module.exports = {runServer, app, closeServer};

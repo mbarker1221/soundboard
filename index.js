@@ -1,4 +1,4 @@
-'use strict';
+
 
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -6,8 +6,8 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const {DATABASE_URL, PORT} = require('/config.js');
-const {Events} = require('/models.js');
+const {DATABASE_URL, PORT} = require('./config');
+const {Events} = require('./models');
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-app.get('/events', (req, res) => {
+app.get('./events', (req, res) => {
   Events
     .find()
     .then(events => {
