@@ -13,14 +13,17 @@ const songkickApiKey = "ovLum2i3CCGRjtHA";
 const oAuthConsumerKey = "e6cbb961ca8fed6a95ed";
 const oAuthConsumerSecret = "7944db20d8d3f4d8c56f";
 
-const {event} = require ('/models');
-const {router} = require ('/router');
-const {user} = require ('/models');
+const {event} = require ('./models');
+const {eventsRouter} = require ('./eventsRouter');
+const {userRouter} = require ('./userRouter');
+const {user} = require ('./models');
+const DATABASE_URL = require 
 
 
-module.exports = {event, router, user};
 
-exports.DATABASE_URL = process.env.DATABASE_URL || 'mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users';
+module.exports = {event, userRouter, eventsRouter, user};
+
+exports.DATABASE_URL = process.env.DATABASE_URL || "mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users";
 exports.PORT = process.env.PORT || 8080;
 
 
