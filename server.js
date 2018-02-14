@@ -1,24 +1,29 @@
-
+const eventUrl = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&keywords=music&location=atlanta&date=future"
+const placeUrl = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&q=music&l=30032&within=50&units=miles";
+const artistUrl = "http://api.eventful.com/json/performers/search?app_key=c7nd5jGWK8tkcThz&keywords=the+pixies";
+const venuesUrl = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&q=music&l=30032&within=50&units=miles";
+const usersList = "http://api.eventful.com/json/users/search?app_key=c7nd5jGWK8tkcThz&keywords=user";
+const usersAttending = "http://api.eventful.com/json/events/going/list?app_key=c7nd5jGWK8tkcThz&id=E0-001-000213902-2";
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const express = require('express');
-
+const uuid = require('uuid');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const {DATABASE_URL, PORT} = require('./config');
-const {users} = require('./models');
-const {events} = require('./models');
+const {User} = require('./models');
+const {Events} = require('./models');
 const userRouter = require('./userRouter');
 const eventRouter = require('./eventsRouter');
 const app = express();
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
-app.use('/user', userRouter);
-app.use('/events', eventRouter);
+app.use(express.static('public'));
+
 
 app.get('/events', (req, res)=> {
     Event
@@ -31,6 +36,20 @@ app.get('/events', (req, res)=> {
         res.status(500).json({error: 'did not retrieve'});
     });
 });
+
+const events = [
+    {
+  title: {type: String},
+  city_name: {type: String},
+  venue_address: {type: String},
+  start_time: {type: String},
+   description: {type: String},
+  provider: {type: String},
+  event_url: {type: String},
+    venue_name: {type: String},
+    artist_name: {type: String},
+    artist_url: {type: String},
+}];
 
 app.get('/user', (req, res) => {
     User
@@ -54,7 +73,7 @@ app.get('/user/:id', (req, res) => {
     });
 });
 
-app.post('/users', jsonParser, (req, res) => {
+app.post('/user', jsonParser, (req, res) => {
     const requiredFields = ['username', 'password', 'email'];
     for (let i = 0; i < requiredFields.length; i++) {
         const field = requiredFields[i];
@@ -91,7 +110,7 @@ app.post('/users', jsonParser, (req, res) => {
     });
 });
 
-app.put('/users/:id', (req, res) => {
+app.put('/user/:id', (req, res) => {
     if (!(req.params.id&&req.body.id===req.params.id&&req.body.id)) {
         res.status(400).json({
             error: 'do not match'
@@ -161,4 +180,5 @@ function closeServer() {
 if (require.main === module) {
     runServer(DATABASE_URL).catch (err => console.error(err));
 }
-    module.exports = {runServer, app, closeServer};
+    
+module.exports = {runServer, app, closeServer};

@@ -28,7 +28,9 @@
 		<input type = "text" name = "title" id = "eventsSearch" placeholder="name of event" required/>
 		<button class="buttons" id="btnFindEvent" type="submit" onclick="getEvent();">search</button><br>
 		<input type = "text" name = "title" id = "artistSearch" placeholder="artist name" required/>
-		<button class="buttons" id="btnFindArtist" type="submit" onclick="getArtist();">search</button><br>
+		<button class="buttons" id="btnFindArtist" type="submit" onclick="fetchEvent();">search</button><br>
+		<div class = "results" id="show" name ="show">
+		</div>
 	</form>
 	<p class="users">Search users by name or by event attending</p>
 	<input type = "text" name = "users" id = "userSearch" placeholder="user name" required/>
