@@ -1,20 +1,17 @@
 const express = require('express');
-const router = express.Router();
+const userRouter = express.Router();
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const {User} = require('./models');
 
-
-
-
-router.get('/', (req, res) => {
+userRouter.get('/', (req, res) => {
   res.json(User.get());
 });
 
 //CREATE 
 
-router.post('/', jsonParser, (req, res) => {
+userRouter.post('/', jsonParser, (req, res) => {
   const requiredFields = ['username', 'password', 'email'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -29,17 +26,18 @@ router.post('/', jsonParser, (req, res) => {
   res.status(201).json(info);
 });
 
-//DELETE BY username
 
-router.delete('/:username', (req, res) => {
-  User.delete(req.params.username);
-  console.log(`Deleted user \`${req.params.username}\``);
+//DELETE BY id
+
+userRouter.delete('/:id', (req, res) => {
+  User.delete(req.params.id);
+  console.log(`Deleted user \`${req.params.id}\``);
   res.status(204).end();
 });
  
  //UPDATE
 
-router.put('/username', jsonParser, (req, res) => {
+userRouter.put('/:id', jsonParser, (req, res) => {
   const requiredFields = ['username', 'password', 'email',];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -49,14 +47,15 @@ router.put('/username', jsonParser, (req, res) => {
       return res.status(400).send(message);
     }
   }
-  if (req.params.username !== req.body.username) {
+  if (req.params.id !== req.body.id) {
     const message = (
-      `Username info must match`);
+      `Id must match`);
     console.error(message);
     return res.status(400).send(message);
   }
-  console.log(`Updating user \`${req.params.username}\``);
+  console.log(`Updating user \`${req.params.id}\``);
   const updatedInfo = User.update({
+    id: req.params.id,
     username: req.body.username,
     passsword: req.body.password,
     email: req.body.email
@@ -65,5 +64,5 @@ router.put('/username', jsonParser, (req, res) => {
 res.status(204).end();
 })
 
-module.exports = router;
+module.exports = userRouter;
 

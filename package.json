@@ -1,5 +1,5 @@
 {
-  "name": "soundboard1",
+  "name": "soundboard",
   "version": "1.0.0",
   "description": "final attempt",
   "main": "index.js",
@@ -16,7 +16,7 @@
     "mocha": "0.0.1"
   },
   "directories": {
-    "test": "tests"
+    "test": "test"
   },
   "dependencies": {
     "express": "^4.16.2",

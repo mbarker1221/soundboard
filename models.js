@@ -1,12 +1,64 @@
+const mongoose = require("mongoose")
+mongoose.Promise = global.Promise;
+
+const EventSchema = mongoose.Schema({
+  title: {type: String},
+  city_name: {type: String},
+  venue_address: {type: String},
+  start_time: {type: String},
+   description: {type: String},
+  provider: {type: String},
+  event_url: {type: String},
+    venue_name: {type: String},
+    artist_name: {type: String},
+    artist_url: {type: String},
+});
+
+EventSchema.methods.serialize = function() {
+  return {
+    title: this.title,
+    city_name: this.city_name,
+    venue_name: this.venue_name,
+    venue_address: this.venue_address,
+    start_time: this.start_time,
+    description: this.description,
+    event_url: this.event_url,
+     provider: this.provider,
+     artist_name: this.artist_name,
+     artist_url: this.artist_url
+
+  };
+}
+
+const UserSchema = mongoose.Schema({
+  id: {type: String},
+  username: {type: String, required: true},
+  password: {type: String, required: true},
+  email: {type: String, required: true}
+});
+
+UserSchema.methods.serialize = function() {
+  return {
+    id: this.id,
+    username: this.username,
+    password: this.password,
+    email: this.email,
+  };
+}
+
+const User = mongoose.model('User', UserSchema);
+const Event = mongoose.model('Event', EventSchema);
+module.exports = {Event};
+module.exports = {User};
+
+
+/*
 const uuid = require('uuid');
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-function StorageException(message) {
-   this.message = message;
-   this.name = "StorageException";
-}
+
 
 const User = {
   create: function(username, password, email) {
@@ -56,12 +108,10 @@ function createUser() {
   return storage;
 }
 
-
 const Event = {
   create: function(title, start_time, url) {
     console.log('Creating new user');
     const event = {
-      
       title: title,
       startTime: startTime,
       url:url
@@ -69,48 +119,10 @@ const Event = {
     this.events[event.title] = event;
     return event;
     },
-   // this.users.push(user);
-    //return user;
- // },
-
+  
  get:function() {
 console.log('retrieving event');
 return Object.keys(this.events).map(key => this.events[key]);
  },
 };
-
-function createEvent() {
-  const storage = Object.create(Event);
-  storage.itmes= {};
-  return storage;
-
-}
-
-module.exports = {
-  Event: createEvent(),
-  User: createUser()
-}
-
-/*
-const userSchema = mongoose.Schema({
-  id: {type: String},
-  username: {type: username, required: true},
-  password: {type: password, required: true},
-  email: {type: email, required: true}
-});
-
-userSchema.methods.serialize = function() {
-  return {
-    id: this.id,
-    username: this.userame,
-    password: this.password,
-    email: this.email,
-  };
-};
-
-const User = mongoose.model('User', userSchema);
-
-module.exports = {Users: createUser};
-
 */
-  

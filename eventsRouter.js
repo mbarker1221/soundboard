@@ -1,16 +1,27 @@
 const express = require('express');
-const router = express.Router();
-
+const eventsRouter = express.Router();
+const futureUrl = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&keywords=music&location=atlanta&date=future"
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
-const {event} = require('./config');
+const {events} = require('./config');
+const {Events} = require('./models');
 
-router.get('/', (req, res) => {
-    res.json(router.get());
+
+eventsRouter.get('/events', (req, res) => {
+    res.json(Events.get());
 });
+function fetchEvents() {
+  $.getJSON(futureURL, function(data) {
+    showEvents(data);
+  });
+}
+function showEvents(results) {
+   let show = results.events.event.performer.name;
+   $(`#show`).text(show);
+ }
 
-//upcoming events eventful
+ /*  
 var request = require("request");
 
 var options = {method: 'GET',
@@ -20,6 +31,9 @@ var options = {method: 'GET',
      app_key: 'c7nd5jGWK8tkcThz',
      keywords: 'music',
      location: 'atlanta',
+     //location: function assignLocation() {
+//const place = $('input[name=location]');
+  //  const location = place.val()},
      date: 'future',
      include: 'price,tickets,popularity'},
   headers: 
@@ -34,10 +48,7 @@ request(options, function (error, response, body) {
 
   console.log(body);
 });
-
-router.get('/events', (req, res) => {
-    res.json(Events.get());
-});
+}
 
 //artist search songkick
 var options = {method: 'GET',
@@ -89,6 +100,5 @@ request(options, function (error, response, body) {
 
   console.log(body);
 });
-
-module.exports = router;
-
+*/
+module.exports = eventsRouter;
