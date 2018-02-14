@@ -54,8 +54,8 @@ const events = [
 app.get('/user', (req, res) => {
     User
         .find()
-        .then(user => {
-            res.json(user.map(user => user.serialize()));
+        .then(users => {
+            res.json(users.map(user => user.serialize()));
         })
         .catch (err => {
         console.error(err);
@@ -63,7 +63,7 @@ app.get('/user', (req, res) => {
     });
 });
 
-app.get('/user/:id', (req, res) => {
+app.get('/users/:id', (req, res) => {
     User
         .findById(req.params.id)
         .then(user => res.json(user.serialize()))
@@ -73,12 +73,12 @@ app.get('/user/:id', (req, res) => {
     });
 });
 
-app.post('/user', jsonParser, (req, res) => {
+app.post('/users', (req, res) => {
     const requiredFields = ['username', 'password', 'email'];
     for (let i = 0; i < requiredFields.length; i++) {
         const field = requiredFields[i];
         if (!(field in req.body)) {
-            const message = `Missing in request body`;
+            const message = `Please fill out all information`;
             console.error(message);
             return res.status(400).send(message);
         }
@@ -93,11 +93,11 @@ app.post('/user', jsonParser, (req, res) => {
     .then(user => res.status(201).json(user.serialize()))
     .catch(err => {
         console.error(err);
-        res.status(500).json({error:'wrong'});
+        res.status(500).json({error:'Something went wrong'});
     });
 });
     
-    app.delete('/user/:id', (req, res) => {
+    app.delete('/users/:id', (req, res) => {
     User
     .findByIdAndRemove(req.params.id)
     .then(() => {
@@ -110,10 +110,10 @@ app.post('/user', jsonParser, (req, res) => {
     });
 });
 
-app.put('/user/:id', (req, res) => {
-    if (!(req.params.id&&req.body.id===req.params.id&&req.body.id)) {
+app.put('/users/:id', (req, res) => {
+    if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
         res.status(400).json({
-            error: 'do not match'
+            error: 'Path and body do not match'
         });
     }
 
