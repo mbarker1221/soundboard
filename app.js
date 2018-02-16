@@ -1,108 +1,78 @@
-const MOCK_EVENTS = {
-	"events": [
-	{ 
-	 "id": "123",
+Event.find(function(err, events) {
+	if(err) return console.error(err);
+	if(event.length) return; 
+
+	event ({
 	 "title": "Rock Star",
-     "venue_name" : "this place",
+	 "city_name": "Atlanta",
 	 "start_date" : "2018-23-02, 19:00:00",
-	 "city_name": "Atlanta",
 	 "description": "An all ages show with music",
-	 "url": "www.RockStar@eventful.com"
-	},
-
-	{
-	 "id": "456",
-	 "title": "Rap Star",
      "venue_name" : "this place",
+     "artist_name": "your fav rock star",
+     "url": "url",
+     "recently_added": Boolean,
+	}).save();
+
+	event ({
+	 "title": "Rap Star",
+	 "city_name": "Atlanta",
 	 "start_date" : "2018-25-02, 19:00:00",
-	 "city_name": "Atlanta",
 	 "description": "An all ages show with music",
-	 "url": "www.rapStar@eventful.com"
-	},
+	 "venue_name" : "this place",
+	 "artist_name": "your fav rap star",
+	 "url": "url",
+     "recently_added": Boolean,
+	}).save();
 
-	{
-	 "id": "789",
+	event ({ 
 	 "title": "Country Star",
-     "venue_name" : "that place",
+	 "city_name": "Atlanta",   
 	 "start_date" : "2018-27-02, 19:00:00",
-	 "city_name": "Atlanta",
+	 "venue_name" : "that place",
 	 "description": "An all ages show with music",
-	 "url": "www.CountryStar@eventful.com"
-	},
+	 "artist_name": "your fav country star",
+	 "url": "url",
+     "recently_added": Boolean,
+	}).save();
 	
-	{
-	 "id": "012",
+	event ({
 	 "title": "Electronic Star",
-     "venue_name" : "the other place",
+	 "city_name": "Atlanta",    
 	 "start_date" : "2018-20-02, 19:00:00",
-	 "city_name": "Atlanta",
+	 "venue_name" : "the other place",
 	 "description": "An all ages show with music",
-	 "url": "www.danceYourAssOff@eventful.com"
-	}
-  ]
-};
+	 "artist_name": "your fav country star",
+	 "url": "url",
+     "recently_added": Boolean,
+	}).save();
+});
 
-function getEvents(callback) {
-setTimeout(function() { 
-	callback(MOCK_EVENTS)}, 2);
-}
+User.find(function(err, events) {
+	if(err) return console.error(err);
+	if(user.length) return; 
 
-function displayEvents(data) {
-	for(index in data.Events) {
-		$('body').append(
-			'<p>' + data.Event[index].text + '<p>');
-	}
-}
-
-function getAndDsiplayEvents() {
-	getEvents(displayEvents);
-}
-
-$(function() {
-	getAndDisplayEvents();
-})
-const MOCK_USERS = {
-	"users": [
-	{ 
+	user({ 
 	 "username": "rock_on",
 	 "password": "pass",
      "email" : "rock@email.com",
-	},
+	}).save();
 
+	user({ 
 	{"username": "rock_in",
 	 "password": "pass",
      "email" : "rockin@email.com",
-	},
+	}).save();
 
-	{
+	user({ 
 	 "username": "rock_out",
 	 "password": "pass",
      "email" : "rockout@email.com",
-	},
+	}).save();
 	
-	{
+	user({ 
 	"username": "rock_it",
 	 "password": "pass",
      "email" : "rockit@email.com",
-	}
-  ]
-};
-function getUsers(callback) {
-setTimeout(function() {callback(MOCK_USERS)}, 100);
-}
-
-function displayUsers(data) {
-	for(index in data.Users) {
-		$('body').append(
-			'<p>' + data.Users[index].text + '<p>');
-	}
-}
-
-function getAndDisplayUsers() {
-	getUsers(displayUsers);
-}
-
-$(function() {
-	getAndDisplayUsers();
-})
-
+	}).save();
+});
+  
