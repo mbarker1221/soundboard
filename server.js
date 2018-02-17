@@ -3,7 +3,10 @@ var app = express();
 
 const handlebars = require('express-handlebars')
     .create({
-        defaultLayout: 'main'
+        defaultLayout: 'main',
+        helpers: {
+          section: function(register, )
+        }
     });
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
