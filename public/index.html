@@ -18,25 +18,26 @@
 	<form class = "signUp" name = "sign-up" action="#" onsubmit = "return false;">
 		<input type = "text" name = "username" id = "username" placeholder="username" required/>
 		<button class="buttons" id="enterUN" type="submit" onclick="validateUsername();">submit</button>
-	<p class="signup">Enter a password</p>
+		<p class="signup">Enter a password</p>
 		<input type = "text" name = "password" id = "password" placeholder = "password" required/>
 		<button class="buttons" id="enterPASS" type="submit" onclick="validatePass();">submit</button>
+		<p class="mail">enter your email</p>
+		<input type = "email" name = "email" id = "email" placeholder = "email" required/></p>
+		<button class="buttons" id="enterMAIL" type="submit" onclick="validateEmail();">submit</button>
 	</form>
 <br><br><br>
 <p class="home">Search for live music events</p>
 	<form>
 		<input type = "text" name = "title" id = "eventsSearch" placeholder="name of event" required/>
 		<button class="buttons" id="btnFindEvent" type="submit" onclick="getEvent();">search</button><br>
-		<input type = "text" name = "title" id = "artistSearch" placeholder="artist name" required/>
-		<button class="buttons" id="btnFindArtist" type="submit" onclick="fetchEvent();">search</button><br>
+		<input type = "text" name = "artist" id = "artistSearch" placeholder="artist name" required/>
+		<button class="buttons" id="btnFindArtist" type="submit" onclick="getArtist();">search</button><br>
+		<input type = "text" name = "location" id = "locationSearch" placeholder="location of event" required/>
+		<button class="buttons" id="btnFindLocation" type="submit" onclick="getLocation();">search</button><br>
 		<div class = "results" id="show" name ="show">
 		</div>
 	</form>
-	<p class="users">Search users by name or by event attending</p>
-	<input type = "text" name = "users" id = "userSearch" placeholder="user name" required/>
-		<button class="buttons" id="btnFindUser" type="submit" onclick="getUser();">search by username</button><br>
-		<input type = "text" name = "usersEvents" id = "userEventSearch" placeholder="event name" required/>
-		<button class="buttons" id="btnFindUserEvent" type="submit" onclick="getUserEvents();">search by event</button><br>
+	
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>

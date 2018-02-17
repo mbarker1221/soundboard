@@ -20,7 +20,7 @@ userRouter.post('/', jsonParser, (req, res) => {
       console.error(message);
       return res.status(400).send(message);
     }
-    const stringFields=['ussename', 'password'];
+    const stringFields=['username', 'password'];
     const nonStringField = stringFields.find (
       field => field in req.body && typeof req.body[field] !=='string');
 
@@ -31,9 +31,9 @@ userRouter.post('/', jsonParser, (req, res) => {
        location: nonStringField
      })
   }
-  const trimmedFields = ['username', 'password'];
+  const trimmedFields = ['username', 'password', 'email'];
   const nonTrimmed = trimmedFields.find(
-    field => req.body[field].trim() !==req.body[field]
+    field => req.body[field].trim() !== req.body[field]
     );
   if (nonTrimmed) {
     return res.status(422).json({
@@ -53,8 +53,7 @@ const sizedFields = {
     }
   };
   const tooSmallField = Object.keys(sizedFields).find(field =>
-      'min' in sizedFields[field] &&
-            req.body[field].trim().length < sizedFields[field].min
+      'min' in sizedFields[field] &&req.body[field].trim().length < sizedFields[field].min
   );
   const tooLargeField = Object.keys(sizedFields).find(field =>
       'max' in sizedFields[field] && req.body[field].trim().length > sizedFields[field].max
@@ -72,9 +71,7 @@ const sizedFields = {
     });
   }
 
-  let {username, password, firstName = '', lastName = ''} = req.body;
-  firstName = firstName.trim();
-  lastName = lastName.trim();
+  let {username, password, email = ''} = req.body;
 return User.find({username})
     .count()
     .then(count => {
@@ -94,8 +91,8 @@ return User.find({username})
       return User.create({
         username,
         password: hash,
-        firstName,
-        lastName
+        email,
+       
       });
     })
     .then(user => {
@@ -110,7 +107,7 @@ return User.find({username})
   };
 
 
-router.get('/', (req, res) => {
+userRouter.get('/', (req, res) => {
   return User.find()
     .then(users => res.json(users.map(user => user.serialize())))
     .catch(err => res.status(500).json({message: 'Internal server error'}));

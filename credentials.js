@@ -1,3 +1,6 @@
+const nodemailer = require('nodemailer');
+
+//connect to 
 mongo: {
 	development: {
 		connectionString: 'mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users'
@@ -6,8 +9,8 @@ mongo: {
 		connectionString: 'mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users'
 	},
 },
-var mongoose = require('mongoose');
-var opts = {
+const mongoose = require('mongoose');
+const opts = {
 	server: {
 		socketOptions: {keepAlive:1}
 	}
@@ -23,3 +26,11 @@ switch(app.get('env')){
 	default:
 	throw new Error('Unknown execution environment:' + app.get('env'));
 }
+
+module.exports = {
+	cookieSecret: 'your cookie secret goes here',
+	gmail: {
+		user: 'soundboard73',
+		password: 'shompin1',
+	}
+};
