@@ -1,11 +1,32 @@
 const express = require('express');
-const eventsRouter = express.Router();
+var app = express();
+app.use(express.static('public'));
+
 const futureUrl = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&keywords=music&location=atlanta&date=future"
+
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+const eventsRouter = express.Router();
+const {events} = require('./models');
 
-const {events} = require('./config');
-const {Events} = require('./models');
+const handlebars = require('express-handlebars')
+    .create({
+        defaultLayout: 'main'
+    });
+app.engine('handlebars', handlebars.engine);
+app.set('view engine', 'handlebars');
+
+
+
+const uuid = require('uuid');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
+const {DATABASE_URL,PORT} = require('./config');
+const {user} = require('./models');
+const {event} = require('./models');
+const {Location} = require('./models');
 
 
 eventsRouter.get('/events', (req, res) => {
@@ -19,54 +40,27 @@ function fetchEvents() {
 function showEvents(results) {
    let show = results.events.event.performer.name;
    $(`#show`).text(show);
- }
-
- /*  
-var request = require("request");
-
-var options = {method: 'GET',
-  url: 'http://api.eventful.com/json/events/search',
-  qs: 
-   { 
-     app_key: 'c7nd5jGWK8tkcThz',
-     keywords: 'music',
-     location: 'atlanta',
-     //location: function assignLocation() {
-//const place = $('input[name=location]');
-  //  const location = place.val()},
-     date: 'future',
-     include: 'price,tickets,popularity'},
-  headers: 
-   {
-    'Postman-Token': 'f057a665-ec96-d919-1330-bd4a01c0548c',
-     'Cache-Control': 'no-cache',
-     Authorization: 'Basic bWJhcmtlcjEyMjFAZ21haWwuY29tOnNob21waW4x'} 
  };
 
-request(options, function (error, response, body) {
-  if (error) throw new Error(error);
 
-  console.log(body);
-});
-}
+
+
 
 //artist search songkick
-var options = {method: 'GET',
+var request = require("request");
+
+var options = { method: 'GET',
   url: 'http://api.songkick.com/api/3.0/search/artists.json',
-  qs: {apikey: 'ovLum2i3CCGRjtHA', query: '{Lady_Gaga}'},
+  qs: { apikey: 'ovLum2i3CCGRjtHA', query: '{artist_name}' },
   headers: 
-   {'Postman-Token': 'e8988bc0-b627-7328-42e0-b90f09bdf8f5',
+   { 'Postman-Token': 'e3d9ab6c-fa42-6a95-1657-73445bde3eaf',
      'Cache-Control': 'no-cache',
-     Authorization: 'Basic bWJhcmtlcjEyMjE6c2hvbXBpbjE='}};
+     ovLum2i3CCGRjtHA: 'basic' } };
 
 request(options, function (error, response, body) {
   if (error) throw new Error(error);
 
   console.log(body);
-});
-
-router.get('/events', (req, res) => {
-    res.json(Events.get());
 });
 
 //search by location songkick
@@ -100,5 +94,5 @@ request(options, function (error, response, body) {
 
   console.log(body);
 });
-*/
+
 module.exports = eventsRouter;
