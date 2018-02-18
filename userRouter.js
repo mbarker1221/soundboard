@@ -122,14 +122,7 @@ module.exports = {router};
 });
 
 
-//DELETE BY id
 
-userRouter.delete('/:id', (req, res) => {
-  User.delete(req.params.id);
-  console.log(`Deleted user \`${req.params.id}\``);
-  res.status(204).end();
-});
- 
  //UPDATE
 
 userRouter.put('/:id', jsonParser, (req, res) => {

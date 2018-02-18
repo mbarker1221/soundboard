@@ -31,9 +31,59 @@ app.use(morgan('common'));
 app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
-    res.render('register');
+    res.render('register_page');
 });
 
+const request = require("request");
+
+const event = {method: 'GET',
+  url: 'http://api.eventful.com/json/events/search',
+  qs: {app_key: 'c7nd5jGWK8tkcThz', keywords: 'music', query: '{location}'},
+  headers: 
+   {'Postman-Token': '3fd82ae5-0866-b548-4e4c-73411812d131',
+     'Cache-Control': 'no-cache',
+     Authorization: 'Basic bWJhcmtlcjEyMjFAZ21haWwuY29tOnNob21waW4x'} };
+
+request(event, function (error, response, body) {
+  if (error) throw new Error(error);
+
+  console.log(body);
+});
+
+const artist = {method: 'GET',
+  url: 'http://api.songkick.com/api/3.0/search/artists.json',
+  qs: {apikey: 'ovLum2i3CCGRjtHA', query: '{artist_name}'},
+  headers: 
+   {'Postman-Token': 'cbd419ef-c791-6bfb-ef07-0db3aafbeacd',
+     'Cache-Control': 'no-cache',
+     ovLum2i3CCGRjtHA: 'basic'} };
+
+request(artist, function (error, response, body) {
+  if (error) throw new Error(error);
+
+  console.log(body);
+});
+
+//search  by location
+const location = {method: 'GET',
+  url: 'http://api.songkick.com/api/3.0/search/locations.json',
+  qs: {query: '{ }', apikey: 'ovLum2i3CCGRjtHA'},
+  headers: 
+   {'Postman-Token': '1731f7bf-5025-71b8-d814-3ed821e42a47',
+     'Cache-Control': 'no-cache'} };
+
+request(location, function (error, response, body) {
+  if (error) throw new Error(error);
+
+  console.log(body);
+});
+
+
+app.get('/', function(req, res) {
+    res.render('register_page');
+});
+
+//create new user
 app.post('/user', (req, res) => {
     const requiredFields = ['username', 'password', 'email'];
     for (let i = 0; i < requiredFields.length; i++) {
@@ -44,7 +94,7 @@ app.post('/user', (req, res) => {
             return res.status(400).send(message);
         }
     }
-    User
+        User
         .create({
             username: req.body.username,
             password: req.cookie.password,
@@ -56,14 +106,9 @@ app.post('/user', (req, res) => {
         res.status(500).json({
             error: 'Something went wrong'
         });
-
-        res.render('search');
     });
-
-    app.get('event', function(req, res) {
-        res.render('event_result');
     })
-
+    //retrieve user
     app.get('/user', (req, res) => {
         db.users.findOne({username: this.Username}),  
             function(err, users) {
@@ -78,35 +123,23 @@ app.post('/user', (req, res) => {
                 }
             }
     });
-      User
-        .find()
-        .then(users => {res.json(user => user.serialize())
-                
-      .catch(err => {
-    console.error(err);
-    res.status(500).json({
-        error: 'did not retrieve'
-    })
-}) 
-res.render('search');
-});
 
+//update user
 app.put('/user', function(req, res) {
-  res.render('profile');
-    db.users.findOne({username: this.Username}),
+    db.users.findOne({username: this.username}),
         function(err, users) {
             let context = {
                 user: user.map(function(user) {
                     return {
-                        username: user.username,
-                        password: user.password,
-                        email: user.email,
+                        username: this.username,
+                        password: this.password,
+                        email: this.email,
                     }
                 })
             }
         }
 
-    if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+    if (!(req.params.username && req.body.username && req.params.username === req.body.username)) {
         const message = (`information is not a match`);
         console.error(message);
         return res.status(400).json({
@@ -129,9 +162,9 @@ app.put('/user', function(req, res) {
                 message: 'Internal server error'
             }))
         )
-        res.render('search')
 });
 
+//delete user
 app.delete('/user', function(req, res) {
   User
     .findByIdAndRemove(req.params.id)
@@ -139,12 +172,11 @@ app.delete('/user', function(req, res) {
     .catch(err => res.status(500).json
       ({message: 'Internal server error'})))
   })
-res.render('end');
-  });
 
       app.use('*', function(req, res) {
       res.status(404).json({message: 'Not Found'});
             });
+
 
             let server;
 
