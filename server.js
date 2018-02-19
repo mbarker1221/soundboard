@@ -1,21 +1,12 @@
 const express = require('express');
 var app = express();
 
-const handlebars = require('express-handlebars')
-    .create({
-        defaultLayout: 'main'
-    });
-app.engine('handlebars', handlebars.engine);
-app.set('view engine', 'handlebars');
-
 app.set('port', process.env.PORT || 8080);
 app.use(express.static('public'));
-
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
-const uuid = require('uuid');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -25,14 +16,11 @@ const {User} = require('./models');
 const {Event} = require('./models');
 const {Location} = require('./models');
 const userRouter = require('./userRouter');
-const eventRouter = require('./eventsRouter');
+const eventsRouter = require('./eventsRouter');
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
-app.get('/', function(req, res) {
-    res.render('register_page');
-});
 
 const request = require("request");
 
@@ -47,7 +35,7 @@ const event = {method: 'GET',
 request(event, function (error, response, body) {
   if (error) throw new Error(error);
 
-  console.log(body);
+  //console.log(body);
 });
 
 const artist = {method: 'GET',
@@ -61,30 +49,49 @@ const artist = {method: 'GET',
 request(artist, function (error, response, body) {
   if (error) throw new Error(error);
 
-  console.log(body);
+//console.log(body);
 });
 
 //search  by location
 const location = {method: 'GET',
   url: 'http://api.songkick.com/api/3.0/search/locations.json',
-  qs: {query: '{ }', apikey: 'ovLum2i3CCGRjtHA'},
+  qs: {query: '{city_name}', apikey: 'ovLum2i3CCGRjtHA'},
   headers: 
    {'Postman-Token': '1731f7bf-5025-71b8-d814-3ed821e42a47',
      'Cache-Control': 'no-cache'} };
 
 request(location, function (error, response, body) {
   if (error) throw new Error(error);
-
-  console.log(body);
-});
-
-
-app.get('/', function(req, res) {
-    res.render('register_page');
+ // console.log(body);
 });
 
 //create new user
-app.post('/user', (req, res) => {
+
+const users = { 
+  method: 'POST',
+  url: 'http://localhost:8080/users',
+  headers: 
+   {'Postman-Token': 'cf11af54-7106-0aca-552b-519543d14e61',
+     'Cache-Control': 'no-cache',
+     'Content-Type': 'application/json'},
+  body: 
+   {username: 'fromPostman',
+     password: 'jfdksa',
+     email: 'jfjf@gmail.com'},
+  json: true};
+  request(users, function(error, response, body) {
+    console.log(body);
+  })
+
+
+
+
+
+
+
+//create new user
+app.post('/users', (req, res) => {
+    console.log('post ran')
     const requiredFields = ['username', 'password', 'email'];
     for (let i = 0; i < requiredFields.length; i++) {
         const field = requiredFields[i];
@@ -97,7 +104,7 @@ app.post('/user', (req, res) => {
         User
         .create({
             username: req.body.username,
-            password: req.cookie.password,
+            password: req.body.password,
             email: req.body.email
         })
         .then(user => res.status(201).json(user.serialize()))
@@ -106,18 +113,19 @@ app.post('/user', (req, res) => {
         res.status(500).json({
             error: 'Something went wrong'
         });
+
     });
     })
     //retrieve user
-    app.get('/user', (req, res) => {
+    app.get('/users', (req, res) => {
         db.users.findOne({username: this.Username}),  
             function(err, users) {
                 let context = {
                     user: user.map(function(user) {
                         return {
-                            username: user.username,
-                            password: user.password,
-                            email: user.email,
+                            username: users.username,
+                            password: users.password,
+                            email: users.email,
                         }
                     })
                 }
@@ -125,7 +133,7 @@ app.post('/user', (req, res) => {
     });
 
 //update user
-app.put('/user', function(req, res) {
+app.put('/users', function(req, res) {
     db.users.findOne({username: this.username}),
         function(err, users) {
             let context = {
@@ -156,7 +164,7 @@ app.put('/user', function(req, res) {
     });
 
     User
-        .findByIdAndUpdate(req.params.id, {$set: toUpdate})
+        .findByUsernameAndUpdate(req.params.username, {$set: toUpdate})
         .then(user => res.status(204) 
         .catch(err => res.status(500).json({
                 message: 'Internal server error'
@@ -165,7 +173,7 @@ app.put('/user', function(req, res) {
 });
 
 //delete user
-app.delete('/user', function(req, res) {
+app.delete('/users', function(req, res) {
   User
     .findByIdAndRemove(req.params.id)
     .then(user => res.render('end')
