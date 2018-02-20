@@ -75,7 +75,28 @@ app.get('/users', (req, res) => {
     });
 });
 //create new user
-app.post('/users', (req, res) => {
+
+const Users = {method: 'POST',
+  url: 'http://localhost:8080/users',
+  headers: 
+   {'Postman-Token': '71bf161e-2117-3a0a-d903-a64ec03e36a5',
+     'Cache-Control': 'no-cache',
+     'Content-Type': 'application/json'},
+  body: 
+   { username: 'soTired',
+     password: 'jfdksa;',
+     email: 'bullshit@bullshit.com'},
+  json: true};
+
+//request(Users, function (error, response, body) {
+  //if (error) throw new Error(error);
+
+  //console.log(body);
+//});
+
+
+
+/*app.post('/users', (req, res) => {
     console.log('post ran')
     const requiredFields = ['username', 'password', 'email'];
     for (let i = 0; i < requiredFields.length; i++) {
@@ -86,8 +107,7 @@ app.post('/users', (req, res) => {
             return res.status(400).send(message);
         }
     }
-        User
-        .create({
+        User.create({
             username: req.body.username,
             password: req.body.password,
             email: req.body.email
@@ -114,6 +134,7 @@ app.post('/users', (req, res) => {
             }
 
     });
+    */
 //update user
 
 app.put('/users/:id', function(req, res) {
