@@ -2,7 +2,7 @@
   "name": "soundboard",
   "version": "1.0.0",
   "description": "final attempt",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
     "test": "mocha",
     "start": "node server.js"

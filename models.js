@@ -1,15 +1,30 @@
 const express = require('express');
 const app = express();
+<<<<<<< HEAD
+
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
+=======
+
+app.set('port', process.env.PORT || 8080);
 app.use(express.static('public'));
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
+//const uuid = require('uuid');
+>>>>>>> 9ca8d29a738d10b448d59a2d1dfe362cb40063eb
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const {DATABASE_URL,PORT} = require('./config');
+<<<<<<< HEAD
+=======
+const {User} = require('./userSchema');
+const {Event} = require('./eventSchema');
+const {Location} = require('./models');
+>>>>>>> 9ca8d29a738d10b448d59a2d1dfe362cb40063eb
 const userRouter = require('./userRouter');
 const eventRouter = require('./eventsRouter');
 
