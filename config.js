@@ -13,7 +13,7 @@ const {eventsRouter} = require ('./eventsRouter');
 const {userRouter} = require ('./userRouter');
 const {user} = require ('./models');
 
-module.exports = {event, userRouter, eventsRouter, user};
+module.exports = {event, eventsRouter, user, userRouter};
 
 module.exports.DATABASE_URL = process.env.DATABASE_URL || 'mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users';
 	
