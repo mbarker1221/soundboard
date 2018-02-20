@@ -59,6 +59,21 @@ request(location, function (error, response, body) {
   if (error) throw new Error(error);
  //console.log(body);
 });
+
+const Users = {method: 'POST',
+  url: 'http://localhost:8080/users',
+  headers: 
+   {'Postman-Token': '71bf161e-2117-3a0a-d903-a64ec03e36a5',
+     'Cache-Control': 'no-cache',
+     'Content-Type': 'application/json'},
+  body: 
+   {username: 'soTired',
+     password: 'jfdksa;',
+     email: 'bs@bs.com'},
+  json: true};
+console.log(body);
+
+
 //retrieve user
 /*app.get('/users', (req, res) => {
   User
@@ -76,17 +91,6 @@ request(location, function (error, response, body) {
 });*/
 //create new user
 
-const Users = {method: 'POST',
-  url: 'http://localhost:8080/users',
-  headers: 
-   {'Postman-Token': '71bf161e-2117-3a0a-d903-a64ec03e36a5',
-     'Cache-Control': 'no-cache',
-     'Content-Type': 'application/json'},
-  body: 
-   {username: 'soTired',
-     password: 'jfdksa;',
-     email: 'bs@bs.com'},
-  json: true};
 
 //request(Users, function (error, response, body) {
   //if (error) throw new Error(error);
