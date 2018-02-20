@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 app.use(express.static('public'));
 
-
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
@@ -42,7 +41,6 @@ EventSchema.methods.serialize = function() {
      provider: this.provider,
      artist_name: this.artist_name,
      artist_url: this.artist_url
-
   };
 }
 
