@@ -67,22 +67,6 @@ request(location, function (error, response, body) {
 
 //create new user
 
-const users = { 
-  method: 'POST',
-  url: 'http://localhost:8080/users',
-  headers: 
-   {'Postman-Token': 'cf11af54-7106-0aca-552b-519543d14e61',
-     'Cache-Control': 'no-cache',
-     'Content-Type': 'application/json'},
-  body: 
-   {username: 'fromPostman',
-     password: 'jfdksa',
-     email: 'jfjf@gmail.com'},
-  json: true};
-  request(users, function(error, response, body) {
-    console.log(body);
-  })
-
 
 
 
