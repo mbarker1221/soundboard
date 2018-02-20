@@ -1,6 +1,12 @@
 const express = require('express');
+<<<<<<< HEAD
 const app = express();
+=======
+var app = express();
 
+app.set('port', process.env.PORT || 8080);
+app.use(express.static('public'));
+>>>>>>> 9ca8d29a738d10b448d59a2d1dfe362cb40063eb
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
@@ -17,7 +23,11 @@ const eventsRouter = require('./eventsRouter');
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
+<<<<<<< HEAD
 app.use(express.static('public'));
+=======
+
+>>>>>>> 9ca8d29a738d10b448d59a2d1dfe362cb40063eb
 
 const request = require("request");
 
@@ -31,6 +41,10 @@ const event = {method: 'GET',
 
 request(event, function (error, response, body) {
   if (error) throw new Error(error);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9ca8d29a738d10b448d59a2d1dfe362cb40063eb
   //console.log(body);
 });
 
@@ -44,6 +58,10 @@ const artist = {method: 'GET',
 
 request(artist, function (error, response, body) {
   if (error) throw new Error(error);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9ca8d29a738d10b448d59a2d1dfe362cb40063eb
 //console.log(body);
 });
 
@@ -59,6 +77,7 @@ request(location, function (error, response, body) {
   if (error) throw new Error(error);
  // console.log(body);
 });
+<<<<<<< HEAD
 //retrieve user
 app.get('/users', (req, res) => {
   User
@@ -74,6 +93,16 @@ app.get('/users', (req, res) => {
       res.status(500).json({ error: 'something went terribly wrong' });
     });
 });
+=======
+
+//create new user
+
+
+
+
+
+
+>>>>>>> 9ca8d29a738d10b448d59a2d1dfe362cb40063eb
 
 //create new user
 app.post('/users', (req, res) => {
@@ -96,11 +125,50 @@ app.post('/users', (req, res) => {
         .then(user => res.status(201).json(user.serialize()))
         .catch(err => {
         console.error(err);
+<<<<<<< HEAD
         res.status(500).json({error: 'Something went wrong'});
     });
+=======
+        res.status(500).json({
+            error: 'Something went wrong'
+        });
+
+    });
+    })
+    //retrieve user
+    app.get('/users', (req, res) => {
+        db.users.findOne({username: this.Username}),  
+            function(err, users) {
+                let context = {
+                    user: user.map(function(user) {
+                        return {
+                            username: users.username,
+                            password: users.password,
+                            email: users.email,
+                        }
+                    })
+                }
+            }
+>>>>>>> 9ca8d29a738d10b448d59a2d1dfe362cb40063eb
     });
 //update user
+<<<<<<< HEAD
 app.put('/users/:id', function(req, res) {
+=======
+app.put('/users', function(req, res) {
+    db.users.findOne({username: this.username}),
+        function(err, users) {
+            let context = {
+                user: user.map(function(user) {
+                    return {
+                        username: this.username,
+                        password: this.password,
+                        email: this.email,
+                    }
+                })
+            }
+        }
+>>>>>>> 9ca8d29a738d10b448d59a2d1dfe362cb40063eb
 
     if (!(req.params.id && req.body.id&& req.params.id === req.body.id)) {
         const message = (`information is not a match`);
@@ -117,12 +185,25 @@ app.put('/users/:id', function(req, res) {
     });
 
     User
+<<<<<<< HEAD
         .findByIdAndUpdate(req.params.id, {$set: toUpdate})
         .then(user => res.status(204).end()) 
         .catch(err => res.status(500).json({message: 'Internal server error'}));
+=======
+        .findByUsernameAndUpdate(req.params.username, {$set: toUpdate})
+        .then(user => res.status(204) 
+        .catch(err => res.status(500).json({
+                message: 'Internal server error'
+            }))
+        )
+>>>>>>> 9ca8d29a738d10b448d59a2d1dfe362cb40063eb
 });
 //delete user
+<<<<<<< HEAD
 app.delete('/users/:id', function(req, res) {
+=======
+app.delete('/users', function(req, res) {
+>>>>>>> 9ca8d29a738d10b448d59a2d1dfe362cb40063eb
   User
     .findByIdAndRemove(req.params.id)
     .then(user => res.status(204).end())
