@@ -8,10 +8,6 @@ mongoose.Promise = global.Promise;
 
 const {DATABASE_URL,PORT} = require('./config');
 
-const {User} = require('./userSchema');
-const {Event} = require('./eventSchema');
-const {Location} = require('./models');
-
 const userRouter = require('./userRouter');
 const eventRouter = require('./eventsRouter');
 app.use(express.static('public'));
@@ -58,10 +54,10 @@ userSchema.methods.serialize = function() {
   };
 }
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('user', userSchema);
 module.exports = {User};
 
-const Event = mongoose.model('Event', EventSchema);
+const Event = mongoose.model('event', EventSchema);
 module.exports = {Event};
 
            

@@ -1,11 +1,7 @@
 const express = require('express');
 const app = express();
-
-app.use(express.static('public'));
-
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -15,7 +11,7 @@ const {User} = require('./models');
 const {Event} = require('./models');
 const userRouter = require('./userRouter');
 const eventsRouter = require('./eventsRouter');
-
+app.use(express.static('public'));
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
@@ -71,7 +67,6 @@ const Users = {method: 'POST',
      password: 'jfdksa;',
      email: 'bs@bs.com'},
   json: true};
-console.log(body);
 
 
 //retrieve user
@@ -88,19 +83,34 @@ console.log(body);
       console.error(err);
       res.status(500).json({ error: 'something went terribly wrong'});
     });
-});*/
-//create new user
+});
+create new user
 
 
-//request(Users, function (error, response, body) {
-  //if (error) throw new Error(error);
+request(Users, function (error, response, body) {
+  if (error) throw new Error(error);
 
-  //console.log(body);
-//});
+  console.log(body);
+});
+ app.get('/users', (req, res) => {
+        db.users.findOne({username: this.Username}),  
+            function(err, users) {
+                let context = {
+                    user: user.map(function(user) {
+                        return {
+                            username: users.username,
+                            password: users.password,
+                            email: users.email,
+                        }
+                    })
+                }
+            }
+
+    });
+    
 
 
-
-/*app.post('/users', (req, res) => {
+app.post('/users', (req, res) => {
     console.log('post ran')
     const requiredFields = ['username', 'password', 'email'];
     for (let i = 0; i < requiredFields.length; i++) {
@@ -122,6 +132,7 @@ console.log(body);
        res.status(500).json({error: 'Something went wrong'});
     }); 
     });    
+
     //retrieve user
     app.get('/users', (req, res) => {
         db.users.findOne({username: this.Username}),  
@@ -138,7 +149,7 @@ console.log(body);
             }
 
     });
-    
+ /*   
 //update user
 
 app.put('/users/:id', function(req, res) {

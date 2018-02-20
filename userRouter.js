@@ -3,22 +3,13 @@ const userRouter = express.Router();
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-const {user} = require('./models');
+const {User} = require('./models');
 
-User.create({
-	"username": "me",
-	"password": "122345",
-	"email": "email@email.com"
-});
-
-
-userRouter.get('/user', (req, res) => {
+userRouter.get('/users', (req, res) => {
   res.json(User.get());
 });
 
-
-
-userRouter.post('/user', jsonParser, (req, res) => {
+userRouter.post('/users', jsonParser, (req, res) => {
   // ensure `name` and `budget` are in request body
   const requiredFields = ['username', 'password', 'email'];
   for (let i=0; i<requiredFields.length; i++) {
