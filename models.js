@@ -1,34 +1,68 @@
 const express = require('express');
-var app = express();
-
-const handlebars = require('express-handlebars')
-    .create({
-        defaultLayout: 'main'
-    });
-app.engine('handlebars', handlebars.engine);
-app.set('view engine', 'handlebars');
-
-app.set('port', process.env.PORT || 8080);
-app.use(express.static('public'));
-
+const app = express();
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-
-const uuid = require('uuid');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const {DATABASE_URL,PORT} = require('./config');
-const {User} = require('./models');
-const {Event} = require('./models');
-const {Location} = require('./models');
 const userRouter = require('./userRouter');
 const eventRouter = require('./eventsRouter');
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
+const EventSchema = mongoose.Schema({
+  title: {type: String},
+  city_name: {type: String},
+  venue_address: {type: String},
+  start_time: {type: String},
+   description: {type: String},
+  provider: {type: String},
+  event_url: {type: String},
+    venue_name: {type: String},
+    artist_name: {type: String},
+    artist_url: {type: String},
+});
+
+EventSchema.methods.serialize = function() {
+  return {
+    title: this.title,
+    city_name: this.city_name,
+    venue_name: this.venue_name,
+    venue_address: this.venue_address,
+    start_time: this.start_time,
+    description: this.description,
+    event_url: this.event_url,
+     provider: this.provider,
+     artist_name: this.artist_name,
+     artist_url: this.artist_url
+
+  };
+}
+
+const userSchema = mongoose.Schema({
+  id: {type: String},
+  username: {type: String, required: true},
+  password: {type: String, required: true},
+  email: {type: String, required: true}
+});
+
+userSchema.methods.serialize = function() {
+  return {
+    id: this.id,
+    username: this.username,
+    password: this.password,
+    email: this.email,
+  };
+}
+
+const User = mongoose.model('User', userSchema);
+module.exports = {User};
+
+const Event = mongoose.model('Event', EventSchema);
+module.exports = {Event};
 
            

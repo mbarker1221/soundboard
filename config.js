@@ -13,7 +13,7 @@ const {eventsRouter} = require ('./eventsRouter');
 const {userRouter} = require ('./userRouter');
 const {user} = require ('./models');
 
-module.exports = {event, userRouter, eventsRouter, user};
+module.exports = {event, eventsRouter, user, userRouter};
 
 module.exports.DATABASE_URL = process.env.DATABASE_URL || 'mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users';
 	
@@ -21,5 +21,5 @@ module.exports.PORT = process.env.PORT || 8080
 
 //module.exports.JWT_SECRET = [process.env.JWT_SECRET;
 //module.exports.JWT_EXPIRY = process.env.JWT_EXPIRY || '7d';
-module.exports.TEST_DATABASE_URL = process.env.TEST_DATABASE_URL || 'mongodb://<dbuser>:<dbpassword>@ds131698.mlab.com:31698/users';
+
 

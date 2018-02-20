@@ -1,21 +1,10 @@
 const express = require('express');
-var app = express();
-
-const handlebars = require('express-handlebars')
-    .create({
-        defaultLayout: 'main'
-    });
-app.engine('handlebars', handlebars.engine);
-app.set('view engine', 'handlebars');
-
-app.set('port', process.env.PORT || 8080);
-app.use(express.static('public'));
+const app = express();
 
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
-const uuid = require('uuid');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -23,16 +12,12 @@ mongoose.Promise = global.Promise;
 const {DATABASE_URL,PORT} = require('./config');
 const {User} = require('./models');
 const {Event} = require('./models');
-const {Location} = require('./models');
 const userRouter = require('./userRouter');
-const eventRouter = require('./eventsRouter');
+const eventsRouter = require('./eventsRouter');
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
-
-app.get('/', function(req, res) {
-    res.render('register_page');
-});
+app.use(express.static('public'));
 
 const request = require("request");
 
@@ -46,8 +31,7 @@ const event = {method: 'GET',
 
 request(event, function (error, response, body) {
   if (error) throw new Error(error);
-
-  console.log(body);
+  //console.log(body);
 });
 
 const artist = {method: 'GET',
@@ -60,31 +44,40 @@ const artist = {method: 'GET',
 
 request(artist, function (error, response, body) {
   if (error) throw new Error(error);
-
-  console.log(body);
+//console.log(body);
 });
 
 //search  by location
 const location = {method: 'GET',
   url: 'http://api.songkick.com/api/3.0/search/locations.json',
-  qs: {query: '{ }', apikey: 'ovLum2i3CCGRjtHA'},
+  qs: {query: '{city_name}', apikey: 'ovLum2i3CCGRjtHA'},
   headers: 
    {'Postman-Token': '1731f7bf-5025-71b8-d814-3ed821e42a47',
      'Cache-Control': 'no-cache'} };
 
 request(location, function (error, response, body) {
   if (error) throw new Error(error);
-
-  console.log(body);
+ // console.log(body);
 });
-
-
-app.get('/', function(req, res) {
-    res.render('register_page');
+//retrieve user
+app.get('/users', (req, res) => {
+  User
+    .find()
+    .then(users => {
+      res.json({
+        users: users.map(
+          (user) => user.serialize())
+    });
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ error: 'something went terribly wrong' });
+    });
 });
 
 //create new user
-app.post('/user', (req, res) => {
+app.post('/users', (req, res) => {
+    console.log('post ran')
     const requiredFields = ['username', 'password', 'email'];
     for (let i = 0; i < requiredFields.length; i++) {
         const field = requiredFields[i];
@@ -97,54 +90,22 @@ app.post('/user', (req, res) => {
         User
         .create({
             username: req.body.username,
-            password: req.cookie.password,
+            password: req.body.password,
             email: req.body.email
         })
         .then(user => res.status(201).json(user.serialize()))
         .catch(err => {
         console.error(err);
-        res.status(500).json({
-            error: 'Something went wrong'
-        });
+        res.status(500).json({error: 'Something went wrong'});
     });
-    })
-    //retrieve user
-    app.get('/user', (req, res) => {
-        db.users.findOne({username: this.Username}),  
-            function(err, users) {
-                let context = {
-                    user: user.map(function(user) {
-                        return {
-                            username: user.username,
-                            password: user.password,
-                            email: user.email,
-                        }
-                    })
-                }
-            }
     });
-
 //update user
-app.put('/user', function(req, res) {
-    db.users.findOne({username: this.username}),
-        function(err, users) {
-            let context = {
-                user: user.map(function(user) {
-                    return {
-                        username: this.username,
-                        password: this.password,
-                        email: this.email,
-                    }
-                })
-            }
-        }
+app.put('/users/:id', function(req, res) {
 
-    if (!(req.params.username && req.body.username && req.params.username === req.body.username)) {
+    if (!(req.params.id && req.body.id&& req.params.id === req.body.id)) {
         const message = (`information is not a match`);
         console.error(message);
-        return res.status(400).json({
-            message: message
-        });
+        return res.status(400).json({message: message});
     }
     const toUpdate = {};
     const updateableFields = ['username', 'password', 'email'];
@@ -157,64 +118,58 @@ app.put('/user', function(req, res) {
 
     User
         .findByIdAndUpdate(req.params.id, {$set: toUpdate})
-        .then(user => res.status(204) 
-        .catch(err => res.status(500).json({
-                message: 'Internal server error'
-            }))
-        )
+        .then(user => res.status(204).end()) 
+        .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
-
 //delete user
-app.delete('/user', function(req, res) {
+app.delete('/users/:id', function(req, res) {
   User
     .findByIdAndRemove(req.params.id)
-    .then(user => res.render('end')
-    .catch(err => res.status(500).json
-      ({message: 'Internal server error'})))
-  })
+    .then(user => res.status(204).end())
+    .catch(err => res.status(500).json({message: 'Internal server error'}));
+  });
 
       app.use('*', function(req, res) {
       res.status(404).json({message: 'Not Found'});
             });
 
+    let server;
 
-            let server;
-
-            function runServer(databaseUrl, port = PORT) {
-                return new Promise((resolve, reject) => {
-                    mongoose.connect(databaseUrl, err => {
-                        if (err) {
-                            return reject(err)
-                        }
-                        server = app.listen(port, () => {
-                                console.log(`Your app is listening on port ${port}`)
-                                resolve();
-                            })
-                            .on('error', err => {
-                                mongoose.disconnect()
-                                reject(err);
-                            });
-                    });
-                });
-            }
-
-            function closeServer() {
-                return mongoose.disconnect().then(() => {
-                    return new Promise((resolve, reject) => {
-                        console.log('Closing server');
-                        server.close(err => {
-                            if (err) {
-                                return reject(err)
-                            }
-                            resolve();
+        function runServer(databaseUrl, port = PORT) {
+            return new Promise((resolve, reject) => {
+                mongoose.connect(databaseUrl, err => {
+                    if (err) {
+                      return reject(err)
+                    }
+                    server = app.listen(port, () => {
+                        console.log(`Your app is listening on port ${port}`)
+                        resolve();
+                    })
+                        .on('error', err => {
+                            mongoose.disconnect()
+                            reject(err);
                         });
-                    });
                 });
-            }
+            });
+        }
 
-            if (require.main === module) {
-                runServer(DATABASE_URL).catch(err =>
-                    console.error(err));
-            }
+        function closeServer() {
+          return mongoose.disconnect().then(() => {
+              return new Promise((resolve, reject) => {
+                  console.log('Closing server');
+                  server.close(err => {
+                      if (err) {
+                          return reject(err)
+                      }
+                      resolve();
+                  });
+              });
+          });
+      }
 
-            module.exports = {runServer, app, closeServer};
+      if (require.main === module) {
+          runServer(DATABASE_URL).catch(err =>
+              console.error(err));
+      }
+
+      module.exports = {runServer, app, closeServer};
