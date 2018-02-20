@@ -87,7 +87,7 @@ const Users = {method: 'POST',
      password: 'jfdksa;',
      email: 'bs@bs.com'},
   json: true};
-
+console.log(body);
 //request(Users, function (error, response, body) {
   //if (error) throw new Error(error);
 
