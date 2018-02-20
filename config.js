@@ -3,10 +3,7 @@ const {eventsRouter} = require ('./eventsRouter');
 const {userRouter} = require ('./userRouter');
 const {user} = require ('./models');
 
-
-
 module.exports.DATABASE_URL = process.env.DATABASE_URL || 'mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users';
-	
 module.exports.PORT = process.env.PORT || 8080
 
 //module.exports.JWT_SECRET = [process.env.JWT_SECRET;

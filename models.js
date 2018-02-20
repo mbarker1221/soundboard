@@ -1,61 +1,44 @@
 const express = require('express');
 const app = express();
-<<<<<<< HEAD
-
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-=======
-
-app.set('port', process.env.PORT || 8080);
-app.use(express.static('public'));
-
-const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
-
-//const uuid = require('uuid');
->>>>>>> 9ca8d29a738d10b448d59a2d1dfe362cb40063eb
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const {DATABASE_URL,PORT} = require('./config');
-<<<<<<< HEAD
-=======
+
 const {User} = require('./userSchema');
 const {Event} = require('./eventSchema');
 const {Location} = require('./models');
->>>>>>> 9ca8d29a738d10b448d59a2d1dfe362cb40063eb
+
 const userRouter = require('./userRouter');
 const eventRouter = require('./eventsRouter');
-
+app.use(express.static('public'));
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
 const EventSchema = mongoose.Schema({
   title: {type: String},
   city_name: {type: String},
-  venue_address: {type: String},
-  start_time: {type: String},
-   description: {type: String},
+  start_date: {type: String},
+  venue_name: {type: String},
+  description: {type: String},
   provider: {type: String},
-  event_url: {type: String},
-    venue_name: {type: String},
-    artist_name: {type: String},
-    artist_url: {type: String},
+  artist_name: {type: String},
+  artist_url: {type: String},
 });
 
 EventSchema.methods.serialize = function() {
   return {
     title: this.title,
+    start_date: this.start_date,
     city_name: this.city_name,
     venue_name: this.venue_name,
-    venue_address: this.venue_address,
-    start_time: this.start_time,
     description: this.description,
-    event_url: this.event_url,
-     provider: this.provider,
-     artist_name: this.artist_name,
-     artist_url: this.artist_url
+    provider: this.provider,
+    artist_name: this.artist_name,
+    artist_url: this.artist_url
   };
 }
 
