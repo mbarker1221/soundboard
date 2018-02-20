@@ -50,17 +50,17 @@ request(artist, function (error, response, body) {
 //search  by location
 const location = {method: 'GET',
   url: 'http://api.songkick.com/api/3.0/search/locations.json',
-  qs: {query: '{atlanta}', apikey: 'ovLum2i3CCGRjtHA'},
+  qs: {query: '{city_name}', apikey: 'ovLum2i3CCGRjtHA'},
   headers: 
    {'Postman-Token': '1731f7bf-5025-71b8-d814-3ed821e42a47',
      'Cache-Control': 'no-cache'} };
 
 request(location, function (error, response, body) {
   if (error) throw new Error(error);
- //console.log(body);
+ // console.log(body);
 });
 //retrieve user
-/*app.get('/users', (req, res) => {
+app.get('/users', (req, res) => {
   User
     .find()
     .then(users => {
@@ -71,9 +71,9 @@ request(location, function (error, response, body) {
     })
     .catch(err => {
       console.error(err);
-      res.status(500).json({ error: 'something went terribly wrong'});
+      res.status(500).json({ error: 'something went terribly wrong' });
     });
-});*/
+});
 //create new user
 
 const Users = {method: 'POST',
@@ -83,9 +83,9 @@ const Users = {method: 'POST',
      'Cache-Control': 'no-cache',
      'Content-Type': 'application/json'},
   body: 
-   {username: 'soTired',
+   { username: 'soTired',
      password: 'jfdksa;',
-     email: 'bs@bs.com'},
+     email: 'bullshit@bullshit.com'},
   json: true};
 
 //request(Users, function (error, response, body) {
@@ -134,7 +134,7 @@ const Users = {method: 'POST',
             }
 
     });
-    
+    */
 //update user
 
 app.put('/users/:id', function(req, res) {
@@ -170,7 +170,7 @@ app.delete('/users/:id', function(req, res) {
       app.use('*', function(req, res) {
       res.status(404).json({message: 'Not Found'});
             });
-*/
+
     let server;
 
         function runServer(databaseUrl, port = PORT) {
