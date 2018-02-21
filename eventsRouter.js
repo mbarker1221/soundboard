@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const eventsRouter = express.Router();
 
-const uuid = require('uuid');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;

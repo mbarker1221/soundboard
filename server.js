@@ -64,10 +64,8 @@ request(location, function (error, response, body) {
   if (error) throw new Error(error);
  // console.log(body);
 });
-
 //create new user
-
-const users = { 
+const user = { 
   method: 'POST',
   url: 'http://localhost:8080/users',
   headers: 
@@ -75,22 +73,15 @@ const users = {
      'Cache-Control': 'no-cache',
      'Content-Type': 'application/json'},
   body: 
-   {username: 'fromPostman',
-     password: 'jfdksa',
-     email: 'jfjf@gmail.com'},
+   {username: "fromPostman",
+    password: "jfdksa",
+    email: "jfjf@gmail.com"},
   json: true};
-  request(users, function(error, response, body) {
+  request(user, function(error, response, body) {
     console.log(body);
   })
-
-
-
-
-
-
-
 //create new user
-app.post('/users', (req, res) => {
+app.post('/users', jsonParser, (req, res) => {
     console.log('post ran')
     const requiredFields = ['username', 'password', 'email'];
     for (let i = 0; i < requiredFields.length; i++) {
@@ -101,13 +92,12 @@ app.post('/users', (req, res) => {
             return res.status(400).send(message);
         }
     }
-        User
-        .create({
+       const detail = User.create({
             username: req.body.username,
             password: req.body.password,
             email: req.body.email
         })
-        .then(user => res.status(201).json(user.serialize()))
+        .then(user => res.status(201).json(User.serialize()))
         .catch(err => {
         console.error(err);
         res.status(500).json({
