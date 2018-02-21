@@ -5,28 +5,40 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const {User} = require('./models');
 
+userRouter.post('/users', jsonParser, (req, res) => {
+    console.log('post ran')
+    const requiredFields = ['username', 'password', 'email'];
+    for (let i = 0; i < requiredFields.length; i++) {
+        const field = requiredFields[i];
+        if (!(field in req.body)) {
+            const message = `Please enter all requested information`
+            console.error(message);
+            return res.status(400).send(message);
+        }
+    }
+ User
+ .create({
+  username: req.body.username, 
+  password: req.body.password, 
+  email: req.body.email
+})
+ .then(user => res.status(201).json(user.serialize()))
+ .catch(err => {
+  console.error(err);
+  res.status(500).json({message: 'error'});
+ });
+});
+
+
+
+
 userRouter.get('/users', (req, res) => {
   res.json(User.get());
 });
 
-userRouter.post('/users', jsonParser, (req, res) => {
-  // ensure `name` and `budget` are in request body
-  const requiredFields = ['username', 'password', 'email'];
-  for (let i=0; i<requiredFields.length; i++) {
-    const field = requiredFields[i];
-        if (!(field in req.body)) {
-      const message = `Missing \`${field}\` in request body`
-      console.error(message);
-      return res.status(400).send(message);
-    }
-  }
-  const detail = User.create(req.body.username, req.body.password, req.body.email);
-  res.status(201).json(detail);
-});
-
-
+/*
 userRouter.delete('/:id', (req, res) => {
-  User.delete(req.params.id);
+  user.delete(req.params.id);
   console.log(`Deleted user \`${req.params.ID}\``);
   res.status(204).end();
 });
@@ -49,7 +61,7 @@ userRouter.put('/:id', jsonParser, (req, res) => {
     return res.status(400).send(message);
   }
   console.log(`Updating user \`${req.params.id}\``);
-  const updatedUser = User.update({
+  const updatedUser = user.update({
     id: req.params.id,
     username: req.body.username,
     password: req.body.password,
@@ -57,6 +69,6 @@ userRouter.put('/:id', jsonParser, (req, res) => {
   });
   res.status(204).end();
 })
-
+*/
 module.exports = userRouter;
 
