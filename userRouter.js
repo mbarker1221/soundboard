@@ -29,14 +29,10 @@ userRouter.post('/users', jsonParser, (req, res) => {
  });
 });
 
-
-
-
 userRouter.get('/users', (req, res) => {
   res.json(User.get());
 });
 
-/*
 userRouter.delete('/:id', (req, res) => {
   user.delete(req.params.id);
   console.log(`Deleted user \`${req.params.ID}\``);
@@ -69,6 +65,6 @@ userRouter.put('/:id', jsonParser, (req, res) => {
   });
   res.status(204).end();
 })
-*/
+
 module.exports = userRouter;
 

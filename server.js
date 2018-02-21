@@ -1,9 +1,8 @@
 const express = require('express');
-var app = express();
-
-app.set('port', process.env.PORT || 8080);
-app.use(express.static('public'));
-
+const app = express();
+const {DATABASE_URL,PORT} = require('./config');
+const {User} = require('./models');
+const {Event} = require('./models');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
@@ -11,16 +10,9 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const {DATABASE_URL,PORT} = require('./config');
-const {User} = require('./models');
-const {Event} = require('./models');
-const {Location} = require('./models');
-const userRouter = require('./userRouter');
-const eventsRouter = require('./eventsRouter');
-
 app.use(morgan('common'));
 app.use(bodyParser.json());
-
+app.use(express.static('public'));
 
 const request = require("request");
 
@@ -34,8 +26,6 @@ const event = {method: 'GET',
 
 request(event, function (error, response, body) {
   if (error) throw new Error(error);
-
-  //console.log(body);
 });
 
 const artist = {method: 'GET',
@@ -48,10 +38,7 @@ const artist = {method: 'GET',
 
 request(artist, function (error, response, body) {
   if (error) throw new Error(error);
-
-//console.log(body);
 });
-
 //search  by location
 const location = {method: 'GET',
   url: 'http://api.songkick.com/api/3.0/search/locations.json',
@@ -62,12 +49,8 @@ const location = {method: 'GET',
 
 request(location, function (error, response, body) {
   if (error) throw new Error(error);
- // console.log(body);
 });
 //create new user
-
-//create new user
-
 app.post('/users', jsonParser, (req, res) => {
     console.log('post ran')
     const requiredFields = ['username', 'password', 'email'];
@@ -79,13 +62,13 @@ app.post('/users', jsonParser, (req, res) => {
             return res.status(400).send(message);
         }
     }
-
-    User.create({
+User
+    .create({
       username: req.body.username,
-      password: req.body.password,
+     password: req.body.password,
       email: req.body.email
     })
-    .then(User => res.status(201).json(user.serialize()))
+    .then(user => res.status(201).json(user.serialize()))
     .catch(err => {
       console.error(err);
       res.status(500).json({message: 'Internal server error'});
@@ -107,7 +90,6 @@ app.post('/users', jsonParser, (req, res) => {
                 }
             }
     });
-
 //update user
 app.put('/users', function(req, res) {
     db.users.findOne({username: this.username}),
@@ -122,7 +104,6 @@ app.put('/users', function(req, res) {
                 })
             }
         }
-
     if (!(req.params.username && req.body.username && req.params.username === req.body.username)) {
         const message = (`information is not a match`);
         console.error(message);
@@ -138,7 +119,6 @@ app.put('/users', function(req, res) {
           toUpdate[field] = req.body[field]
         }
     });
-
     User
         .findByUsernameAndUpdate(req.params.username, {$set: toUpdate})
         .then(user => res.status(204) 
@@ -155,7 +135,6 @@ app.delete('/users', function(req, res) {
     .catch(err => res.status(500).json
       ({message: 'Internal server error'})))
   })
-
       app.use('*', function(req, res) {
       res.status(404).json({message: 'Not Found'});
             });
@@ -179,7 +158,6 @@ app.delete('/users', function(req, res) {
                     });
                 });
             }
-
             function closeServer() {
                 return mongoose.disconnect().then(() => {
                     return new Promise((resolve, reject) => {
@@ -193,10 +171,8 @@ app.delete('/users', function(req, res) {
                     });
                 });
             }
-
             if (require.main === module) {
                 runServer(DATABASE_URL).catch(err =>
                     console.error(err));
             }
-
             module.exports = {runServer, app, closeServer};

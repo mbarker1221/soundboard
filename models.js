@@ -6,11 +6,6 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const {DATABASE_URL,PORT} = require('./config');
-
-const userRouter = require('./userRouter');
-const eventRouter = require('./eventsRouter');
-app.use(express.static('public'));
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
