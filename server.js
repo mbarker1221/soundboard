@@ -65,22 +65,9 @@ request(location, function (error, response, body) {
  // console.log(body);
 });
 //create new user
-const user = { 
-  method: 'POST',
-  url: 'http://localhost:8080/users',
-  headers: 
-   {'Postman-Token': 'cf11af54-7106-0aca-552b-519543d14e61',
-     'Cache-Control': 'no-cache',
-     'Content-Type': 'application/json'},
-  body: 
-   {username: "fromPostman",
-    password: "jfdksa",
-    email: "jfjf@gmail.com"},
-  json: true};
-  request(user, function(error, response, body) {
-    console.log(body);
-  })
+
 //create new user
+
 app.post('/users', jsonParser, (req, res) => {
     console.log('post ran')
     const requiredFields = ['username', 'password', 'email'];
@@ -92,20 +79,19 @@ app.post('/users', jsonParser, (req, res) => {
             return res.status(400).send(message);
         }
     }
-       const detail = User.create({
-            username: req.body.username,
-            password: req.body.password,
-            email: req.body.email
-        })
-        .then(user => res.status(201).json(User.serialize()))
-        .catch(err => {
-        console.error(err);
-        res.status(500).json({
-            error: 'Something went wrong'
-        });
 
-    });
+    User.create({
+      username: req.body.username,
+      password: req.body.password,
+      email: req.body.email
     })
+    .then(User => res.status(201).json(user.serialize()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: 'Internal server error'});
+      console.log(User);
+    });
+});
     //retrieve user
     app.get('/users', (req, res) => {
         db.users.findOne({username: this.Username}),  
@@ -161,7 +147,6 @@ app.put('/users', function(req, res) {
             }))
         )
 });
-
 //delete user
 app.delete('/users', function(req, res) {
   User
@@ -174,7 +159,6 @@ app.delete('/users', function(req, res) {
       app.use('*', function(req, res) {
       res.status(404).json({message: 'Not Found'});
             });
-
 
             let server;
 
