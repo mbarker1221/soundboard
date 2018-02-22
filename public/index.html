@@ -16,50 +16,68 @@
 	<div class = "register">
     	<h1>welcome to sound</h1>
     		<h2>Register for an account below</h2>
-    			<form method="post" action="/addname">
+    		<form class="registerUser" action = "registerUser" method=POST>
 
       				<label>Enter A Username</label></br>
 
      				<input type="text" name="username" placeholder="Enter username" required>
 
-     				 <button class="buttons" id="enterUN" type="submit" onclick="validateUsername();">submit</button></br>
+     				 <button class="buttons" id="enterUN" type="submit" onclick="validateUsername()">submit</button></br>
 
       				<label>Enter A Password</label></br>
 
       				<input type="text" name="password" placeholder="Enter password" required>
 
-      				<button class="buttons" id="enterPASS" type="submit" onclick="validatePass();">submit</button></br>
+      				<button class="buttons" id="enterPASS" type="submit" onclick="validatePass()">submit</button></br>
 
      				 <label>Enter your email</label></br>
 
       				<input type="text" name="email" placeholder="Enter email" required>
 
-      				<button class="buttons" id="enterMAIL" type="submit" onclick="validateEmail();">submit</button></br>
-
+      				<button class="buttons" id="enterMAIL" type="submit" onclick="validateEmail()">submit</button></br>
     			</form>
+				<form class="signIn" action = "signIn" method=POST>
+
+      				<label>Enter Your Username</label></br>
+
+     				<input type="text" name="un" placeholder="Enter username" required>
+
+     				 <button class="buttons" id="UNenter" type="submit" onclick="authorizeUsername()">submit</button></br>
+
+      				<label>Enter Your Password</label></br>
+
+      				<input type="text" name="pw" placeholder="Enter password" required>
+
+      				<button class="buttons" id="PASSenter" type="submit" onclick="authorizePass()">submit</button></br>
+
+				</form>
 	</div>
 		<br><br><br>
 	<div class = "search">
 		<h2>Search for live music events</h2>
-			<form method ="post" action="/addUser">
-
-				<input type = "text" name = "event" id = "eventSearch" placeholder="event name"/>
-				<button class="buttons" id="btnFindEvent" type="submit" onclick="getEvent()";">search</button>		<br></br><span>
-		
-				<input type = "text" name = "artist" id = "artistSearch" placeholder="artist name"/>
-				<button class="buttons" id="btnFindArtist" type="submit" onclick="getArtist()";">search</button>		<br></br><span>
-  
-				<input type = "text" name = "location" id = "locationSearch" placeholder="City name"/>
-				<button class="buttons" id="btnFindLocation" type="submit" onclick="getLocation()";>search</button><br></span>
+			<span>
+			<form class="artistSearch" action="/.server.js" method="POST">
+				<input type = "text" name = "artistSearch" id = "artistSearch" placeholder="artist name"/>
+				<button class="buttons" id="btnFindArtist" type="submit" onclick="getArtist()">search</button><br></br>
+  				</form>
+  			</span>
+  			<span
+  				<form class - "locationSearch" action="/.server.js" method="POST">
+				<input type = "text" name = "locationSearch" id = "locationSearch" placeholder="City name"/>
+				<button class="buttons" id="btnFindLocation" type="submit" onclick="getEvents()";>search</button><br>
 			</form>
+			</span>
 	</div>
-	<div class = "artistResults" id="art" name ="show">
+
+	<div class = "shows" id="art" name ="a-show">
 		<p class = "artResults">Check out these upcoming shows!</p>
 			</br></br></br>
+			 <form class="format" name="a-form" action="#" onsubmit="return false;">
 	</div>
-	<div class = "locResults" id="loc" name ="show">
-		<p>These events are upcoming near you!</p>
+	<div class = "locs" id="loc" name ="l-show">
+		<p class="locResults">Check out these events happening near you!</p>
 			</br></br></br>
+			 <form class="format" name="l-form" action="#" onsubmit="return false;">
 	</div>
 </body>
 
