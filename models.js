@@ -5,7 +5,7 @@ const jsonParser = bodyParser.json();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-
+ 
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
@@ -44,15 +44,10 @@ userSchema.methods.serialize = function() {
   return {
     id: this.id,
     username: this.username,
-    password: this.password,
+    //password: this.password,
     email: this.email,
   };
 }
 
 const User = mongoose.model('user', userSchema);
 module.exports = {User};
-
-const Event = mongoose.model('event', EventSchema);
-module.exports = {Event};
-
-           

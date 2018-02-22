@@ -15,7 +15,6 @@ mongoose.Promise = global.Promise;
 const {DATABASE_URL,PORT} = require('./config');
 const {user} = require('./models');
 const {event} = require('./models');
-const {Location} = require('./models');
 
 
 
