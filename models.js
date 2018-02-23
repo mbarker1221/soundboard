@@ -5,7 +5,7 @@ const jsonParser = bodyParser.json();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
- 
+const uuid = require('uuid'); 
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
@@ -34,7 +34,6 @@ EventSchema.methods.serialize = function() {
 }
 
 const userSchema = mongoose.Schema({
-  id: {type: String},
   username: {type: String, required: true},
   password: {type: String, required: true},
   email: {type: String, required: true}
@@ -42,12 +41,13 @@ const userSchema = mongoose.Schema({
 
 userSchema.methods.serialize = function() {
   return {
-    id: this.id,
+    id: this._id,
     username: this.username,
     //password: this.password,
-    email: this.email,
+    email: this.email
   };
 }
 
-const User = mongoose.model('user', userSchema);
-module.exports = {User};
+const User=mongoose.model('/user', userSchema);
+module.exports ={User};
+ 

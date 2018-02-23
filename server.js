@@ -13,19 +13,6 @@ mongoose.Promise = global.Promise;
 app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(express.static('public'));
-console.log(User.create);
-//var MongoSessionStore = require ('session-mongoose')(require('connect'));
-//var sessionStore = new MongoSessionStore({ url:
-//  credentials.mongo[app.get('env')].connectionString});
-
-//app.use(require('cookie-parser')(credentials.cookieSecret));
-//app.use(require('express-session')({
-//  resave: false,
-//  saveUninititalized: false,
-//  secret: credentials.cookieSecret,
-//  store: sessionStore,
-//}));
-
 const request = require("request");
 
 app.get('/event', (req, res) => {
@@ -39,7 +26,6 @@ app.get('/event', (req, res) => {
         keywords: 'music',
      location: 'atlanta',
      date: 'future',
-       // include: 'venue_name', 'start_time', 'title', 'city_name', 'description'
       },
         headers: 
         {
@@ -48,7 +34,6 @@ app.get('/event', (req, res) => {
           Authorization: 'Basic bWJhcmtlcjEyMjFAZ21haWwuY29tOnNob21waW4x' 
         } 
     };
-
     rest.get('/event', function(req, content, cb) {
       Event.find({approved:true}), function(err, events) {
         if(err) return cb({error: 'internal'});
@@ -57,7 +42,7 @@ app.get('/event', (req, res) => {
             name: a.title,
             description: a.description,
             city_name: a.city_name,
-            start_date: a.start_date,
+            start_time: a.start_time,
           };
         }));
       };
@@ -90,9 +75,8 @@ app.get('/artist', (req, res) => {
    })
   })
 };
-
 //search  by location
-
+function getEvent() {
 app.get('/location', (req, res) => {
   const location = 
     {
@@ -111,29 +95,46 @@ app.get('/location', (req, res) => {
         res.json(JSON.parse(body));
       })
   });
-
+}
  //retrieve user
+var getUser = {method: 'GET',
+  url: 'http://localhost:8080/users',
+  headers: 
+   {'Postman-Token': '7edd8b14-d6d5-259b-c0f5-90f22ff49dc4',
+     'Cache-Control': 'no-cache',
+     'Content-Type': 'application/json'},
+  body: {username: 'db3', password: 'switch', email: 'bd3@gmail.com'},
+  json: true};
+
 app.get('/users', (req, res) => {
-    const filters = {};
+  User
+  .find()
+  .then(users => {
+    res.json(users.map(user => user.serialize()));
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({error: 'something is seriously wrong'});
+  });
+});
+   /* const filters = {};
     const queryableFields = ['username', 'email'];
     queryableFields.forEach(field => {
         if (req.query[field]) {
-            filters[field] = req.query[field];
-        }
-    });
+           filters[field] = req.query[field];
+       
        User
         .find(filters)
         .then(Users => res.json(
             Users.map(user=> user.serialize())))
             console.log(User)
         .catch(err => {
-            console.error(err);
+           console.error(err);
             res.status(500).json({message: 'Internal server error'})
         });
-});
+     });*/
 //create new user
 app.post('/users', (req, res) => {
-
   const requiredFields = ['username', 'password', 'email'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -156,50 +157,36 @@ app.post('/users', (req, res) => {
     });
 });
 //update user
-app.put('/users', function(req, res) {
-    db.users.findOne({username: this.username}),
-        function(err, users) {
-            let context = {
-                user: user.map(function(user) {
-                    return {
-                        username: this.username,
-                        password: this.password,
-                        email: this.email,}
-                })
-            }
-        }
-    if (!(req.params.username && req.body.username && req.params.username === req.body.username)) {
-        const message = (`information is not a match`);
+app.put('/users', jsonParser, (req, res) => {
+    const requiredFields = ['username', 'password', 'email'];
+    for (let i=0; i<requiredFields.length; i++) {
+      const field = requiredFields[i];
+      if (!(field in req.body)) {
+        const message = `Something is missing`
         console.error(message);
-        return res.status(400).json({
-            message: message
-        });
+        return res.status(400).send(message);
+      }
     }
-    const toUpdate = {};
-    const updateableFields = ['username', 'password', 'email'];
-
-    updateableFields.forEach(field => {
-        if (field in req.body) {
-          toUpdate[field] = req.body[field]
-        }
-    });
-    User
-        .findByUsernameAndUpdate(req.params.username, {$set: toUpdate})
-        .then(user => res.status(204) 
-        .catch(err => res.status(500).json({
-                message: 'Internal server error'
-            }))
-        )
+    if (req.params.id !== req.body.id) {
+      const message = `Which one of these things is not like the other one?`
+      console.error(message);
+      return res.status(400).send(message);
+    }
+    console.log(`updating user`);
+     Users.update({
+    username: req.params.username,
+    password: req.body.password,
+    email: req.body.email
+  });
+  res.status(204).end();
 });
 //delete user
-app.delete('/users', function(req, res) {
-  User
-    .findByIdAndRemove(req.params.id)
-    .then(user => res.render('end')
-    .catch(err => res.status(500).json
-      ({message: 'Internal server error'})))
-  })
-      app.use('*', function(req, res) {
+app.delete('/users/:id', (req, res) => {
+  User.delete(req.params.id);
+  console.log(`Deleted User`);
+  res.status(204).end();
+});
+     app.use('*', function(req, res) {
       res.status(404).json({message: 'Not Found'});
             });
 
@@ -240,5 +227,3 @@ app.delete('/users', function(req, res) {
                     console.error(err));
             }
             module.exports = {runServer, app, closeServer};
-
-
