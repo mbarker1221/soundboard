@@ -9,45 +9,42 @@ const uuid = require('uuid');
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
+
 const EventSchema = mongoose.Schema({
   title: {type: String},
   city_name: {type: String},
   start_date: {type: String},
   venue_name: {type: String},
+  url: {type: String},
   description: {type: String},
-  provider: {type: String},
-  artist_name: {type: String},
-  artist_url: {type: String},
 });
 
 EventSchema.methods.serialize = function() {
   return {
     title: this.title,
-    start_date: this.start_date,
     city_name: this.city_name,
+    start_date: this.start_date,
     venue_name: this.venue_name,
-    description: this.description,
-    provider: this.provider,
-    artist_name: this.artist_name,
-    artist_url: this.artist_url
+    url: this.url,
+    description: this.description
   };
 }
 
 const userSchema = mongoose.Schema({
   username: {type: String, required: true},
-  password: {type: String, required: true},
-  email: {type: String, required: true}
+  password: {type: String},
+  email: {type: String}
 });
 
 userSchema.methods.serialize = function() {
   return {
     id: this._id,
     username: this.username,
-    //password: this.password,
     email: this.email
   };
 }
 
-const User=mongoose.model('/user', userSchema);
-module.exports ={User};
+const User = mongoose.model('User', userSchema);
+//module.exports = {createUser};
+module.exports = {User};
  
