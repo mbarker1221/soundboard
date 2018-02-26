@@ -1,12 +1,22 @@
-const express = require('express');
-const router = express.Router();
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const {app, runServer, closeServer} = require('/server');
 
+const expect = chai.expect;
+const assert = chai.assert;
+
+const express = require('express');
 const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
-const {Events} = require('/models');
+const app = express();
+
+chai.use(chaiHttp);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
+
 //CREATE 
 
-userRouter.post('/users', jsonParser, (req, res) => {
+userRouter.post('/user', jsonParser, (req, res) => {
   const requiredFields = ['username', 'password', 'email'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -40,11 +50,12 @@ userRouter.post('/users', jsonParser, (req, res) => {
   }
 const sizedFields = {
     username: {
-      min: 1
+      min: 5
+      max: 15
     },
     password: {
-      min: 10,
-      max: 72
+      min: 5,
+      max: 15
     }
   };
   const tooSmallField = Object.keys(sizedFields).find(field =>
