@@ -1,28 +1,28 @@
 const express = require('express');
 const userRouter = express.Router();
-
+const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-const {
-  User
-} = require('./models');
 
-User.create({
-  'username': "rock_on",
-  "password": "pass",
-  "email": "rock@email.com"
+const app = express();
+const {User} = require ('./models');
+
+const morgan = require('morgan');
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
+app.use(morgan('common'));
+app.use(bodyParser.json());
+app.use(express.static('public'));
+
+router.get('/user', (req,res) => {
+  res.json(User.get());
 });
 
-User.create({
-  "username": "rock_in",
-  "password": "pass",
-  "email": "rockin@email.com"
-});
-
-userRouter.get('/user', (req, res) => {
+router.get('/user', (req, res) => {
   User
     .find()
-    .then(users => {
+    .then(user => {
       res.json(users.map(user => user.serialize()));
     })
     .catch(err => {
@@ -33,39 +33,33 @@ userRouter.get('/user', (req, res) => {
     });
 });
 
-userRouter.get('/user', (req, res) => {
-  res.json(User.get());
-});
-
-userRouter.post('/user', jsonParser, (req, res) => {
-  console.log('post ran')
+router.post('/user', jsonParser, (req, res) => {
   const requiredFields = ['username', 'password', 'email'];
-  for (let i = 0; i < requiredFields.length; i++) {
+  for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
-      const message = `Please enter all requested information`
+      const message = `Missing \`${field}\` in request body`
       console.error(message);
       return res.status(400).send(message);
     }
-  }
-  User
+  };
+    User
     .create({
-      username: req.body.username,
-      password: req.body.password,
-      email: req.body.email
+       username: req.body.username,
+       password: req.body.password,
+       email: req.body.email
     })
-    .then(user => res.status(201).json(user.serialize()))
+    .then(
+      user => res.status(201).json(user.serialize()))
     .catch(err => {
       console.error(err);
-      res.status(500).json({
-        message: 'error'
-      });
+      res/statis(500).json({message: 'internal error'});
     });
-});
-
-userRouter.put('/user', jsonParser, (req, res) => {
-  const requiredFields = ['username', 'password', 'email'];
-  for (let i = 0; i < requiredFields.length; i++) {
+  });
+  
+router.put('/user/:id', jsonParser, (req, res) => {
+  const requiredFields = ['username', 'password', 'email', 'id'];
+  for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
       const message = `Missing \`${field}\` in request body`
@@ -74,15 +68,12 @@ userRouter.put('/user', jsonParser, (req, res) => {
     }
   }
   if (req.params.id !== req.body.id) {
-    const message = (
-      `Request path id (${req.params.id}) and request body id `
-      `(${req.body.id}) must match`);
+    const message = `Request path id (${req.params.id}) and request body id (${req.body.id}) must match`;
     console.error(message);
     return res.status(400).send(message);
   }
   console.log(`Updating user \`${req.params.id}\``);
-  const updatedUser = user.update({
-    id: req.params.id,
+  User.update({
     username: req.body.username,
     password: req.body.password,
     email: req.body.email
@@ -90,10 +81,28 @@ userRouter.put('/user', jsonParser, (req, res) => {
   res.status(204).end();
 });
 
-userRouter.delete('/user/:id', (req, res) => {
-  user.delete(req.params.id);
+router.delete('/user/:id', (req, res) => {
+  User.delete(req.params.id);
   console.log(`Deleted user \`${req.params.ID}\``);
   res.status(204).end();
 });
 
-module.exports = userRouter;
+app.use('*', function(req, res) {
+  res.status(404).json({message: 'Not Found'})
+ });
+
+const UserSchema = mongoose.Schema({
+  username: {type: String, required: true},
+  password: {type: String},
+  email: {type: String}
+});
+
+UserSchema.methods.serialize = function() {
+  return {
+    id: this._id,
+    username: this.username,
+    email: this.email
+  };
+}
+
+module.exports = {User, router, userRouter, UserSchema};

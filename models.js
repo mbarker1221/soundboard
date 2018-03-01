@@ -1,50 +1,63 @@
 const express = require('express');
 const app = express();
+const user = require('./server.js');
+
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-const uuid = require('uuid'); 
+
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
 
-const EventSchema = mongoose.Schema({
-  title: {type: String},
-  city_name: {type: String},
-  start_date: {type: String},
-  venue_name: {type: String},
-  url: {type: String},
-  description: {type: String},
-});
+const User = {
+  create: function(username, password, email) {
+    console.log('Creating new User');
+    const User = {
+      username: username,
+      password: password,
+      email: email
+    };
+    this.User.push(User);
+    return User;
+    //[user.id] = user;
+    //return user;
+  },
 
-EventSchema.methods.serialize = function() {
-  return {
-    title: this.title,
-    city_name: this.city_name,
-    start_date: this.start_date,
-    venue_name: this.venue_name,
-    url: this.url,
-    description: this.description
-  };
+  get: function() {
+  console.log('Retrieving user');
+    return Object.keys(this.User).map(key => this.User[key]);
+  },
+
+  delete: function(id) {
+    console.log(id);
+    console.log(`Deleting user ${id}`);
+  User.findByIdAndRemove(id, => {
+    console.log("success"))
+  }
+  
+},
+
+  update: function(updatedUser) {
+    console.log(`Updating user \`${updatedUser.id}\``);
+    const {id} = updatedUser;
+   // if (!(id in this.users)) {
+ //     throw StorageException(
+     //   `Can't update user \`${id}\` because user does not exist.`)
+   // }
+    this.User[updatedUser.id] = updatedUser;
+    return updatedUser;
+  },
+};
+function createUser() {
+ const storage = Object.create(User);
+  storage.User = [];
+  return storage;
 }
 
-const userSchema = mongoose.Schema({
-  username: {type: String, required: true},
-  password: {type: String},
-  email: {type: String}
-});
 
-userSchema.methods.serialize = function() {
-  return {
-    id: this._id,
-    username: this.username,
-    email: this.email
-  };
-}
 
-const User = mongoose.model('User', userSchema);
-//module.exports = {createUser};
-module.exports = {User};
+module.exports = {User: createUser()}
  
