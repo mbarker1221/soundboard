@@ -5,7 +5,7 @@ function handleNavigation() {
         const currentPage = $(this).data("page");
     $(".page").hide();
     $(`.${currentPage}`).show();
-    });
+  });
 
     function openNav() {
         document.getElementById("mySidenav").style.width = "15%";
@@ -13,6 +13,7 @@ function handleNavigation() {
     }
     // Clear form values
 
+    
     function setEventListeners() {
         handleNavigation();
     }
@@ -22,115 +23,128 @@ function handleNavigation() {
         $(".page").hide();
         $(".sign_up_page").show();
     }
+    
     function validateUsername() {}
 
+    
     function validatePass() {}
 
-     function validateEmail() {}
+    
+    function validateEmail() {}
         
 
-      function authorizeUsername() {}
+    function authorizeUsername() {}
 
-        function authorizePass() {}
+    
+    function authorizePass() {}
       
 
-      function createUser() {
-      const userUN = $('input[name=username]');
-        const userPASS = $('input[name=password]');
-        const userEMAIL = $('input[name=email]');
+    function createUser() {
+       const userUN = $('input[name=username]');
+       const userPASS = $('input[name=password]');
+       const userEMAIL = $('input[name=email]');
 
-        const userNew = {
+       const userNew = {
           username: userUN,
           password: userPASS,
           email: userEMAIl
-        }
+       }
+
          $.ajax({
             type: "POST",
             url: "/server.js",
             query: ${userNew},
             timeout: 2000,
 
-            success: function() {
-                alert('Success!')
-            },
-            error: function() {
-                alert('Error!')
-            }
-        });
+          success: function() {
+              alert('Success!')
+          },
+
+          error: function() {
+              alert('Error!')
+          }
+      });
     }
 
     function findUser() {
       const yourUsername = $('input[name=un]');
-        const yourPassword = $('input[name=pass]');
-       
-        const userId = {
-          username: yourUsername,
-          password: yourPassword
+      const yourPassword = $('input[name=pass]');
+      const userId = {
+        username: yourUsername,
+        password: yourPassword
+      }
+
+      $.ajax({
+          type: "GET",
+          url: "/server.js",
+          query: ${userId},
+          timeout: 2000,
+
+        success: function() {
+            alert('Success!')
+        },
+        error: function() {
+            alert('Error!')
         }
-         $.ajax({
-            type: "GET",
-            url: "/server.js",
-            query: ${userId},
-            timeout: 2000,
-
-            success: function() {
-                alert('Success!')
-            },
-            error: function() {
-                alert('Error!')
-            }
-        });
+      });
     }
+
     //retrieve data from client side
-    function getArtist() {
-      const artistIn = $('input[name=artistSearch]');
-        $.ajax({
-            type: "POST",
-            url: "/eventsRouter.js",
-            query: ${artistIn},
-            timeout: 2000,
+  function getArtist() {
+    const artistIn = $('input[name=artistSearch]');
+        
+      $.ajax({
+        type: "POST",
+        url: "/eventsRouter.js",
+        query: ${artistIn},
+        timeout: 2000,
 
-            success: function() {
-                alert('Success!')
-            },
-            error: function() {
-                alert('Error!')
-            }
-        });
-    }
+      success: function() {
+        alert('Success!')
+      },
+
+      error: function() {
+        alert('Error!')
+      }
+    });
+  }
     
     //display artist results page 
-    function showArtist(results) {
-      let art = `
+  function showArtist(results) {
+    let art = `
       <a class="displayName" href="${results.artist[0].display name}" target="_blank"></a><br />
       <a class="calendar" href="${results.artist.displayName.identifier[0].eventsHref}" target="_blank"</a><br />
       <a class="displayName" href="${results.artist[0].href}" target="_blank"</a><br />
       <a class="tour" href="${results.artist[0].onTourUntil}" target="_blank"></a><br />
       <a class="description" href="${results.artist[0].description}" target="_blank"></a><br /><br />
       `;
-          $(".artShows").html(art);
-        };
+    $(".artShows").html(art);
+  };
+
       //retrieve data from client side 
-     function getEvents() {
+  function getEvents() {
     const eventIn = $('input[name=eventSearch]');
+         
          $.ajax({
             type: "POST",
             url: "/EventsRouter.js",
             query: ${eventIn},
             timeout: 2000,
 
-            success: function() {
-                //show content
-                alert('Success!')
-            },
-            error: function() {
-                //show error message
-                alert('Error!')
-            }
+          success: function() {
+            //show content
+            alert('Success!')
+          },
+
+          error: function() {
+            //show error message
+            alert('Error!')
+          }
         });
     }
+
      //display location results page
-     function showEvents(results) {
+    function showEvents(results) {
        let loc = `
         <a class="title" href="${results.events.event[1].title}" target="_blank"></a><br />
         <a class="city_name" href="${results.events.event.[1].cityName}" target="_blank"</a><br />
@@ -139,36 +153,38 @@ function handleNavigation() {
         <img class="small" src=${results.events.event.image.small[1].url}" target="_blank">/a><br /><br />
         <a class="title" href="${results.articles[3].url}" target="_blank">${results.articles[3].title}<alt="${results.articles[3].description}"></a><br /><br />
         `;
-          $(".locShows").html(loc);
-        };
+      $(".locShows").html(loc);
+    };
 
       //profile page  
-     function getUser() {
-       const currUN = $('input[name=currentUN]');
-        const currPASS = $('input[name=currentPASS]');
-        const currEMAIL = $('input[name=currentEMAIL]');
+    function getUser() {
+      const currUN = $('input[name=currentUN]');
+      const currPASS = $('input[name=currentPASS]');
+      const currEMAIL = $('input[name=currentEMAIL]');
 
-        const you = {
+      const you = {
           username: currUN,
           password: currPASS,
           email: currEMAIL
         }
-         $.ajax({
-            type: "POST",
-            url: "/server.js",
-            query: ${you},
-            timeout: 2000,
 
-            success: function() {
-                //show content
-                alert('Success!')
-            },
-            error: function() {
-                //show error message
-                alert('Error!')
-            }
-        });
-    }
+    $.ajax({
+        type: "POST",
+        url: "/server.js",
+        query: ${you},
+        timeout: 2000,
+
+      success: function() {
+          //show content
+         alert('Success!')
+      },
+
+      error: function() {
+          //show error message
+         alert('Error!')
+      }
+    });
+  }
 
      function displayUser() {
        for (index in data.user) {
@@ -187,6 +203,7 @@ function handleNavigation() {
           password: newPass,
           email: newEmail
         }
+
          $.ajax({
             type: "POST",
             url: "/server.js",
@@ -194,52 +211,57 @@ function handleNavigation() {
             timeout: 2000,
 
             success: function() {
-                //show content
-                alert('Success!')
+              //show content
+              alert('Success!')
             },
+
             error: function() {
-                //show error message
-                alert('Error!')
+              //show error message
+              alert('Error!')
             }
         }
-        });
-    }//postItem()
-     app.put('/user', function(req,res) {
-  db.users.this(user),
-  function(err, users) {
-    let context = {
-      user: user.map(function(user) {
-        return{
-          username: this.username,
-          password: this.password,
-          email: this.email,} 
-      })
+      });
     }
-  }
-  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-        const message = (`information is not a match`);
-        console.error(message);
-        return res.status(400).json({
-            message: message
-        });
-    }
-    const toUpdate = {};
-    const updateableFields = ['username', 'password', 'email'];
 
-    updateableFields.forEach(field => {
-        if (field in req.body) {
-          toUpdate[field] = req.body[field]
-        }
-    });
-    User
-        .this(req.params.id, {$set: toUpdate})
-        .then(user => res.status(204) 
-        .catch(err => res.status(500).json({
-                message: 'Internal server error'
-            }))
+    //postItem()
+     app.put('/user', function(req,res) {
+        db.users.this(user),
+          function(err, users) {
+            let context = {
+              user: user.map(function(user) {
+              return{
+                username: this.username,
+                password: this.password,
+                email: this.email,} 
+              })
+            }
+           }
+
+        if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+          const message = (`information is not a match`);
+            console.error(message);
+            return res.status(400).json({
+              message: message
+            });
+          }
+            const toUpdate = {};
+            const updateableFields = ['username', 'password', 'email'];
+
+            updateableFields.forEach(field => {
+              if (field in req.body) {
+                toUpdate[field] = req.body[field]
+              }
+            });
+
+        User
+          .this(req.params.id, {$set: toUpdate})
+          .then(user => res.status(204) 
+          .catch(err => res.status(500).json({
+              message: 'Internal server error'
+          }))
         )
-    });
-     };
+      });
+    };
      
      function deleteUser() {
       const userDel = $('input[name=eventSearch]');
@@ -256,11 +278,12 @@ function handleNavigation() {
                 alert('Error!')
             }
         });
-    }
+     }
+
        // On load event:
       $(() => {
         setEventListeners();
         showSignUpPage();
         openNav();
-          $("body").removeClass("preload");
-        })
+        $("body").removeClass("preload");
+      })

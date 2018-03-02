@@ -21,38 +21,38 @@ const User = {
       password: password,
       email: email
     };
-    this.User[User.id] = User;
-    return User;
+      this.User[User.id] = User;
+      return User;
   },
 
   get: function() {
-  console.log('Retrieving user');
-    return Object.keys(this.User).map(key => this.User[key]);
+    console.log('Retrieving user');
+      return Object.keys(this.User).map(key => this.User[key]);
   },
 
   delete: function(id) {
     console.log(id);
     console.log(`Deleting user ${id}`);
- //User.findByIdAndRemove(id)
-    delete this.User[id];
+      delete this.User[id];
   },
 
   update: function(updatedUser) {
     console.log(`Updating User \`${updatedUser.id}\``);
     const {id} = updatedUser;
-    if (!(id in this.User)) {
-   console.log(`can't update user because user does not exist`);
-     }
-    this.User[updatedUser.id] = updatedUser;
-    return updatedUser;
-  },
-};
-function createUser() {
- const storage = Object.create(User);
-  storage.User = {};
-  return storage;
-}
+      if (!(id in this.User)) {
+    console.log(`can't update user because user does not exist`);
+    }
+      this.User[updatedUser.id] = updatedUser;
+      return updatedUser;
+    },
+  };
 
-module.exports = {User: createUser()
-}
+  function createUser() {
+    const storage = Object.create(User);
+      storage.User = {};
+      return storage;
+  }
+
+  module.exports = {User: createUser()
+  }
  
