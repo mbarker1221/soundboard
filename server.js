@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const {DATABASE_URL,PORT} = require('./config');
 const {User} = require ('./models');
+const {Event} = require ('./eventsRouter');
+const {Artist} = require ('./eventsRouter');
 const eventsRouter = require('./eventsRouter');
 const userRouter=require('./userRouter')
 const bodyParser = require('body-parser');
@@ -14,16 +16,20 @@ mongoose.Promise = global.Promise;
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
-app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/user/index.html');
+});
 
 app.get('/user', (req,res) => {
   res.json(User.get());
 });
 
 app.get('/user', (req, res) => {
-  User.find()
-    .then(user => {
-      res.json(User.map(user => User.serialize()));
+  User
+    .find()
+    .then(User => {
+      res.json(User.map(User => User.serialize()));
     })
    .catch(err => {
     console.error(err);
@@ -32,7 +38,6 @@ app.get('/user', (req, res) => {
       });
     });
 });
-
 
 //create new user
 app.post('/user', jsonParser, (req, res) => {
@@ -69,7 +74,7 @@ app.put('/user/:id', jsonParser, (req, res) => {
     console.error(message);
     return res.status(400).send(message);
   }
-  console.log(`Updating user \`${req.params.id}\``);
+  console.log(`Updating User \`${req.params.id}\``);
   User.update({
     username: req.body.username,
     password: req.body.password,
@@ -79,7 +84,7 @@ app.put('/user/:id', jsonParser, (req, res) => {
 });
 
 app.delete('/user/:id', (req, res) => {
-   console.log(`Deleted user \`${req.params.id}\``);
+   console.log(`Deleted User \`${req.params.id}\``);
     User
      .delete(
       req.params.id),
