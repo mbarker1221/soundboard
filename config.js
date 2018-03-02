@@ -1,8 +1,3 @@
-
-const {eventsRouter} = require ('./eventsRouter');
-const {User} = require ('./userRouter');
-const {Artist} = require('./eventsRouter');
-
 const eventfulApiKey = "c7nd5jGWK8tkcThz";
 const songkickApiKey = "ovLum2i3CCGRjtHA";
 const oAuthConsumerKey = "e6cbb961ca8fed6a95ed";
