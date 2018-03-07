@@ -16,7 +16,7 @@
     <div id="nav" class="nav">
       <nav role="navigation" class="nav-bar" id="navStart">
          <img class="icon" alt="" src="rock-logo.psd"/>
-         <a data-page="signUpPage" class="menu" id="signUpPage" href="#" target ="">sign up</a>
+         <a data-page="signUpPage" class="menu" id="signUpPage" href="#">sign up</a>
          <a data-page="signInPage" class="menu" id="signInPage" href="#">sign in</a>
          <a data-page="searchPage" class="menu" id="searchPage" href="#">search</a>
          <a data-page="profilePage" class="menu" id="profilePage" href="#">profile</a>
@@ -31,9 +31,10 @@
             </br></br>
           <h3>Register for an account below</h3>
             </br></br>
-             <p class="link" id="signInLink">Already have an account?  Sign in <a href="/signInPage">here</a>
+             <p class="link" id="signInLink">Already have an account?  Sign in <a href=".signInPage">here</a>
             </p>
-        
+            <p class="linky" id="guest">Or continue as a <a href=".searchPage">guest</a>
+            </p>
           <div class="container">
           <div class="row">
           <div class="col-md-3">
@@ -53,7 +54,7 @@
                   <button class="buttons" onclick="handleNewUser()">submit</button></br>
 
                 </form>
-<p class="linky" id="guest">Or continue as a <a href="/searchPage">guest</a>
+
   
             </div>
             <div class="col-md-3">
@@ -79,7 +80,7 @@
               <form class="signIn" id= "signIn">
                 <input class="box" type="text" name="un" placeholder="Enter your username" id="userName" autocomplete="on" autofocus required>
                 <input class="box" type="password" name="pw" placeholder="Enter your password" id="userPass" autocomplete="on" required>
-                 <button class="validate" onclick = "handleOldUser()">Enter</button>
+                 <button class="validate" onclick = "handleOldUser()">submit</button>
 
               </form>
 

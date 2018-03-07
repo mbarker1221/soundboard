@@ -1,5 +1,5 @@
 const serverBase = '//localhost:8080:';
-const USER_URL = serverBase + "./server.js";
+const USER_URL = "./server.js";
 const EVENT_URL = serverBase + "./eventsRouter.js";
 const ARTIST_URL = serverBase + "./eventsRouter.js"
 
@@ -53,7 +53,7 @@ function handleNavigation() {
 function handleNewUser() {
   function testUsername() {
     const usernew = $('input[name=username]');
-    
+
     if (usernew.length < 5) {
       alert('must be more than 4 characters');
     }
