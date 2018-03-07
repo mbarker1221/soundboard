@@ -1,113 +1,171 @@
-function handleNavigation() {
+const serverBase = '//localhost:8080:';
+const USER_URL = serverBase + "./server.js";
+const EVENT_URL = serverBase + "./eventsRouter.js";
+const ARTIST_URL = serverBase + "./eventsRouter.js"
 
-    $("nav a").click(function(event) {
+function handleNavigation() {
+    $('nav a').click(function(event) {
         event.preventDefault();
-        const currentPage = $(this).data("page");
-    $(".page").hide();
+        const currentPage = $(this).data('page');
+    $('.page').hide();
     $(`.${currentPage}`).show();
   });
+  }
 
     function openNav() {
-        document.getElementById("mySidenav").style.width = "15%";
+        document.getElementById("nav_start").style.width = "15%";
         document.getElementById("main").style.marginLeft = "15%";
     }
     // Clear form values
 
-    
     function setEventListeners() {
         handleNavigation();
     }
 
     //show start page
     function showSignUpPage() {
+        $(".signUpPage").show();
         $(".page").hide();
-        $(".sign_up_page").show();
+  
     }
+
+    function toggleRegistration() {
+      $('#signInLink').show();
+      $('.link').click(function(event) {
+        event.preventDefault();
+        $('#signInLink').hide();
+        $('#signInPage').show();
+        ${'#signUpPage'}.hide();
+      })
+    };
+
+    const userTemplate = (
+  '<div class="user_js">' +
+    '<h3 class="user_name"><h3>' +
+    '<hr>' +
+    '<ul class="user_info">' +
+    '</ul>' +
+    '</div>' +
+  '</div>'
+);
+
+     
+function handleNewUser() {
+  function testUsername() {
+    const usernew = $('input[name=username]');
     
-    function validateUsername() {}
+    if (usernew.length < 5) {
+      alert('must be more than 4 characters');
+    }
+    if (usernew.length > 15) {
+        alert('must be less than 16 characters')
+    }
+    if (usernew.length > 4 && < 16) {
+      const newUsername= usernew
+    };
+      testPassword();
+  }
 
-    
-    function validatePass() {}
-
-    
-    function validateEmail() {}
-        
-
-    function authorizeUsername() {}
-
-    
-    function authorizePass() {}
-      
-
-    function createUser() {
-       const userUN = $('input[name=username]');
-       const userPASS = $('input[name=password]');
-       const userEMAIL = $('input[name=email]');
-
-       const userNew = {
-          username: userUN,
-          password: userPASS,
-          email: userEMAIl
+  function testPass() {
+      const passnew = $('input[name=password]');
+       if (passnew.length < 5) {
+        alert('must be more than 4 characters');
        }
-
-         $.ajax({
-            type: "POST",
-            url: "/server.js",
-            query: ${userNew},
-            timeout: 2000,
-
-          success: function() {
-              alert('Success!')
-          },
-
-          error: function() {
-              alert('Error!')
-          }
-      });
-    }
-
-    function findUser() {
-      const yourUsername = $('input[name=un]');
-      const yourPassword = $('input[name=pass]');
-      const userId = {
-        username: yourUsername,
-        password: yourPassword
-      }
-
-      $.ajax({
-          type: "GET",
-          url: "/server.js",
-          query: ${userId},
-          timeout: 2000,
-
-        success: function() {
-            alert('Success!')
-        },
-        error: function() {
-            alert('Error!')
+       if (passnew.length > 15) {
+        alert('must be less than 16 characters')
+       }
+       if (passnew.length > 4 && < 16){
+        const password= passnew
+      };
+        testEmail();
+  }
+    
+  function testEmail() {
+     const emailnew = $('input[name=email]');
+     storeUser();
+     }
+  }
+}
+  function storeUser() {
+    const user = {
+      username: usernew,
+      password: passnew,
+      email: emailnew
+      };
+      return user;
+      postNewUser();
+     };
+   
+    function postNewUser() {
+       $.ajax({
+        method: 'POST',
+        url: USER_URL,
+        req.params.body = {
+           username: usernew,
+           password: passnew,
+           email: emailnew
         }
-      });
+        dataType: 'json',
+        contentType: 'application/json'
+        success: return user;
+        renderSearchPage();
+      }),
+  };
+
+function handleOldUser() {
+
+    function renderSignInPage() {
+      const userN=('input[name=un');
+      if (userN.length < 5) {
+      alert('must be more than 4 characters');
+      }
+       if (userN.length > 15) {
+        alert('must be less than 16 characters')
+       }
+       if (userN.length > 4 && < 16){
+      const userName= userN
+    };
+
+      const passW=('imput[name=pw');
+       if (passW.length < 5) {
+        alert('must be more than 4 characters');
+       }
+       if (passW.length > 15) {
+        alert('must be less than 16 characters')
+       }
+       if (passW.length > 4 && < 16) {
+        const passWord= passW
+       } 
+        authUser()
+    };
+
+      function authUser() {
+         $.ajax({
+        method: 'POST',
+        url: USER_URL,
+        req.params.body = {
+           username: userName,
+           password: passWord,
+        }
+        dataType: 'json',
+        contentType: 'application/json'
+        success: return user;
+        renderSearchPage();  
+        })
+      };
+
+        
+    function renderSearchPage() {
+     
+      }
     }
 
-    //retrieve data from client side
   function getArtist() {
     const artistIn = $('input[name=artistSearch]');
-        
-      $.ajax({
-        type: "POST",
-        url: "/eventsRouter.js",
-        query: ${artistIn},
-        timeout: 2000,
-
-      success: function() {
-        alert('Success!')
-      },
-
-      error: function() {
-        alert('Error!')
+        $.getJSON(ARTIST_URL, artistIn, function(data) {
+          showArtist(data); 
+        })
       }
-    });
-  }
     
     //display artist results page 
   function showArtist(results) {
@@ -124,24 +182,12 @@ function handleNavigation() {
       //retrieve data from client side 
   function getEvents() {
     const eventIn = $('input[name=eventSearch]');
-         
-         $.ajax({
-            type: "POST",
-            url: "/EventsRouter.js",
-            query: ${eventIn},
-            timeout: 2000,
-
-          success: function() {
-            //show content
-            alert('Success!')
-          },
-
-          error: function() {
-            //show error message
-            alert('Error!')
-          }
-        });
-    }
+    const eventLoc = eventIn.val();
+    $.getJSON(EVENT_URL, eventLoc, function(data) {
+      showEvents(data);
+    })
+  }
+   
 
      //display location results page
     function showEvents(results) {
@@ -156,6 +202,47 @@ function handleNavigation() {
       $(".locShows").html(loc);
     };
 
+  
+
+  function findUser() {
+      const yourUsername = $('input[name=un]');
+      const yourPassword = $('input[name=pass]');
+      const userCred = {
+        username: yourUsername,
+        password: yourPassword
+      }
+
+      $.ajax({
+          type: "POST",
+          url: "USER_URL",
+          query: ${userCred},
+
+        success: function() {
+            alert('Success!')
+        },
+        error: function() {
+            alert('Error!')
+        }
+      });
+    }
+
+         
+        /* $.ajax({
+            type: " POST",
+            url: "EVENT_URL",
+            query: eventLoc,
+
+          success: function() {
+            alert('Success!')
+            showEvents(data);
+          },
+
+          error: function() {
+            alert('Error!')
+          }
+        });
+    }*/
+
       //profile page  
     function getUser() {
       const currUN = $('input[name=currentUN]');
@@ -166,21 +253,17 @@ function handleNavigation() {
           username: currUN,
           password: currPASS,
           email: currEMAIL
-        }
+        };
 
     $.ajax({
-        type: "POST",
-        url: "/server.js",
+        type: " POST",
+        url: "USER_URL",
         query: ${you},
-        timeout: 2000,
 
       success: function() {
-          //show content
          alert('Success!')
       },
-
       error: function() {
-          //show error message
          alert('Error!')
       }
     });
@@ -197,90 +280,46 @@ function handleNavigation() {
         const newUsername = $('input[name=editUN]');
         const newPass = $('input[name=editPASS]');
         const newEmail = $('input[name=editEMAIL]');
-
         const newYOU = {
           username: newUsername,
           password: newPass,
           email: newEmail
-        }
+        };
 
          $.ajax({
             type: "POST",
-            url: "/server.js",
+            url: "USER_URL",
             query: ${newYOU},
-            timeout: 2000,
 
             success: function() {
-              //show content
               alert('Success!')
             },
 
             error: function() {
-              //show error message
               alert('Error!')
             }
-        }
-      });
+        });
+      
     }
-
-    //postItem()
-     app.put('/user', function(req,res) {
-        db.users.this(user),
-          function(err, users) {
-            let context = {
-              user: user.map(function(user) {
-              return{
-                username: this.username,
-                password: this.password,
-                email: this.email,} 
-              })
-            }
-           }
-
-        if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-          const message = (`information is not a match`);
-            console.error(message);
-            return res.status(400).json({
-              message: message
-            });
-          }
-            const toUpdate = {};
-            const updateableFields = ['username', 'password', 'email'];
-
-            updateableFields.forEach(field => {
-              if (field in req.body) {
-                toUpdate[field] = req.body[field]
-              }
-            });
-
-        User
-          .this(req.params.id, {$set: toUpdate})
-          .then(user => res.status(204) 
-          .catch(err => res.status(500).json({
-              message: 'Internal server error'
-          }))
-        )
-      });
+    function deleteUser() {
+      const userId = user.id 
     };
-     
-     function deleteUser() {
-      const userDel = $('input[name=eventSearch]');
-         $.ajax({
+
+        $.ajax({
             type: "POST",
-            url: "/eventsRouter.js",
-            query: ${eventIn},
-            timeout: 2000,
+            url: "USER_URL",
+            query: ${user.id},
 
             success: function() {
-                alert('Success!')
+              alert('Success!')
             },
+
             error: function() {
-                alert('Error!')
+              alert('Error!')
             }
         });
-     }
-
-       // On load event:
+      }
+    
       $(() => {
         setEventListeners();
         showSignUpPage();

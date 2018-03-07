@@ -11,8 +11,8 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 app.use(morgan('common'));
 app.use(bodyParser.json());
-//app.use(express.static('public'));
-//var $ = require ('jquery');
+app.use(express.static('public'));
+
 
 app.get('/', (req, res) => {
      res.sendFile(__dirname + '/public/index.html');
