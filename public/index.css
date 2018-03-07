@@ -1,5 +1,57 @@
 								
 
+body {
+   background: 
+   url("https://www.pexels.com/photo/crowd-in-front-of-people-playing-musical-instrument-during-nighttime-196652/') #70def4 center no-repeat fixed";)
+   font-weight: 800;
+   color: black;
+   text-align: center;
+}
+
+.icon {
+   margin-left: 0 auto;
+   margin-right: 0 auto;
+   max-width: 90%; 
+}
+
+.nav {
+   height: 100%;
+   position: fixed;
+   z-index: 1;
+   top: 0;
+   left: 0;
+   background-color: #549978;
+   transition: 0.5s;
+   padding-top: 10px;
+   overflow:hidden;
+   max-width: 120px;
+   font-size: 90%; 
+}
+
+.nav a {
+   padding-top: 30px;
+   color: white;
+   text-decoration: none;
+   display: block;
+   transition: 0.3s;
+   overflow:hidden;
+}
+
+.nav a:focus {
+   color: #ff2519;
+}
+
+.nav a:hover {
+   color: #ff2519;
+}
+
+.page {
+   transition: margin-left 1s;
+}
+
+#main {
+   transition: margin-left 1s;
+}
 
 .main{
 	padding:20px;
@@ -13,8 +65,8 @@
 	text-align:center;
 	font-family: 'Josefin Slab', serif;
 	color: #549978;
-}
-input{
+}/*
+input:hover {
 	font-family: 'Josefin Slab', serif;
     width: 100%;
 	font-size: 30px;
@@ -23,7 +75,7 @@ input{
     border: none;
     border-bottom: 2px solid #50d8a4;
 }
-input[type=submit] {
+/*input[type=submit]:hover {
 	font-family: 'Josefin Slab', serif;
 	width: 100%;
     background-color: #549978;
@@ -42,6 +94,20 @@ button:focus {
     outline: none;
 }
 
+
+.buttons {
+   border-radius: 6px;
+}
+
+.buttons:hover {
+   background-color: #4dd2ff;
+   color: white;
+   text-shadow: .5px 1px black
+}
+
+
+
+/*
 input:hover {
 	font-family: 'Josefin Slab', serif;
     width: 100%;
@@ -63,6 +129,8 @@ input[type=submit]:hover {
     margin: 4px 2px;
     cursor: pointer;
 	border-radius: 15px;
-}body  {
+}
+*/
+body  {
 	color: lightblue;
 }
