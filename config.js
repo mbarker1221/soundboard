@@ -1,3 +1,4 @@
+'use strict'
 const eventfulApiKey = "c7nd5jGWK8tkcThz";
 const songkickApiKey = "ovLum2i3CCGRjtHA";
 const oAuthConsumerKey = "e6cbb961ca8fed6a95ed";

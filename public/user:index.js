@@ -51,36 +51,15 @@ function handleNavigation() {
 
      
 function handleNewUser() {
-  function testUsername() {
+ 
     const usernew = $('input[name=username]');
 
-    if (usernew.length < 5) {
-      alert('must be more than 4 characters');
-    }
-    if (usernew.length > 15) {
-        alert('must be less than 16 characters')
-    }
-    if (usernew.length > 4 && < 16) {
-      const newUsername= usernew
-    };
-      testPassword();
-  }
+   
 
-  function testPass() {
       const passnew = $('input[name=password]');
-       if (passnew.length < 5) {
-        alert('must be more than 4 characters');
-       }
-       if (passnew.length > 15) {
-        alert('must be less than 16 characters')
-       }
-       if (passnew.length > 4 && < 16){
-        const password= passnew
-      };
-        testEmail();
-  }
+       
     
-  function testEmail() {
+ 
      const emailnew = $('input[name=email]');
      storeUser();
      }
@@ -99,7 +78,7 @@ function handleNewUser() {
     function postNewUser() {
        $.ajax({
         method: 'POST',
-        url: USER_URL,
+        url: 'https://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users';
         req.params.body = {
            username: usernew,
            password: passnew,
