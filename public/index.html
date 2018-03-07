@@ -8,216 +8,235 @@
     <link href="index.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:300i" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <title>Live Music Event API</title>
+    <title>CONCERT API</title>
 
   </head>
-  <body>
+  <body class= "preload">
     <main>
-    <div id="mySidenav" class="sidenav">
-      <nav role="navigation" class="nav-bar" id="nav-start">
-         <img class="icon" alt="" src="/public/img/.rock-logo.psd"/>
-         <a sign_up-page="sign_up_page" class="menu" id="sign_up_page" href="#">sign up</a>
-         <a sign_in-page="sign_in_page" class="menu" id="sign_in_page" href="#">sign in</a>
-         <a search-page="search_page" class="menu" id="search_page" href="#">search</a>
-         <a profile_page="profile_page" class="menu" id="profile_page" href="#">profile</a>
-         <a results_page="results_page" class="menu" id="results_page" href="#" onclick="">results</a>
+    <div id="nav" class="nav">
+      <nav role="navigation" class="nav-bar" id="navStart">
+         <img class="icon" alt="" src="rock-logo.psd"/>
+         <a data-page="signUpPage" class="menu" id="signUpPage" href="#">sign up</a>
+         <a data-page="signInPage" class="menu" id="signInPage" href="#">sign in</a>
+         <a data-page="searchPage" class="menu" id="searchPage" href="#">search</a>
+         <a data-page="profilePage" class="menu" id="profilePage" href="#">profile</a>
       </nav>
    </div>
-   <div id="main">
+   <div id="main" class="main">
     
      
-     <section class = "sign_up_page page">
-          <h1>welcome to sound</h1>
+     <section class = "signUpPage page" id = "signUpPage">
+
+          <h1>soundtable</h1>
             </br></br>
           <h3>Register for an account below</h3>
             </br></br>
-        <div class="container" >
+             <p class="link" id="signInLink">Already have an account?  Sign in <a href=".signInPage">here</a>
+            </p>
+            <p class="linky" id="guest">Or continue as a <a href=".searchPage">guest</a>
+            </p>
+          <div class="container">
           <div class="row">
-            <div class="col-md-3">
-            </div>      
-              <div class="col-md-6 main">
+          <div class="col-md-3">
+          </div>      
+          <div class="col-md-6 main">
            
-              <form class="signUp" action = "/.server.js" method = "post">
-                  <input class="box" type="text" name="username" placeholder="Enter a username" id="enterUser" required>
-                  <input class="box type="password" name="password" placeholder="Enter a password" id="enterPass" required>
-                  <input class="box" type="email" name="email" placeholder="Enter your email" id="enterEmail" required> 
-                    <button class="buttons" id="createUser" type="submit">submit</button></br>
-              </form>
+              <form class="signUp" id= "signUp">
+
+                  <input class="box" type="text" name="username" placeholder="Enter a username" id="enterUser" autocomplete="on" autofocus required>
+                  </br>
+
+                  <input class="box" type="password" name="password" placeholder="Enter a password" id="enterPass" autocomplete="on" required>
+                  </br>
+
+                  <input class="box" type="email" name="email" placeholder="Enter your email" id="enterEmail" autocomplete="on" required> 
+                </br>
+                  <button class="buttons" onclick="handleNewUser()">submit</button></br>
+
+                </form>
+
   
             </div>
-           <div class="col-md-3">
-             <br></br><br></br>
-            <p class="link">Already have an account?  Sign in<a href="/sign_in_page">here</a>
-            
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="sign_in_page page">
-        <div class="container" >
-          <div class="row">
             <div class="col-md-3">
+             
+             <br></br><br></br>
+           
             </div>
-             <div class="col-md-6 main">
-      
-       <br></br>
-      
-            <div class="col-md-6 main">
-
-              <form class="signIn" action = "/.server.js" method="post">
-                <input class="box" type="text" name="un" placeholder="Enter your username" id="userName" required>
-                <input class="box" type="password" name="pw" placeholder="Enter your password" id="userPass" required>
-                <button class = "buttons" id="submitUser" type = "submit" action="/.server.js" method ="POST">submit</button>
-              </form>
-
-           </div>
+            </div>
+            </div>
+        </section>
+        
+        <section class ="signInPage page" id = "signInPage">
+          
+          <h3>Sign in below</h3>
+          </br></br>
+          
+          <div class="container" >
+          <div class="row">
           <div class="col-md-3">
           </div>
-        </div>
-      </div>
-    </section>
-        
-    <section class = "search_page page">
-      <h1>See it Live!</h1>
-        <br></br><br></br>
-          <div class="container" >
-            <p>To find information about a specific event, enter it here</p>
-            <p>Or enter the name of an artist or band to get tour dates and concert info</p>
-          <div class="row">
-            <div class="col-md-3">
-            </div>      
-              <div class="col-md-6 main">
-            
-                  <form class="artistSearch" action="/.eventsRouter.js" method="POST">
-                    <input class = "box" type = "text" name = "artistSearch" id = "artistSearch" placeholder="Enter artist name or event name to begin search"/>
-                    <button class="buttons" id="btnFindArtist" type="submit" action="eventsRouter.js" method="POST">search</button><br></br>
-                   </form>
-
-                </div>
-              <div class="col-md-3">
-            </div>
-        </div>
-      </div>
-      <br></br><br></br>
-         <div class="container">
-          <h4>To search shows based on your location, enter it here:</h4>
-          <div class="row">
-            <div class="col-md-3">
-            </div>      
-              <div class="col-md-6 main">
-
-                  <form class - "locationSearch" action="/.eventsRouter.js" method="POST">
-                    <input class="box" type = "text" name = "eventSearch" id = "eventSearch" placeholder="Enter city name to begin search"/>
-                    <button class="buttons" id="btnFindLocation" type="submit" action="eventsRouter.js" method="POST">search</button><br>
-                  </form>
-
-                   </div>
-            <div class="col-md-3">
-          </div>
-        </div>
-      </div>
-      <br></br><br></br>
-    </section>
-
-    
-  <section class = "artist_results_page page">
-     <div class="container" >
-      <div class="row">
-        <div class="col-md-3">
-        </div>      
           <div class="col-md-6 main">
 
-            <form class="format" name="a-form" action="submit" onsubmit="showArtist();">
-              <div class="shows" id="art" name="a-show">
-                <p class="artResults">Check out these upcoming shows!</p>
-                </br>
-                </br>
-                </br>
-                <br></br>
-              </div>
-            </form>
-            
-            </div>
-            <div class="col-md-3">
-            </div>
-          </div>
-        </div>
-    </section>
+              <form class="signIn" id= "signIn">
+                <input class="box" type="text" name="un" placeholder="Enter your username" id="userName" autocomplete="on" autofocus required>
+                <input class="box" type="password" name="pw" placeholder="Enter your password" id="userPass" autocomplete="on" required>
+                 <button class="validate" onclick = "handleOldUser()">submit</button>
 
-    <section class="location_results_page page">
-       <div class="container" >
-        <div class="row">
-          <div class="col-md-3">
-            </div>      
-              <div class="col-md-6 main">
-
-              <form class="format" name="l-form" action="submit" onsubmit="showEvents();">
-                <div class="locs" id="loc" name="l-show">
-                <p class="locResults">Check out these events happening near you!</p>
-                </br>
-                </br>
-                </br>
-                </div>
-            </form>
-
-      </div>
-     <div class="col-md-3">
-     </div>
-    </div>
-  </div>
-  <br></br><br></br>
-</section>
-
-  <section class = "profile_page page">
-    <h3>Just so we know it's you, please re-enter your log-in information</h3>
-      <br></br><br></br>
-       <div class="container" >
-        <div class="row">
-          <div class="col-md-3">
-          </div>
-            <div class="col-md-6 main">
-
-              <form class = "resubmitUser" name = "resubmitUser" action="/.server.js" method="post">
-                <input type="text" name="username" placeholder="Username" id="enterUser" required>
-                <input type="password" name="password" placeholder="Password" id="enterPass" required>
-                <input type="email" name="email" placeholder="Email" id="enterEmail" required> 
-                <button class="buttons" id="submitUser" type = "submit" action="./server,js" method ="POST">submit></button>
               </form>
 
-              </div>
+            </div>
+            <div class="col-md-3">
+
+            <br></br><br></br>
+
+            </div>
+            </div>
+            </div>
+        </section>
+        
+        <section class = "searchPage page" id = "searchPage">
+          <h1>See it Live!</h1>
+          <br></br><br></br>
+
+         
+          <p>Want information about a specific event?</p>
+          <p>Need to know about an artist or band's tour dates or concert info?</p>
+          <p>Enter the name of the event or the artist's name here!</p>
+
+            <div class="row">
+            <div class="col-md-3">
+            </div>      
+            <div class="col-md-6 main">
+            
+              <form class="artistSearch" id= "artistSearch">
+              <input class = "box" type = "text" name = "artistSearch" id = "artistSearch" placeholder="Enter artist name or event name to begin search" autofocus />
+              <button class="buttons" id="btnFindArtist" type="submit" onclick="getArtist()">search</button><br></br>
+              </form>
+
+            </div>
             <div class="col-md-3">
             </div>
-          </div>
-        </div>
-    <br></br><br></br>
-     <div class="container" >
-        <div class="row">
-          <div class="col-md-3">
-          </div>
+            </div>
+            </div>
+
+      <br></br><br></br>
+
+            <div class="container">
+            <h4>To search for shows in your city, enter it here:</h4>
+            <br></br>
+
+            <div class="row">
+            <div class="col-md-3">
+            </div>      
             <div class="col-md-6 main">
+
+                  <form class = "eventSearch" id="eventSearch">
+                    <input class="box" type = "text" name = "eventSearch" id = "eventSearch" placeholder="Enter city name "/>
+                    <button class="buttons" id="btnFindLocation" type="submit" onclick="getEvents()">search</button><br>
+                  </form>
+
+            </div>
+            <div class="col-md-3">
+            </div>
+            </div>
+            </div>
+
+      <br></br><br></br>
+
+      </section>
+
+    
+      <section class = "artistResultsPage page" id = "artistResultsPage">
+        <div class="container" >
+        <h2>Check out these upcoming shows!</h2>
+        <br></br><br></br>
+
+        <div class="row">
+        <div class="col-md-3">
+        </div>      
+        <div class="col-md-6 main">
+
+                    
+            </div>
+            </div>
+            </div>
+            <div class="col-md-3">
+            </div>
+      </section>
+
+      <section class ="eventResultsPage page" id ="eventResultsPage">
+
+        <div class="container" >
+        <div class="row">
+        <div class="col-md-3">
+        </div>      
+        <div class="col-md-6 main">
+        </div>
+        <div class="col-md-3">
+        </div>
+        </div>
+        </div>
+      </section>
+
+      <section class = "profilePage page" id = "profilePage">
+       <h3>Just so we know it's you, please re-enter your log-in information</h3>
+       <br></br><br></br>
+
+        <div class="container" >
+        <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6 main">
+
+          <form class = "resubmitUser" id = "resubmitUser">
+
+          <input type="text" name="username" placeholder="Username" id="enterUser" required>
+          <input type="password" name="password" placeholder="Password" id="enterPass" required>
+          <input type="email" name="email" placeholder="Email" id="enterEmail" required> 
+          <button class="buttons" id="submitUser" type = "submit" onclick = "findUser()">submit></button>
+          </form>
+
+        </div>
+        <div class="col-md-3">
+        </div>
+        </div>
+        </div>
+        <br></br><br></br>
+
+        <div class="container" >
+        <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6 main">
 
             <form class="editProfile" name = "editProfile" action="/.server.js" method="post">
               <input type="text" name = "editUN" placeholder = "new username"/>
               <input type="text" name = "editPASS" placeholder = "new password"/>
               <input type="text" name = "editEMAIL" placeholder = "new email"/>
-              <button class= "buttons" type ="submit" action = "/.server.js" method = "POST">submit</button>
+              <button class= "buttons" type ="submit" onclick = "editProfile()">submit></button>
             </form>  
 
-            <div class="col-md-3">
-          </div>
+        <div class="col-md-3">
         </div>
-      </div>
+        </div>
+        </div>
         <br></br>
-          <link>Delete my profile/>
-            <button class="buttons" id="deleteUser" type="submit" onclick="deleteUser()">search</button><br>
+
+        <link>Delete my profile <a href="/user/{{user.id}}"><button id = "del-btn" class="btn btn-danger" onclick="deleteUser()">Delete</button></a>
+        
+
+     
+
       </section>
     </main>
   </body>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script type="text/javascript" src="server.js"></script>
+  <script type="text/javascript" src="../server.js"></script>
+  <script type = "text/javascript" src = "../eventsRouter.js"></script>
+  <script type = "text/javascript" src = "../userRouter.js"></script>
   <script type="text/javascript" src="http://api.eventful.com/js/api"></script>
-  <script type="text/javascript" src="user/index.js"></script>
+  <script type="text/javascript" src="index.js"></script>
 
 </html>
