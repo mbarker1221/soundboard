@@ -11,5 +11,5 @@ exports.TEST_DATABASE_URL = process.env.TEST_DATABASE_URL || global.TEST_DATABAS
 exports.PORT = process.env.PORT || 8080;
 //module.exports.JWT_SECRET = [process.env.JWT_SECRET;
 //module.exports.JWT_EXPIRY = process.env.JWT_EXPIRY || '7d';
-const mongoAPI = "https://api.mlab.com/api/1/databases?apiKey=Afb5IIg8JiP7jZS2-EcwwKCBqPkCchmV";
+//const mongoAPI = "https://api.mlab.com/api/1/databases?apiKey=Afb5IIg8JiP7jZS2-EcwwKCBqPkCchmV";
 
