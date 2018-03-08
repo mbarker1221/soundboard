@@ -1,4 +1,3 @@
-'use strict'
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -9,7 +8,8 @@ const router = express.Router();
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
-app.get('${query}', (req, res) => {
+
+app.get('/events', (req, res) => {
   Event
     .find()
     .then(events => {
@@ -26,7 +26,7 @@ app.get('/artist', (req, res) => {
   Artist
     .find()
     .then(artist => {
-      res.json(artist.map(artist => artist.serialize()))
+      res.json(events.map(artist => artist.serialize()))
     })
     .catch(err => {
       console.error(err);
@@ -35,19 +35,15 @@ app.get('/artist', (req, res) => {
     });
 });
 
-module.exports = {eventsRouter};
-
-
-
-
+module.exports = {router};
 
 
 /*
 
-const eventTemplate = 
+function showEvents(results) {
 
   const {title} = results.events.event.title,
- const {city_name} = results.events.event.city_name,
+  const {city_name} = results.events.event.city_name,
   const {start_time} = results.events.event.start_time, 
   const {description} =  results.events.event,description,
   const {venue_name} = results.events.event.venue_name,
@@ -57,29 +53,7 @@ const eventTemplate =
 
   showEvents();
 
-const http = require('http');
-
-http.createServer((request, response) => {
-  const {headers, method, locateUrl} = request;
-  let body = [];
-  request.on('error', (err) => {
-    console.error(err);
-  }).on('data', (chunk) => {
-    body.push(chunk);
-  }).on('end', () => {
-    body = Buffer.concat(body).toString();
-     response.on('error', (err) => {
-      console.error(err);
-    });
-     response.statusCode = 200;
-    response.setHeader('Content-Type', 'application/json');
-
-    const responseBody = {headers, method, locateUrl, body};
-
-    response.write(JSON.stringify(responseBody));
-    response.end();
-  })
-});//.listen(8080);
-
 
 */
+
+
