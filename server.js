@@ -1,31 +1,34 @@
-'use strict'
 const express = require('express');
 const app = express();
 const {DATABASE_URL,PORT} = require('./config');
-const {User} = require ('./userRouter');
+const {User} = require ('./models');
 const {Event} = require ('./eventsRouter');
 const {Artist} = require ('./eventsRouter');
+
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+
 app.use(morgan('common'));
 app.use(bodyParser.json());
-app.use(express.static('public'));
 
 
 app.get('/', (req, res) => {
-     res.sendFile(__dirname + '/public/index.html');
+    res.sendFile(__dirname + '/user/index.html');
 });
- 
+
+app.get('/user', (req,res) => {
+    res.json(User.get());
+});
+
 app.get('/user', (req, res) => {
   User
     .find()
-    .then(user => {
-        res.json({user: user.map((user) => user.serialize())
-      });
-  })
+    .then(User => {
+        res.json(User.map(User => User.serialize()));
+    })
     .catch(err => {
         console.error(err);
         res.status(500).json({
@@ -34,16 +37,7 @@ app.get('/user', (req, res) => {
     });
 });
 
-app.get('/user/id', (req, res) => {
-  User
-    .findById(req.params.id)
-    .then(user => res.json(user.serialize()))
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({ error: 'something went horribly awry'});
-    });
-});
-
+//create new user
 app.post('/user', jsonParser, (req, res) => {
   const requiredFields = ['username', 'password', 'email'];
       for (let i=0; i<requiredFields.length; i++) {
@@ -58,44 +52,50 @@ app.post('/user', jsonParser, (req, res) => {
       .create({
         username: req.body.username, 
         password: req.body.password, 
-        email: req.body.email
-      })
-      .then(user => res.status(201).json(user.serialize()));
+        email: req.body.email})
+        res.status(201).json(User);
       });
 
 
 app.put('/user/:id', jsonParser, (req, res) => {
-
- if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-    const message = (
-      `Request path id (${req.params.id}) and request body id ` +
-      `(${req.body.id}) must match`);
-          console.error(message);
-        return res.status(400).json({ message: message });
+  const requiredFields = ['username', 'password', 'email', 'id'];
+    for (let i=0; i<requiredFields.length; i++) {
+      const field = requiredFields[i];
+        if (!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`
+      console.error(message);
+        return res.status(400).send(message);
       }
-    const toUpdate = {};
-    const updateableFields = ['username', 'password', 'email'];
-      updateableFields.forEach(field => {
-        if (field in req.body) {
-          toUpdate[field] = req.body[field];
-          }
-      });
-      User
-        .findByIdAndUpdate(req.params.id, {$set: toUpdate})
-        .then(user => res.status(204).end())
-        .catch(err => res.status(500).json({message: 'Something went wrong'}));
+    }
+
+    if (req.params.id !== req.body.id) {
+      const message = `Request path id (${req.params.id}) and request body id (${req.body.id}) must match`;
+      console.error(message);
+    return res.status(400).send(message);
+    }
+      console.log(`Updating User \`${req.params.id}\``);
+   User.update({
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email
+  });
+    res.status(204).end();
     });
 
-  app.delete('/user/:id', function(req,res){
-    User
-    .findByIdAndRemove(req.params.id)
-    .then (user => res.status(204).end())
-    .catch(err => res.status(500).json({message: 'internal error'}));
-  });
+
+  app.delete('/user/:id', (req, res) => {
+    console.log(`Deleted User \`${req.params.id}\``);
+      User
+        .delete(
+          req.params.id),
+          res.status(201).json(User);
+    });
+
 
   app.use('*', function(req, res) {
-      res.status(408).json({message: 'No Found'})
+      res.status(404).json({message: 'Not Found'})
   });
+
 
     let server;
 
