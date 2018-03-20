@@ -1,20 +1,48 @@
+const express = require('express');
+const app = express();
+const uuid = require('uuid');
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
+const morgan = require('morgan');
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
-const UserSchema = mongoose.Schema({
-  username: {type: String, required: true},
-  password: {type: String, required: true},
-  email: {type: String, required: true},
-  });
+app.use(morgan('common'));
+app.use(bodyParser.json());
 
-UserSchema.methods.serialize = function() {
+const User = {
+  create: function(username, password, email) {
+    console.log('Creating new User');
+    const User = {
+      id: uuid.v4(),
+      username: username,
+      password: password,
+      email: email
+    };
+      this.User[User.id] = User;
+      return User;
+  },
+  get: function() {
+    console.log('Retrieving user');
+      return Object.keys(this.User).map(key => this.User[key]);
+  },
 
-  return {
-    id: this._id,
-    username: this.username,
-    password: this.password,
-    email: this.email
+  delete: function(id) {
+    console.log(`Deleting user ${id}`);
+      delete this.User[id];
+  },
+
+  update: function(updatedUser) {
+    console.log(`Updating User \`${updatedUser.id}\``);
+    const {id} = updatedUser;
+      if (!(id in this.User)) {
+    console.log(`can't update user because user does not exist`);
+    }
+      this.User[updatedUser.id] = updatedUser;
+      return updatedUser;
+    },
   };
-}
-const User = mongoose.model('User', UserSchema);
 
-module.exports = {User};
+  module.exports = {User};
+
+ 
