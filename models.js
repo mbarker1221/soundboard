@@ -21,7 +21,6 @@ UserSchema.methods.serialize = function() {
   return {
     id: this._id,
     username: this.username,
-    password: this.password,
     email: this.email
   };
 }
