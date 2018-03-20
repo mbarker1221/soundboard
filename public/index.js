@@ -1,296 +1,184 @@
 const serverBase = '//localhost:8080:';
 const USER_URL = "./server.js";
-const EVENT_URL = serverBase + "./eventsRouter.js";
-const ARTIST_URL = serverBase + "./eventsRouter.js"
-
+const EVENT_URL = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&keywords=music&location={locate}&date=future";
+const ARTIST_URL = "http://api.songkick.com/api/3.0/search/artists.json?apikey=ovLum2i3CCGRjtHA&query={artist_name}";
+   
 function handleNavigation() {
-    $('nav a').click(function(event) {
-        event.preventDefault();
-        const currentPage = $(this).data('page');
-    $('.page').hide();
-    $(`.${currentPage}`).show();
-  });
-  }
-
-    function openNav() {
-        document.getElementById("nav_start").style.width = "15%";
-        document.getElementById("main").style.marginLeft = "15%";
-    }
-    // Clear form values
-
-    function setEventListeners() {
-        handleNavigation();
-    }
-
-    //show start page
-    function showSignUpPage() {
-        $(".signUpPage").show();
-        $(".page").hide();
-  
-    }
-
-    function toggleRegistration() {
-      $('#signInLink').show();
-      $('.link').click(function(event) {
-        event.preventDefault();
-        $('#signInLink').hide();
-        $('#signInPage').show();
-        ${'#signUpPage'}.hide();
-      })
-    };
-
-    const userTemplate = (
-  '<div class="user_js">' +
-    '<h3 class="user_name"><h3>' +
-    '<hr>' +
-    '<ul class="user_info">' +
-    '</ul>' +
-    '</div>' +
-  '</div>'
-);
-
+   $("button").click(functi
+      event.preventDefault();
      
-function handleNewUser() {
- 
-    const usernew = $('input[name=username]');
+  });
+};
 
-   
 
-      const passnew = $('input[name=password]');
-       
-    
- 
-     const emailnew = $('input[name=email]');
-     storeUser();
-     }
+function getArtist() {
+    let artist_name = $('input[name=artistSearch]');
+       $.ajax({
+        type: 'GET',
+        url: ARTIST_URL,
+        dataType: 'json',
+        contentType: 'application/json',
+        query: artist_name,
+
+        success: function(event) {
+           showArtist()
+          }
+          });
+
+    //display artist results page 
+  function showArtist(results) {
+     $("#artistSearch").val('');
+      document.getElementById("artist_results_page").style.display = "block";
+    let artist = results.artist[index].displayName;
+    $(`#name`).text(artist);
   }
-}
-  function storeUser() {
-    const user = {
-      username: usernew,
-      password: passnew,
-      email: emailnew
-      };
-      return user;
-      postNewUser();
-     };
+      //retrieve data from client side 
+  function getEvents() {
+    let locate = $('input[name=eventSearch]');
+       $.ajax({
+        type: 'GET',
+        url: EVENT_URL,
+        dataType: 'json',
+        contentType: 'application/json',
+        query: 'locate',
+        success: function(event) {
+          showEvents()
+        }
+      })
+     }
+     
+    function showEvents(results) {
+     $("#eventSearch").val('');
+    document.getElementById("event_results_page").style.display="block";
    
+    let event = events.event[index].displayName;
+    $(`#art`).text(event);
+    let event_title = events.event[index].title;
+    $(`#title`).text(event_title); 
+    let city_name = events.event[index].city_name;
+    $(`#city`).text(city_name);
+    let start_time = events.event[index].start_time; 
+    $(`#starts`).text(start_time);
+  let description =  events.event[index].description;
+  $(`#description`).text(description);
+  let venue = events.event[index].venue_name;
+  $(`#venueE`).text(venue_name);
+  let venue_address = events.event[index].venue_address;
+  $(`#address`).text(venue_address);
+  let artist_name = events.event[index].artist_name;
+  $(`#artist`).text(artist_name);
+}
+
+ function toggleSignUp() {
+ document.getElementById("sign_up").style.display = "block";
+ handleNewUser()
+}
+
+function handleNewUser() {
+    let uN = $('input[name=username]');
+    let pW = $('input[name=password]');
+    let eM = $('input[name=email]');
+    postNewUser();
+  }
+
     function postNewUser() {
        $.ajax({
         method: 'POST',
-        url: 'https://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users';
-        req.params.body = {
-           username: usernew,
-           password: passnew,
-           email: emailnew
-        }
-        dataType: 'json',
-        contentType: 'application/json'
-        success: return ${user};
-        renderSearchPage();
-      }),
-  };
-
-function handleOldUser() {
-
-    function renderSignInPage() {
-      const userN=('input[name=un');
-      if (userN.length < 5) {
-      alert('must be more than 4 characters');
-      }
-       if (userN.length > 15) {
-        alert('must be less than 16 characters')
-       }
-       if (userN.length > 4 && < 16){
-      const userName= userN
-    };
-
-      const passW=('imput[name=pw');
-       if (passW.length < 5) {
-        alert('must be more than 4 characters');
-       }
-       if (passW.length > 15) {
-        alert('must be less than 16 characters')
-       }
-       if (passW.length > 4 && < 16) {
-        const passWord= passW
-       } 
-        authUser()
-    };
-
-      function authUser() {
-         $.ajax({
-        method: 'POST',
-        url: USER_URL,
-        req.params.body = {
-           username: userName,
-           password: passWord,
-        }
-        dataType: 'json',
-        contentType: 'application/json'
-        success: return user;
-        renderSearchPage();  
-        })
-      };
-
-        
-    function renderSearchPage() {
-     
-      }
-    }
-
-  function getArtist() {
-    const artistIn = $('input[name=artistSearch]');
-        $.getJSON(ARTIST_URL, artistIn, function(data) {
-          showArtist(data); 
-        })
-      }
-    
-    //display artist results page 
-  function showArtist(results) {
-    let art = `
-      <a class="displayName" href="${results.artist[0].display name}" target="_blank"></a><br />
-      <a class="calendar" href="${results.artist.displayName.identifier[0].eventsHref}" target="_blank"</a><br />
-      <a class="displayName" href="${results.artist[0].href}" target="_blank"</a><br />
-      <a class="tour" href="${results.artist[0].onTourUntil}" target="_blank"></a><br />
-      <a class="description" href="${results.artist[0].description}" target="_blank"></a><br /><br />
-      `;
-    $(".artShows").html(art);
-  };
-
-      //retrieve data from client side 
-  function getEvents() {
-    const eventIn = $('input[name=eventSearch]');
-    const eventLoc = eventIn.val();
-    $.getJSON(EVENT_URL, eventLoc, function(data) {
-      showEvents(data);
-    })
-  }
-   
-
-     //display location results page
-    function showEvents(results) {
-       let loc = `
-        <a class="title" href="${results.events.event[1].title}" target="_blank"></a><br />
-        <a class="city_name" href="${results.events.event.[1].cityName}" target="_blank"</a><br />
-        <a class="start_time" href="${results.events.event[1].start_time}" target="_blank"</a><br />
-        <a class="venue_name" href="${results.events.event[1].venue_name}" target="_blank">/a><br />
-        <img class="small" src=${results.events.event.image.small[1].url}" target="_blank">/a><br /><br />
-        <a class="title" href="${results.articles[3].url}" target="_blank">${results.articles[3].title}<alt="${results.articles[3].description}"></a><br /><br />
-        `;
-      $(".locShows").html(loc);
-    };
-
-  
-
-  function findUser() {
-      const yourUsername = $('input[name=un]');
-      const yourPassword = $('input[name=pass]');
-      const userCred = {
-        username= yourUsername,
-        password= yourPassword
-      }
-
-      $.ajax({
-          type: "POST",
-          url: "USER_URL",
-          query: ${userCred},
-
-        success: function() {
-            alert('Success!')
+        url:'mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users', 
+        data: {
+           username: uN,
+           password: pW,
+           email: eM
         },
-        error: function() {
-            alert('Error!')
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function() {
+          return user;
         }
       });
-    }
-
-         
-        /* $.ajax({
-            type: " POST",
-            url: "EVENT_URL",
-            query: eventLoc,
-
-          success: function() {
-            alert('Success!')
-            showEvents(data);
-          },
-
-          error: function() {
-            alert('Error!')
-          }
-        });
-    }*/
-
-      //profile page  
-    function getUser() {
-      const currUN = $('input[name=currentUN]');
-      const currPASS = $('input[name=currentPASS]');
-      const currEMAIL = $('input[name=currentEMAIL]');
-
-      const you = {
-          username= currUN,
-          password= currPASS,
-          email= currEMAIL
-        };
-
-    $.ajax({
-        type: " POST",
-        url: "USER_URL",
-        query: ${you},
-
-      success: function() {
-         alert('Success!')
-      },
-      error: function() {
-         alert('Error!')
-      }
-    });
+  };
+  
+function handleHello() {
+   var hello = '<header>Hello,  ${username} ! </header>';    
+  }
+ 
+function toggleSignIn() {
+  if (registin.style.display=== "none") {
+    registin.style.display = "block";
+  } else {
+    registin.style.display = "none";
+  }
+    handleOldUser()
   }
 
-     function displayUser() {
-       for (index in data.user) {
-         $('body').append(
-           '<p>' + data.user.text + '</p>');
-       }
-     }
+function handleOldUser() {
+  upd.style.display = "block";
+  retrieveUser()
+}
 
-     function updateUser() {
-        const newUsername = $('input[name=editUN]');
-        const newPass = $('input[name=editPASS]');
-        const newEmail = $('input[name=editEMAIL]');
-        const newYOU = {
-          username: newUsername,
-          password: newPass,
-          email: newEmail
-        };
+function retrieveUser() {
+ let username = $('input[name=userName]').val();
+ let password = $('input[name=userPass').val();
 
-         $.ajax({
-            type: "POST",
-            url: "USER_URL",
-            query: ${newYOU},
-
-            success: function() {
-              alert('Success!')
-            },
-
-            error: function() {
-              alert('Error!')
-            }
+      $.ajax({
+          method: "GET",
+          url: USER_URL, 
+          dataType: 'json',
+          contentType: 'application/json',
+          query: {
+            "username": username,
+            "password": password
+          },
+          success: function(user) {
+           return {
+            id: user.id,
+            username: user.username,
+            password: user.password,
+            email: user.email
+          }
+          }
         });
-      
-    }
+      storeUser()
+      };
+    
+     function updateUser() {
+      const userId = user.id($.currentTarget);
+      const usern = $('input[name=updateUN').val();
+      const passw = $('input[name=updatePASS').val();
+        $.ajax({
+          method: "PUT",
+          url: USER_URL + '/' + userId,
+          dataType: 'json',
+          contentType: 'application/json',
+          data: {
+            'username': usern,
+            'password': passw
+          },
+          success: function(user) {
+           return {
+            id: user.id,
+            username: user.username,
+            password: user.password,
+            email: user.email
+          }
+          },
+        });
+        storeUser()
+      }
+    
     function deleteUser() {
-      const userId = user.id 
-    };
+      console.log('deleting user');
+      const userId = user.id($.currentTarget);
 
         $.ajax({
-            type: "POST",
-            url: "USER_URL",
-            query: ${user.id},
+          method: "DELETE",
+            url: USER_URL + '/' + userId,
+          dataType: 'json',
+          contentType: 'application/json',
+      
 
             success: function() {
-              alert('Success!')
+              alert('Success!');
             },
 
             error: function() {
@@ -298,10 +186,5 @@ function handleOldUser() {
             }
         });
       }
-    
-      $(() => {
-        setEventListeners();
-        showSignUpPage();
-        openNav();
-        $("body").removeClass("preload");
-      })
+  
+handleNavigation();
