@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
 const {DATABASE_URL,PORT} = require('./config');
-const {User} = require ('./models');
-const {Event} = require ('./eventsRouter');
-const {Artist} = require ('./artistRouter');
+const {User} = require ('./userModels');
+//const {Event} = require ('./eventsRouter');
+//const {Artist} = require ('./artistRouter');
 
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
@@ -19,12 +19,12 @@ var beautify = require('js-beautify').js_beautify,
     fs = require('fs');
 
 app.get('/', (req, res) => {
-   res.sendFile(__dirname + '/public/index.html');
+   res.sendFile(__dirname + "/public/index.html");
 });
 
 app.get('/user', (req, res) => {
     const filters = {};
-    const queryableFields = ['username', 'password'];
+    const queryableFields = ["username", "password"];
     queryableFields.forEach(field => {
         if (req.query[field]) {
             filters[field] = req.query[field];
@@ -37,12 +37,12 @@ app.get('/user', (req, res) => {
         ))
         .catch(err => {
             console.error(err);
-            res.status(500).json({message: 'something is seriously wrong'})
+            res.status(500).json({message: "something is seriously wrong"})
         });
 });
 
 app.post('/user', (req, res) => {
-  const requiredFields = ['username', 'password', 'email'];
+  const requiredFields = ["username", "password", "email"];
       for (let i=0; i<requiredFields.length; i++) {
         const field = requiredFields[i];
       if (!(field in req.body)) {
@@ -60,7 +60,7 @@ app.post('/user', (req, res) => {
   .then(user => res.status(201).json(user.serialize()))
     .catch(err => {
       console.error(err);
-      res.status(500).json({message: 'Internal server error'});
+      res.status(500).json({message: "Internal server error"});
     });
 });
 
@@ -85,19 +85,19 @@ if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
   User
     .findByIdAndUpdate(req.params.id, {$set: toUpdate})
     .then(user => res.status(204).end())
-    .catch(err => res.status(500).json({message: 'Internal server error'}));
+    .catch(err => res.status(500).json({message: "Internal server error"}));
 });
 
   app.delete('/user/:id', (req, res) => {
     console.log(`Deleted User \`${req.params.id}\``);
       User
        .findByIdAndRemove(req.params.id)
-    .then(restaurant => res.status(204).end())
-    .catch(err => res.status(500).json({ message: 'Internal server error' }));
+    .then(user => res.status(204).end())
+    .catch(err => res.status(500).json({message: "Internal server error"}));
 });
     
-  app.use('*', function(req, res) {
-      res.status(408).json({message: 'No Found'})
+  app.use("*", function(req, res) {
+      res.status(408).json({message: "No Found"})
   });
 
     let server;
