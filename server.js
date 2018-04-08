@@ -19,6 +19,8 @@ const app = express();
 
 app.use(morgan('common'));
 
+app.use(express.static('public'));
+
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
@@ -41,6 +43,10 @@ app.get('/api/protected', jwtAuth, (req, res) => {
   return res.json({
     data: 'rosebud'
   });
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
 });
 
 app.use('*', (req, res) => {
