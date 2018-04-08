@@ -4,7 +4,7 @@
   "description": "final attempt",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --exit",
+    "test": "mocha",
     "start": "node server.js"
   },
   "keywords": [],
