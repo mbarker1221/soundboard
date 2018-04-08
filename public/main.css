@@ -1,33 +1,20 @@
+
 * {
   box-sizing: border-box;
 }
 
 body {
-  background: url("img/colorConcert.jpg") #cdd1d3 top no-repeat fixed;
-  background-size: cover;
-  color: white;
-  text-align: center;
-  font-family: 'Shadows Into Light', cursive;
+   background: url("img/pexels-photo-154147 copy 2.jpeg") #cdd1d3 top no-repeat fixed;
+    color: white;
+   text-align: center;
+   font-family:'Shadows Into Light', cursive;
 }
 
-h1 {
-  background: url("img/show.gif") #cdd1d3;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center center;
-  background-size: cover;
-  padding-bottom: 80px;
-  font-weight: 900;
-  font-size: 6.5em;
-  color: black;
-  text-shadow: 2px 2px lightblue;
-  border: 2px ridge white;
-  border-radius: 6px;
-  max-width: 90%;
-  margin: 0px auto;
-  margin-top: 20px;
-  margin-bottom: 100px;
-}
+ h1 {
+   font-weight: 800;
+   font-size: 6em;
+   text-shadow: 2px 2px black;
+ }
 
 p {
   font-size: 1.5em;
@@ -38,18 +25,18 @@ p {
   font-weight: bold;
 }
 
-h2 {
-  font-size: 3em;
-  text-shadow: 2px 2px lightblue;
+h2 { 
+  font-size: 3em; 
+  text-shadow: 2px 2px black;
 }
 
 h3 {
-  font-size: 2.5em;
-  text-shadow: 2px 2px lightblue;
+  font-size: 3em;
+  text-shadow: 2px 2px black;
 }
 
 h4 {
-  font-size: 2em;
+  font-size: 2.5em;
   text-shadow: 2px 2px black;
 }
 
@@ -60,218 +47,169 @@ div {
   border-radius: 6px;
 }
 
-label {
+ label {
   font-size: 25px;
   text-shadow: 1px 1px lightblue;
-}
-
-button {
-  font-size: 18px;
-  border-radius: 3px;
-  background-color: lightgrey;
-  border: 1px solid grey;
-  box-shadow: 2px 2px lightblue;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: lightblue;
-}
-
-button:active {
-  box-shadow: 2px 2px white;
-}
-
-.search_page {
-  
-}
-
-.pic {
-  max-width: 100%;
-  margin: 0px auto;
-  background-image: url("img/big.jpeg");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  background-size: 41%;
-}
-
+ }
+ 
+ button {
+   font-size: 18px;
+   border-radius: 3px;
+   background-color: lightgrey;
+   border: 1px solid grey;
+   box-shadow: 2px 2px lightblue;
+   cursor: pointer;
+ }
+ 
+ button:hover {
+   background-color: lightblue;
+ }
+ 
+ button:active {
+   box-shadow: 2px 2px white;
+ }
+ 
 .inputContainer {
-  max-width: 100%;
+  background: url("img/0f71d0be5bcd6d09641e77c8200139a9--wallpaper-free-wallpaper-desktop.jpg") top no-repeat fixed;
+  max-width: 25%;
   display: inline-block;
-  border: 7px ridge lightblue;
+  border: 5px ridge lightblue;
   border-radius: 6px;
 }
-
-.reg {
-  border: 6px ridge lightblue;
-  border-radius: 7px;
-  max-width: 30%;
-  padding: 1px;
-  margin: 0px auto;
-  color: black;
-  text-shadow: 2px 2px white;
-}
-
-.log {
- border: 6px ridge lightblue;
-  max-width: 30%;
-  padding: 1px;
-  margin: 0px auto;
-  color: black;
-  text-shadow: 2px 2px white;
-}
-
-.box {
-  background-image: url("img/");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  border: 6px ridge lightblue;
-  border-radius: 7px;
-  max-width: 50%;
-  padding: 5px;
-}
-
 
 
 input {
   /* display: block;*/
-  padding: 4px;
-  border: 2px solid lightblue;
-  border-radius: 3px;
-  font-size: 16px;
-  text-align: center;
-  max-width: 70%;
-  margin: 0px auto;
-}
-
-.toggle_message {
-  background-image: url("img/bwGrab.jpg");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  background-size: cover;
-  max-width: 50%;
+   padding: 4px;
+   border: 2px solid black;
+   border-radius: 3px;
+   font-size: 16px;
+   text-align: center;
+   max-width: 90%;
+   margin: 0px auto;
+ }
+ .toggle_message {
+  background: url("img/concert-1149979.jpg") top no-repeat fixed;
+  max-width: 60%;
   margin: 20px auto;
   border-radius: 6px;
   border: 5px groove white;
-  color: white;
+  color: black;
   text-shadow: 2px 2px lightblue;
+ }
+
+.box {
+  border: 5px ridge lightblue;
+  max-width: 40%;
+  padding: 10px;
 }
 
 .artist_results_page {
-  outline-color: invert;
+   outline-color: invert;
+  transition: margin-left 2s;
   border-radius: 6px;
-  max-width: 70%;
-  padding: 10px;
-  font-weight: 900;
-  border: 7px ridge #007fAA;
-  margin: 20px auto;
-  background-image: url("img/pexels-photo-196652.jpeg");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  color: black;
+   max-width: 70%;
+   opacity: 6;
+   padding: 10px;
+   font-weight: 900;
+   border: 7px ridge #007fAA;
+   margin: 20px auto;
+    background: url("img/0f71d0be5bcd6d09641e77c8200139a9--wallpaper-free-wallpaper-desktop.jpg") center no-repeat fixed;
+  color: black;  
+  max-height: 70%;
   /*display: none;*/
 }
 
 .event_results_page {
   /*display: none;*/
-  outline-color: invert;
-  border-radius: 6px;
-  max-width: 70%;
-  padding: 10px;
-  font-weight: 900;
-  border: 7px ridge #007fAA;
+  //background: url("img/0f71d0be5bcd6d09641e77c8200139a9--wallpaper-free-wallpaper-desktop.jpg") center no-repeat fixed;;
   margin: 20px auto;
-  background-image: url("img/pexels-photo-196652.jpeg");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  color: black;
+
 }
 
 .preReg {
   font-size: 2em;
-  color: white;
-  text-shadow: 1px 1px black;
+  color: black;
+  text-shadow: 2px 2px lightblue;
 }
 
 .instruct {
-  max-width: 60%;
-  color: white;
-    text-shadow: 1px 1px black;
- 
+  max-width: 40%;
+  text-shadow: 2px 2px black;
 }
 
 .SUpage {
-  outline-color: invert;
+   outline-color: invert;
+  transition: margin-left 2s;
   border-radius: 6px;
-  max-width: 30%;
-  font-weight: 900;
-  border: 7px ridge #007fAA;
-  margin: 20px auto;
-  background-image: url("img/sk.jpg");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  background-size: cover;
-  color: black;
+   max-width: 30%;
+   opacity: 6;
+   padding: 10px;
+   font-weight: 900;
+   border: 7px ridge #007fAA;
+   margin: 20px auto;
+    background: url("img/pexels-photo-154147.jpeg") top no-repeat fixed;
+  color: black;  
+  padding: 10px;
 }
 
 .SIpage {
-  outline-color: invert;
+   outline-color: invert;
+  transition: margin-left 2s;
   border-radius: 6px;
-  max-width: 30%;
-  font-weight: 900;
-  border: 7px ridge #007fAA;
-  margin: 20px auto;
-  background-image: url("img/sk.jpg");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  background-size: cover;
-  color: black;
+   max-width: 30%;
+   opacity: 6;
+   padding: 10px;
+   font-weight: 900;
+   border: 7px ridge #007fAA;
+   margin: 20px auto;
+    background: url("img/pexels-photo-154147.jpeg") top no-repeat fixed;
+  color: black;  
+padding: 10px;
 }
 
 .update_user_page {
-  outline-color: invert;
+   outline-color: invert;
+  transition: margin-left 2s;
   border-radius: 6px;
-  max-width: 40%;
-  padding: 10px;
-  font-weight: 900;
-  border: 7px ridge #007fAA;
-  margin: 20px auto;
-  background-image: url("img/");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  color: black;
+   max-width: 40%;
+   opacity: 6;
+   padding: 10px;
+   font-weight: 900;
+   border: 7px ridge #007fAA;
+   margin: 20px auto;
+    background: url("img/pexels-photo-154147.jpeg") top no-repeat fixed;
+  color: black; 
 }
 
-.delete_profile_page {
-  background-image: url("img/original.gif");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
+.delete_profile {
+   width: 150px;
+    height: 150px;
+    background: url("img/pexels-photo-435840-small.jpg") #cdd1d3 top no-repeat fixed;
+    -webkit-transition-property: width, height; /* Safari */
+    -webkit-transition-duration: 2s; /* Safari */
+    transition-property: width, height;
+    transition-duration: 1.5s;
   color: black;
   text-shadow: none;
-  max-width: 30%;
-  opacity: .6;
-  border: 5px ridge lightblue;
-  margin: 20px auto;
-  padding: 10px;
+   /*background: url("img/pexels-photo-154147.jpeg") top no-repeat fixed;*/
+    max-width: 20%;
+   opacity: 6;
+    border: 5px ridge lightblue;
+   margin: 20px auto;
+   padding ; 10px;
 }
 
 .delete_profile:hover {
-  width: 200px;
-  height: 250px;
+    width: 200px;
+    height: 250px;
 }
 
 .icon {
-  background: url("img/");
-  margin-left: 0;
-  margin-right: 0;
-  max-width: 90%;
+   background: url("img/rock-logo.psd");
+   margin-left: 0 auto;
+   margin-right: 0 auto;
+   max-width: 90%; 
 }
+
+
