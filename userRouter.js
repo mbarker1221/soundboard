@@ -1,48 +1,133 @@
+'use strict';
 const express = require('express');
-const app = express();
-const uuid = require('uuid');
+const passport = require('passport');
 const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
-const morgan = require('morgan');
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+const {User} = require('./userIndex');
 
-app.use(morgan('common'));
+const app = express();
+const config = require('./config');
+const router = express.Router();
+const jsonParser = bodyParser.json();
+
 app.use(bodyParser.json());
 
-const User = {
-  create: function(username, password, email) {
-    console.log('Creating new User');
-    const User = {
-      id: uuid.v4(),
-      username: username,
-      password: password,
-      email: email
-    };
-      this.User[User.id] = User;
-      return User;
-  },
-  get: function() {
-    console.log('Retrieving user');
-      return Object.keys(this.User).map(key => this.User[key]);
-  },
 
-  delete: function(id) {
-    console.log(`Deleting user ${id}`);
-      delete this.User[id];
-  },
+router.post('/', jsonParser, (req, res) => {
+  const requiredFields = ["username", "password", "email"];
+  const missingField = requiredFields.find(field => !(field in req.body));
 
-  update: function(updatedUser) {
-    console.log(`Updating User \`${updatedUser.id}\``);
-    const {id} = updatedUser;
-      if (!(id in this.User)) {
-    console.log(`can't update user because user does not exist`);
-    }
-      this.User[updatedUser.id] = updatedUser;
-      return updatedUser;
+  if (missingField) {
+    return res.status(422).json({
+      code: 422,
+      reason: "ValidationError",
+      message: "Missing field",
+      location: missingField
+    });
+  }
+
+  const stringFields = ["username", "password", "email"];
+  const nonStringField = stringFields.find(
+    field => field in req.body && typeof req.body[field] !== "string"
+  );
+
+  if (nonStringField) {
+    return res.status(422).json({
+      code: 422,
+      reason: "ValidationError",
+      message: "Incorrect field type: expected string",
+      location: nonStringField
+    });
+  }
+  const explicityTrimmedFields = ["username", "password"];
+  const nonTrimmedField = explicityTrimmedFields.find(
+    field => req.body[field].trim() !== req.body[field]
+  );
+
+  if (nonTrimmedField) {
+    return res.status(422).json({
+      code: 422,
+      reason: "ValidationError",
+      message: "Cannot start or end with whitespace",
+      location: nonTrimmedField
+    });
+  }
+
+  const sizedFields = {
+    username: {
+      min: 4
     },
+    password: {
+      min: 4,
+      max: 25
+    }
   };
+  const tooSmallField = Object.keys(sizedFields).find( field =>
+      'min' in sizedFields[field] &&
+            req.body[field].trim().length < sizedFields[field].min
+  );
+  const tooLargeField = Object.keys(sizedFields).find(
+    field =>
+      'max' in sizedFields[field] &&
+            req.body[field].trim().length > sizedFields[field].max
+  );
 
-  module.exports = {User};
+  if (tooSmallField || tooLargeField) {
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: tooSmallField
+              ? `Must be at least ${sizedFields[tooSmallField]
+          .min} characters long`
+        : `Must be at most ${sizedFields[tooLargeField]
+          .max} characters long`,
+      location: tooSmallField || tooLargeField
+    });
+  }
 
+  let {username, password, email} = req.body;
+
+  return User.find({username})
+    .count()
+    .then(count => {
+      if (count > 0) {
+     
+        return Promise.reject({
+          code: 422,
+          reason: 'ValidationError',
+          message: 'Username already taken',
+          location: 'username'
+        });
+      }
+      
+      return User.hashPassword(password);
+    })
+    .then(hash => {
+      return User.create({
+        username,
+        password: hash,
+       email
+      });
+    })
+    .then(user => {
+      return res.status(201).json(user.serialize());
+    })
+    .catch(err => {
+   
+      if (err.reason === 'ValidationError') {
+        return res.status(err.code).json(err);
+      }
+      res.status(500).json({code: 500, message: 'Internal server error'});
+    });
+});
+
+//router.get('/', (req, res) => {
+ // res.json(User.get());
+//});
  
+router.get('/', (req, res) => {
+  return User.find()
+    .then(users => res.json(users.map(user => user.serialize())))
+    .catch(err => res.status(500).json({message: 'Internal server error'}));
+});
+
+module.exports = {router};
