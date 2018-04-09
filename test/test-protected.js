@@ -120,31 +120,5 @@ describe('Protected endpoint', function() {
           expect(res).to.have.status(401);
         });
     });
-    it('Should send protected data', function() {
-      const token = jwt.sign(
-        {
-          user: {
-            username,
-            email
-          }
-        },
-        JWT_SECRET,
-        {
-          algorithm: 'HS256',
-          subject: username,
-          expiresIn: '7d'
-        }
-      );
-
-      return chai
-        .request(app)
-        .get('/api/protected')
-        .set('authorization', `Bearer ${token}`)
-        .then(res => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.be.an('object');
-          expect(res.body.data).to.equal('rosebud');
-        });
-    });
   });
 });

@@ -191,41 +191,5 @@ describe('Auth endpoints', function() {
           expect(res).to.have.status(401);
         });
     });
-    it('Should return a valid auth token with a newer expiry date', function () {
-      const token = jwt.sign(
-        {
-          user: {
-            username,
-            email
-          }
-        },
-        JWT_SECRET,
-        {
-          algorithm: 'HS256',
-          subject: username,
-          expiresIn: '7d'
-        }
-      );
-      const decoded = jwt.decode(token);
-
-      return chai
-        .request(app)
-        .post('/api/auth/refresh')
-        .set('authorization', `Bearer ${token}`)
-        .then(res => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.be.an('object');
-          const token = res.body.authToken;
-          expect(token).to.be.a('string');
-          const payload = jwt.verify(token, JWT_SECRET, {
-            algorithm: ['HS256']
-          });
-          expect(payload.user).to.deep.equal({
-            username,
-            email
-          });
-          expect(payload.exp).to.be.at.least(decoded.exp);
-        });
-    });
   });
 });
