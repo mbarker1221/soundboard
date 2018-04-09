@@ -378,12 +378,14 @@ describe('/api/user', function() {
           {
             username,
             password,
-            email
+            firstName,
+            lastName
           },
           {
             username: usernameB,
             password: passwordB,
-            email: example.com
+            firstName: firstNameB,
+            lastName: lastNameB
           }
         )
           .then(() => chai.request(app).get('/api/users'))
@@ -393,25 +395,16 @@ describe('/api/user', function() {
             expect(res.body).to.have.length(2);
             expect(res.body[0]).to.deep.equal({
               username,
-              email
+              firstName,
+              lastName
             });
             expect(res.body[1]).to.deep.equal({
               username: usernameB,
-              email: example.com
-        //    })
-       //     .catch(err => {
-       //     if (err instanceof chai.AssertionError) {
-        //      throw err;
-       //     }
-
-       //     const res = err.response;
-       //     expect(res).to.have.status(422);
-         //   expect(res.body.reason).to.equal('ValidationError');
-          //  expect(res.body.message).to.equal('no array');
+              firstName: firstNameB,
+              lastName: lastNameB
+            });
+          });
       });
     });
   });
 });
-});
-});
-//});
