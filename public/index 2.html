@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.css" rel="stylesheet">
+    <link href="main.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Shadows+Into+Light" rel="stylesheet">
+
+    <title>Live Music Event API</title>
+    <style>
+     $("#artist_results_page").hide();
+   $("#event_results_page").hide();
+    $("#sign_up_page").hide();
+     $("#sign_in_page").hide();
+     $('#hello').hide();
+      $('#ddelete_profile_page').hide();
+      $('#update_user_page').hide();
+      $('#profile_page').hide();
+    </style>
+  </head>
+
+  <body>
+    <main class = "main">
+
+      <section class="search_page page" id="search_page">
+        <h1 class = "shadow">See it Live!</h1><br>
+        <br>
+        <div> 
+          <h2>Want to know who is performing in your town? Search for upcoming shows, follow artists you like, and get notifications about events you want to See Live!
+
+
+   </h2>
+        </div>
+        <div class="pic">
+          <span class="inputContainer">
+            <p class="instruct">Enter an event or artist's name:</p>
+
+            <form class="artistS" name="artistS" action="#" onsubmit="return false;">
+              <input class="input" type="text" name="artistSearch" id="artistSearch" placeholder="enter artist or event" /><br>
+              <button class="buttons" id="btnFindArtist" type="submit" onclick="toggleArtist()">search</button>
+            </form><br>
+          </span>
+
+          <span class="inputContainer">
+            <p class="instruct">Enter a city, zip code or venue:</p>
+
+            <form class="locationSearch" name="locationSearch" action="#" onsubmit="return false;">
+              <input class="input" type="text" name="eventSearch" id="eventSearch" placeholder="enter city or zipcode" /><br>
+              <button class="buttons" id="btnGetEvents" type = "submit" onclick="toggleEvents();">search</button><br>
+            </form><br>
+          </span>
+        </div>
+      </section>
+      <br>
+
+      <section class="artist_results_page" id="artist_results_page">
+
+        <ul class="artist_display">
+          <li class="name">Artist: </li>
+          <li><span id="name"></span></li>
+          <li class="id">Id: </li>
+          <li><span id="id"></span></li>
+        </ul>
+
+      </section>
+
+      <section class="event_results_page" id="event_results_page">
+        <ul class="events_display">
+          <li class="title">Event: </li>
+          <li><span id="title"></span></li>
+          <li class="city_name">City: </li>
+          <li><span id="city_name"></span></li>
+          <li class="starts">Start Time/Date: </li>
+          <li><span id="starts"></span></li>
+          <li class="venueE">Venue: </li>
+          <li><span id="venueE"></span></li>
+          <li class="address">Venue Address: </li>
+          <li><span id="address"></span></li>
+          <li class="description">Event Description: </li>
+          <li><span id="description"></span></li>
+        </ul>
+
+      </section>
+
+      <section class="toggle_message" id="toggle_message">
+
+        <p class="preReg">Stay in the know and never miss a show! Register for an account and tell us who you want to See Live! We'll take care of the rest</p>
+        <br><br><br>
+        <div>
+        
+        <form class="reg" name="reg" id="reg" action="#" onsubmit="return false;">
+          <h4>Register for an account</h4>
+          <button class="buttons" id="sign_up_button" type="submit" onclick="toggleSignUp()">Here</button><br><br>
+        </form>
+      
+          <br>
+        
+        <form class="log" name="log" id="log" action="#" onsubmit="return false;">
+          <h4>Have an account? Sign in</h4>
+          <button class="buttons" id="sign_in_button" type="submit" onclick="toggleSignIn()">Here</button><br><br>
+        </form>
+
+        </div>
+        <br>
+      </section><br>
+
+      <section class="SUpage" id="sign_up_page">
+
+        <form class="signUpForm" name="signUpForm" id="suf" action="#" onsubmit="return false;"><br>
+          <h3>Register new user</h3><br>
+          <input class="box" type="text" name="username" placeholder="Enter a username" id="enterUser" required/><br><br>
+          <input class="box" type="password" name="password" placeholder="Enter a password" id="enterPass" required/><br><br>
+          <input class="box" type="email" name="email" placeholder="Enter your email" id="enterEmail" required/><br><br>
+          <button class="buttons" id="createUser" type="submit" onclick="handleNewUser()">submit</button><br><br>
+        </form>
+      </section><br>
+
+      <section class="SIpage" id="sign_in_page">
+        <form class="signInForm" name="signInForm" id="sif">
+          <br><br><br>
+          <h3>Sign In</h3><br><br>
+          <input class="box" type="text" name="un" placeholder="Enter your username" id="userName" required/><br><br>
+          <input class="box" type="password" name="pw" placeholder="Enter your password" id="userPass" required/><br><br>
+          <button class="buttons" id="submitUser" type="submit" onclick="handleOldUser()">submit</button><br><br><br><br>
+        </form>
+      </section><br>
+
+      <section class="update_user_page" id="update_user_page">
+        <form class="updateUser" name="updateUser" id="updF" action="#" onsubmit="return false;">
+          <label>To update your profile just enter a new username and password below</label><br>
+          <input type="text" name="updateUN" placeholder="new username" /><br>
+          <input type="text" name="updatePASS" placeholder="new password" /><br>
+          <button class="buttons" type="submit" onclick="updateUser()" action="#" onsubmit="return false;">submit</button>
+        </form>
+
+      </section>
+      <section class="hello" id="hello">
+        <h3>Hello!</h3>
+      </section>
+
+      <section class="profile_page" id="profile_page">
+        <h2>Hello!</h2>
+        <h3>Favorite the bands or artists you want to see live and we'll keep you in the know about shows in your area!</h3>
+      </section>
+      <section class="delete_profile_page" id="delete_profile_page">
+        <p>Delete my profile</p>
+        <button class="buttons" id="deleteUser" type="submit" onclick="deleteUser()" action="#" onsubmit="return false;">delete</button><br>
+      </section>
+
+    </main>
+  </body>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <!--<script src="bundle.js"></script-->
+  <!--<script type="text/javascript" src="server.js"></script-->
+  <script type="text/javascript" src="index.js"></script>
+
+</html>
