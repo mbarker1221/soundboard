@@ -365,7 +365,7 @@ describe('/api/user', function() {
           });
       });
     
-    describe('GET', function() {
+   describe('GET', function() {
       it('Should return an empty array initially', function() {
         return chai.request(app).get('/api/users').then(res => {
           expect(res).to.have.status(200);
@@ -378,14 +378,12 @@ describe('/api/user', function() {
           {
             username,
             password,
-            firstName,
-            lastName
+            email
           },
           {
             username: usernameB,
             password: passwordB,
-            firstName: firstNameB,
-            lastName: lastNameB
+            email: exampleB@email.com
           }
         )
           .then(() => chai.request(app).get('/api/users'))
@@ -395,13 +393,11 @@ describe('/api/user', function() {
             expect(res.body).to.have.length(2);
             expect(res.body[0]).to.deep.equal({
               username,
-              firstName,
-              lastName
+              email
             });
             expect(res.body[1]).to.deep.equal({
               username: usernameB,
-              firstName: firstNameB,
-              lastName: lastNameB
+              email: exampleB@email.com
             });
           });
       });
