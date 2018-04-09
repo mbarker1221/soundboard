@@ -54,7 +54,7 @@
     "mime-types": "^2.1.18",
     "minimatch": "^3.0.4",
     "mkdirp": "^0.5.1",
-    "mongoose": "^4.10.8",
+    "mongoose": "^5.0.14",
     "morgan": "^1.9.0",
     "moz": "^0.1.5",
     "negotiator": "^0.6.1",

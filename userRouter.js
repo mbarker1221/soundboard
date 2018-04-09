@@ -2,7 +2,7 @@
 const express = require('express');
 const passport = require('passport');
 const bodyParser = require('body-parser');
-const {User} = require('./userIndex');
+const {User} = require('./users');
 
 const app = express();
 const config = require('./config');
