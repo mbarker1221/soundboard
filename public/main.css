@@ -46,25 +46,25 @@ h1 {
 }
 
 h2 {
-  font-size: 1.7em;
-  text-shadow: 4px 4px black;
-  max-width: 100% ;
+  font-size: 3em;
+  max-width: 90% ;
   margin: 0px auto;
-  color: white;
+  color: black;
+  text-shadow: 2px 2px lightblue;
   word-spacing: .5em;
 }
 
 h3 {
-  font-size: 2.5em;
+  font-size: 4em;
   text-shadow: 2px 2px lightblue;
 }
 
 h4 {
-  font-size: 1.9em;
+  font-size: 3em;
   text-shadow: 2px 2px black;
   font-weight: 800;
   border: none;
-  background color: white;
+
 }
 
 p {
@@ -124,6 +124,7 @@ input {
 
 .buttonOne:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: lightblue;
 }
 
 .buttonOne {
@@ -140,6 +141,10 @@ input {
     cursor: pointer; 
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.9s;
+    -webkit-transition: background-color 1s ease-out;
+  -moz-transition: background-color 1s ease-out;
+  -o-transition: background-color 1s ease-out;
+  transition: background-color 1s ease-out;
   }
 
 .button {
@@ -195,12 +200,19 @@ input {
     transition: margin-bottom ease-in;
   }
 
+.pic {
+  max-width: 90%;
+  background-color: white;
+  
+
+}
+
 .inputContainer {
     max-width: 70%;
     display: inline-block;
-    border: 3px ridge lightblue;
+    border: 5px ridge lightblue;
     border-radius:6px;
-    box-shadow: 10px 10px 5px black;
+    box-shadow: 10px 10px 5px white;
     margin: 15px 20px;
     padding - left: 10px;
     padding - right: 10px;
@@ -224,6 +236,9 @@ input {
   transition: ease-in margin-bottom 2s;
 }
 
+.resultsContainer {
+  border: 3px ridge white;
+}
 li {
   list-style: none;
   font-size: 1em;
