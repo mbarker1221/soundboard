@@ -1,80 +1,31 @@
-* {
-  box-sizing: border-box;
+*{
+  box-sizing: border - box;
 }
-
 
 body {
-  background-size: cover;
+  background - size: cover;
   color: white;
   text-align: center;
-  font-family: 'The Frontman';
+  font-family: 'Shadows into Light', cursive;
   font-size: .5em;
 }
+
+div {
+  margin-left: auto;
+  margin-right: auto;
+  /*display: inline-block;*/
+  border-radius: 6px;
+}
+
 .main {
-  background: url("img/bwConcert.jpeg") #cdd1d3 top no-repeat fixed;
-  max-width: 85%;
+  background: url("img/bwConcert.jpeg")#cdd1d3 top no-repeat fixed;
+  max-width: 85% ;
   margin: 0px auto;
   padding: 20px;
 }
-
-
-.buttonOne {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-}
-
-.buttonTwo:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-}
-
-
-.buttonOrg {
-  opacity: .8;
-    font-size: 10px;
-     word-spacing: .8em;
-  border-radius: 5px;
-  background-color: lightgrey;
-  border: 1px solid grey;
-  box-shadow: 7px 7px white;
-  padding: 15px;
-  cursor: pointer;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.9s;
-}
-
-.border {
-  background-color: lightgrey;
-  max-width: 70%;
-  box-shadow: 15px 15px 10px black;
-  padding-top: 20px;
-  padding-bottom: 50px;
-}
-
-.guitar {
-  background-image: url("img/legGrabColor copy.jpg");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  background-size: cover;
-  max-width: 90%;
-  border: 4px ridge lightblue;
-  box-shadow: 20px 20px 10px black;
-  padding: 20px;
-
-}
-
-.banner {
-  max-width: 80%;
-  margin: 0px auto;
-  font-size: 2em;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  margin-top: 20px;
-  color: white;
-}
-
 
 h1 {
-  background: url("img/show.gif") #cdd1d3;
+  background: url("img/show.gif")#cdd1d3;
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
@@ -82,24 +33,22 @@ h1 {
   padding-bottom: 80px;
   font-weight: 950;
   font-size: 15em;
-  color: white;
+  color:white;
   text-shadow: 3px 3px black;
   border: 2px ridge white;
   border-radius: 9px;
-  max-width: 90%;
+  max-width: 90% ;
   margin: 0px auto;
   margin-top: 20px;
   margin-bottom: 100px;
   font-family: "The Frontman";
   box-shadow: 20px 20px black;
-
 }
-
 
 h2 {
   font-size: 1.7em;
   text-shadow: 4px 4px black;
-  max-width: 100%;
+  max-width: 100% ;
   margin: 0px auto;
   color: white;
   word-spacing: .5em;
@@ -118,54 +67,16 @@ h4 {
   background color: white;
 }
 
-label {
-  font-size: 20px;
-  color: white;
-  text-shadow: 1px 1px black;
-}
-
-div {
-  margin-left: auto;
-  margin-right: auto;
-  /*display: inline-block;*/
-  border-radius: 6px;
-}
-
-li {
-  list-style: none;
-  font-size: 1em;
-  font-weight: 800;
-}
-
 p {
   font-size: 2em;
   font-weight: bold;
   color: black;
- 
 }
 
-.button {
-  font-size: 18px;
-  border-radius: 3px;
-  background-color: lightgrey;
-  border: 1px solid grey;
-  box-shadow: 2px 2px lightblue;
-  cursor: pointer;
-}
-
-.button:hover {
-  background-color: lightblue;
-}
-
-.button:active {
-  box-shadow: 2px 2px white;
-}
-
-/*style for button*/
-.user {
-  font-size: 1.6em;
-  padding: 15px;
-  box-shadow: 7px 7px lightblue;
+label {
+  font-size: 20px;
+  color:white;
+  text-shadow: 1px 1px black;
 }
 
 input {
@@ -173,87 +84,137 @@ input {
   padding: 4px;
   border: 2px solid lightblue;
   border-radius: 3px;
-  font-size: 10px;
+  font-size: 20px;
   font-weight: 900;
   text-align: center;
   max-width: 80%;
   margin: 0px auto;
 }
 
-
-.inputContainer {
+.border {
+  background - color: lightgrey;
   max-width: 70%;
-  display: inline-block;
-  border: 3px ridge lightblue;
-  border-radius: 6px;
-  box-shadow: 10px 10px 5px black;
-  margin: 15px 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  color: lightblue;
-  text-shadow: 1px 1px black;
+  box-shadow: 15px 15px 10px black;
+  padding-top: 20px;
+  padding-bottom: 50px;
 }
 
-.talk{
-background-color: white;
-  border: 6px ridge lightblue;
-  border-radius: 7px;
-  max-width: 90%;
-  padding: 19px;
-  margin: 20px auto;
-  color: black;
-  box-shadow: 10px 10px 5px black;
-}
-
-.no {
-  display: inline-block;
-  border: 6px ridge lightblue;
-  border-radius: 7px;
-  max-width: 30%;
-  padding: 1px;
-  margin: 0px auto;
-  color: lightblue;
-  text-shadow: 2px 2px black;
-  box-shadow: 10px 10px 5px black;
-}
-.guest {
-  border: 6px ridge lightblue;
-  border-radius: 7px;
-  max-width: 30%;
-  padding: 1px;
-  margin: 0px auto;
-  color: lightblue;
-  text-shadow: 2px 2px black;
-  box-shadow: 10px 10px 5px black;
-  background-clip: padding-box;
-}
-
-.box {
-  background-image: url("img/");
-  background-repeat: no-repeat;
+.guitar {
+  background-image: url("img/legGrabColor copy.jpg");
+  background-repeat:no-repeat;
   background-attachment: scroll;
   background-position: center;
-  border: 6px ridge lightblue;
-  border-radius: 7px;
-  max-width: 30%;
-  padding: 5px;
-  margin: 0px auto;
+  background-size: cover;
+  max-width: 90% ;
+  border: 4px ridge lightblue;
+  box-shadow: 20px 20px 10px black;
+  padding: 20px;
 }
+
+.banner {
+  max-width: 80% ;
+  margin: 0px auto;
+  font-size: 2em;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  color: white;
+  font-family: 'Shadows into light', cursive;
+}
+
+.buttonOne:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.buttonOne {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  }
+
+.buttonOrg {
+    font-size: 20px;
+    border-radius: 3px;
+    background-color: lightgrey;
+    border: 1px solid grey;
+    box-shadow: 7px 7px lightblue;
+    padding: 15px;
+    cursor: pointer; 
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.9s;
+  }
+
+.button {
+    font-size: 18px;
+    border-radius: 3px;
+    background-color: lightgrey;
+    border: 1px solid grey;
+    box-shadow: 2px 2px lightblue;
+    cursor: pointer;
+  }
+
+.button:hover {
+    background-color: lightblue;
+  }
+
+.button:active {
+    box-shadow: 2px 2px white;
+  }
+
+  /*style for button*/
+.user {
+    font-size: 1.6em;
+    padding: 15px;
+    box-shadow: 7px 7px lightblue;
+  }
+
+.guest {
+    border: 6px ridge lightblue;
+    border-radius: 7px;
+    max-width: 30% ;
+    padding: 1px;
+    margin: 0px auto;
+    color: lightblue;
+    text-shadow: 2px 2px black;
+    box-shadow: 10px 10px 5px black;
+    background-clip: padding-box;
+  }
+
+.talk {
+    background-color: white;
+    border: 6px ridge lightblue;
+    border-radius: 7px;
+    max-width: 90% ;
+    padding: 19px;
+    margin: 20px auto;
+    color: black;
+    box-shadow: 10px 10 5px black;
+  }
 
 .search_page {
-   -webkit-transition-duration: 0.4s; /* Safari */
+    -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 1s;
-  transition: margin-bottom ease-in;
-}
+    transition: margin-bottom ease-in;
+  }
 
+.inputContainer {
+    max-width: 70%;
+    display: inline-block;
+    border: 3px ridge lightblue;
+    border-radius:6px;
+    box-shadow: 10px 10px 5px black;
+    margin: 15px 20px;
+    padding - left: 10px;
+    padding - right: 10px;
+    color: lightblue;
+    text-shadow: 1px 1px black;
+  }
 
 .artist_results_page {
   transition outline-color: invert;
   border-radius: 6px;
-  max-width: 70%;
+  max-width: 70% ;
   padding: 10px;
   font-weight: 900;
-  border: 7px ridge #007fAA;
+  border:7px ridge #007fAA;
   margin: 20px auto;
   background-image: url("img/g.jpeg");
   background-repeat: no-repeat;
@@ -263,7 +224,11 @@ background-color: white;
   transition: ease-in margin-bottom 2s;
 }
 
-
+li {
+  list-style: none;
+  font-size: 1em;
+  font-weight: 800;
+}
 
 .event_results_page {
   /*display: none;*/
@@ -281,11 +246,10 @@ background-color: white;
   color: black;
 }
 
-
 .SUpage {
   outline-color: invert;
   border-radius: 6px;
-  max-width: 30%;
+  max-width: 30% ;
   font-weight: 900;
   border: 7px ridge #007fAA;
   margin: 20px auto;
@@ -299,45 +263,44 @@ background-color: white;
   transition: margin-bottom ease-in 1s;
 }
 
+.box {
+  background-image: url("img/");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  border: 6px ridge lightblue;
+  border-radius: 7px;
+  max-width: 30%;
+  padding: 5px;
+  margin: 0px auto;
+}
+
 .SIpage {
   outline-color: invert;
   border-radius: 6px;
   max-width: 30%;
   font-weight: 900;
   border: 7px ridge #007fAA;
-  margin: 20px auto;
-  background-image: url("img/sk.jpg");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  background-size: cover;
-  color: black;
-}
+    margin: 20px auto;
+    background-image: url("img/sk.jpg");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center;
+    background-size: cover;
+    color: black;
+  }
 
-.profile_page {
-   background: url("img/original.gif") #cdd1d3;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center center;
-  background-size: cover;
+  .profile_page {
+    background: url("img/original.gif")#cdd1d3;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    background-size: cover;
   }
 
   .deleteContainer {
-  background-image: url("img/original.gif");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
+    background-image: url("img/original.gif");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center;
   }
-
-.preReg {
-  font-size: 2em;
-  color: white;
-  text-shadow: 2px 2px black;
-}
-
-.instruct {
-  max-width: 60%;
-  color: white;
-  text-shadow: 1px 1px black;
-}
-

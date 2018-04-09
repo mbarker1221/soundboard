@@ -8,8 +8,8 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
 
-const {router: userRouter} = require('./userIndex');
-const {router: authRouter, localStrategy, jwtStrategy} = require('./authIndex');
+const {router: userRouter} = require('./users');
+const {router: authRouter, localStrategy, jwtStrategy} = require('./auth/strategies');
 
 mongoose.Promise = global.Promise;
 
@@ -34,8 +34,10 @@ app.use(function (req, res, next) {
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-app.use('/api/user/', userRouter);
-app.use('/api/auth/', authRouter);
+
+app.use('/api/users/', userRouter);
+//app.use('/api/auth/', authRouter);
+
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
@@ -52,10 +54,6 @@ app.get('/', (req, res) => {
 app.use('*', (req, res) => {
   return res.status(404).json({message: 'Not Found'});
 });
-mongoose.set('debug', true)
-
-
-
 
 let server;
 

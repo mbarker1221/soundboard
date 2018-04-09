@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 const serverBase = "http://localhost:8000";
-const USER_URL = serverBase + "./server.js";
+const USER_URL = serverBase + "/user";
 const EVENT_URL = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
 const ARTIST_Events_URL = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=";
 const ARTIST_URL = "http://api.eventful.com/json/performers/search?app_key=c7nd5jGWK8tkcThz&keywords=";
