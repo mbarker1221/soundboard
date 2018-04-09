@@ -383,7 +383,7 @@ describe('/api/user', function() {
           {
             username: usernameB,
             password: passwordB,
-            email: exampleB@email.com
+            email: exampleBemail.com
           }
         )
           .then(() => chai.request(app).get('/api/users'))
@@ -397,7 +397,7 @@ describe('/api/user', function() {
             });
             expect(res.body[1]).to.deep.equal({
               username: usernameB,
-              email: exampleB@email.com
+              email: exampleBemail.com
             });
           });
       });
