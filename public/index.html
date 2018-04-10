@@ -13,51 +13,48 @@
   <body>
     <main class="main">
       <h1>Amped</h1><br>
-
       <section class="landing_page page" id="landing_page">
+  <button class="buttonOne" id="sign_up_button" type="submit" id="subut" onclick="toggleSignUp()">Register for an account</button> 
 
+ <button class="buttonOne" id="sign_in_button" type="submit" id="sibut" onclick="toggleSignIn()">Have an account? Sign in</button>
         <div class="border">
 
           <div class="guitar">
 
             <div class="banner">
-              <h2> Stay in the know and never miss a show!</h2>
+            <h2> Your favorite artists! The best shows! Search by event or artist name or by location.</h2>
             </div>
-            <br><br><br>
+           
             <div>
-
-              <button class="buttonOrg buttonOne" id="sign_up_button" type="submit" onclick="toggleSignUp()">Register for an account</button><br><br>
+<div class="inputContainer">
+            <h3>Search by name:</h3>
+            <form class="artistS" name="artistS" action="#" onsubmit="return false;">
+              <input class="input" type="text" name="artistSearch" id="artistSearch" placeholder="band or artist name" /><br>
+              <button class="buttonOne" id="btnFindArtist" type="submit" onclick="toggleArtist()">search</button>
+            </form><br>
+          </div>
+          <div class="inputContainer">
+            <h3>Search by location:</h3>
+            <form class="locationSearch" name="locationSearch" action="#" onsubmit="return false;">
+              <input class="input" type="text" name="eventSearch" id="eventSearch" placeholder="city, zip code or venue" /><br>
+              <button class="buttonOne" id="btnGetEvents" type="submit" onclick="toggleEvents()">search</button><br>
+            </form><br>
+          </div>
+              <br><br>
               <br>
-              <button class="buttonOrg buttonOne" id="sign_in_button" type="submit" onclick="toggleSignIn()">Have an account? Sign in</button><br><br>
+             <br><br>
               <br>
-              <button class="buttonOrg buttonOne" id="guest_button" type="submit" onclick="renderSearchPage()">Continue as a guest</button><br><br>
+             
             </div>
           </div>
         </div>
       </section>
 
-      <section class="search_page page" id="search_page"><br>
-        <div class="pic">
-          <h2> Your favorite artists! The best shows! Search for the bands you want to see to get tour dates.  Or search by city name, zip code, or even the name of the venue to see who is playing where.</h2>
-          <div class="inputContainer">
-            <h4>Search by name:</h4>
-            <form class="artistS" name="artistS" action="#" onsubmit="return false;">
-              <input class="input" type="text" name="artistSearch" id="artistSearch" placeholder="band or artist name" /><br>
-              <button class="buttons" id="btnFindArtist" type="submit" onclick="toggleArtist()">search</button>
-            </form><br>
-          </div>
-          <div class="inputContainer">
-            <h4>Search by location:</h4>
-            <form class="locationSearch" name="locationSearch" action="#" onsubmit="return false;">
-              <input class="input" type="text" name="eventSearch" id="eventSearch" placeholder="city, zip code or venue" /><br>
-              <button class="buttons" id="btnGetEvents" type="submit" onclick="toggleEvents();">search</button><br>
-            </form><br>
-          </div>
-          <br><br><br>
-      </section><br>
+
+     
 
       <section class="artist_results_page" id="artist_results_page">
-        <h3>Events by Artist</h3>
+        <h2>Events by Artist</h2>
         <ul class="artist_display">
           <li class="name">Artist: </li>
           <li><span id="name"></span></li>
@@ -67,82 +64,94 @@
       </section>
 
       <section class="event_results_page" id="event_results_page">
+          <h2>Your events</h2>
         <div class="resultsContainer">
-          <h3>Your events</h3>
+        
           <ul class="events_display">
-            <li class="title">Event: </li>
+            <li class="title head">Event: </li>
             <li><span id="title"></span></li>
-            <li class="city_name">City: </li>
+            <li class="city_name head">City: </li>
             <li><span id="city_name"></span></li>
-            <li class="starts">Start Time/Date: </li>
+            <li class="starts head">Date/Time: </li>
             <li><span id="starts"></span></li>
-            <li class="venueE">Venue: </li>
+            <li class="venueE head">Venue: </li>
             <li><span id="venueE"></span></li>
-            <li class="address">Venue Address: </li>
+            <li class="address head">Venue Address: </li>
             <li><span id="address"></span></li>
-            <li class="description">Event Description: </li>
-            <li><span id="description"></span></li>
+            <li class="image head">Image: </li>
+            <li><span id="img"></span></li>
+            <a href="`${results.events.event[0].image.medium.url}`"/></a>
           </ul>
         </div>
         <div class="resultsContainer">
           <ul class="events_display">
-            <li class="title">Event: </li>
+            <li class="title head">Event: </li>
             <li><span id="title2"></span></li>
-            <li class="city_name">City: </li>
+            <li class="city_name head">City: </li>
             <li><span id="city_name2"></span></li>
-            <li class="starts">Start Time/Date: </li>
+            <li class="starts head">Date/Time: </li>
             <li><span id="starts2"></span></li>
-            <li class="venueE">Venue: </li>
+            <li class="venueE head">Venue: </li>
             <li><span id="venueE2"></span></li>
-            <li class="address">Venue Address: </li>
+            <li class="address head">Venue Address: </li>
             <li><span id="address2"></span></li>
-            <li class="description">Event Description: </li>
-            <li><span id="description2"></span></li>
+            <li class="image head">Image: </li>
+            <li><span id="img2"></span></li>
+            <img src="${results.events.event[1].image.medium.url}">
           </ul>
         </div>
         <div class="resultsContainer">
           <ul class="events_display">
-            <li class="title">Event: </li>
+            <li class="title head">Event: </li>
             <li><span id="title3"></span></li>
-            <li class="city_name">City: </li>
+            <li class="city_name head">City: </li>
             <li><span id="city_name3"></span></li>
-            <li class="starts">Start Time/Date: </li>
+            <li class="starts head">Date/Time: </li>
             <li><span id="starts3"></span></li>
-            <li class="venueE">Venue: </li>
+            <li class="venueE head ">Venue: </li>
             <li><span id="venueE3"></span></li>
-            <li class="address">Venue Address: </li>
+            <li class="address head">Venue Address: </li>
             <li><span id="address3"></span></li>
-            <li class="description">Event Description: </li>
-            <li><span id="description3"></span></li>
+            <li class="image head">Image: </li>
+            <li><span id="img3"></span></li>
+            <img src="${results.events.event[2].image.medium.url}">
           </ul>
         </div>
+        <button class="buttonOrg buttonOne" id="back" type="submit" onclick="renderPage()">back to search</button><br><br>
       </section>
 
       <section class="SUpage" id="sign_up_page">
+        <div class="outer">
         <form class="signUpForm" name="signUpForm" id="suf" action="#" onsubmit="return false;"><br>
           <label>Register new user</label><br>
-          <input class="box" type="text" name="username" placeholder="Enter a username" id="enterUser" required/><br><br>
-          <input class="box" type="password" name="password" placeholder="Enter a password" id="enterPass" required/><br><br>
-          <input class="box" type="email" name="email" placeholder="Enter your email" id="enterEmail" required/><br><br>
-          <button class="buttons" id="createUser" type="submit" onclick="handleNewUser()">submit</button><br><br>
+          <input class="input" type="text" name="username" placeholder="Enter a username" id="enterUser" required/><br><br>
+          <input class="input" type="password" name="password" placeholder="Enter a password" id="enterPass" required/><br><br>
+          <input class="input" type="email" name="email" placeholder="Enter your email" id="enterEmail" required/><br><br>
+          <button class="buttonOne" id="createUser" type="submit" onclick="handleNewUser()">submit</button><br><br>
         </form>
+      </div>
+       <button class="buttonOrg buttonOne" id="back" type="submit" onclick="renderPage()">back to search</button><br><br>
       </section><br>
 
       <section class="SIpage" id="sign_in_page">
+        <div class = "outer">
         <form class="signInForm" name="signInForm" id="sif">
           <br><br><br>
           <label>Sign In</label><br><br>
-          <input class="box" type="text" name="un" placeholder="Enter your username" id="userName" required/><br><br>
-          <input class="box" type="password" name="pw" placeholder="Enter your password" id="userPass" required/><br><br>
-          <button class="buttons" id="submitUser" type="submit" onclick="handleOldUser()">submit</button><br><br><br><br>
+          <input class="input" type="text" name="un" placeholder="Enter your username" id="userName" required/><br><br>
+          <input class="input" type="password" name="pw" placeholder="Enter your password" id="userPass" required/><br><br>
+          <button class="buttonOne" id="submitUser" type="submit" onclick="handleOldUser()">submit</button><br><br><br><br>
         </form>
+      </div>
+      <button class="buttonOrg buttonOne" id="back" type="submit" onclick="renderPage()">back to search</button><br><br>
       </section><br>
 
 
       <section class="profile_page" id="profile_page">
-        <p>Sign up to hear about tour dates as soon as they are anguunced.</p><br><br><br><br>
+          <h2>Hello!</h2>
+        <h3>Sign up to hear about tour dates as soon as they are announced.</h3><br><br><br><br>
         <p>Register for an account and tell us who you want to See Live! We'll take care of the rest</p>
-        <h2>Hello!</h2>
+      
         <div class="inputContainer">
           <form class="updateUser" name="updateUser" id="updF" action="#" onsubmit="return false;">
             <label>To update your profile just enter a new username and password below</label><br>

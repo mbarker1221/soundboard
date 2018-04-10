@@ -6,23 +6,41 @@ body {
   background - size: cover;
   color: white;
   text-align: center;
-  font-family: 'Shadows into Light', cursive;
+  font-family: 'Rock Salt';
   font-size: .5em;
 }
 
-div {
-  margin-left: auto;
-  margin-right: auto;
-  /*display: inline-block;*/
-  border-radius: 6px;
-}
-
 .main {
-  background: url("img/bwConcert.jpeg")#cdd1d3 top no-repeat fixed;
+  background: url("img/bwConcert.jpeg") top no-repeat fixed;
   max-width: 85% ;
   margin: 0px auto;
   padding: 20px;
 }
+
+div {
+  margin: 20px auto;
+}
+
+.buttonOne {
+   font-size: 1.5em;
+    border-radius: 5px;
+    background-color: lightgrey;
+    border: 1px solid grey;
+    box-shadow: 5px 5px black;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+.buttonOne:hover {
+ background-color: black;
+ color: white;
+   -webkit-transition: background-color .7s ease-out;
+  -moz-transition: background-color .7s ease-out;
+  -o-transition: background-color .7s ease-out;
+  transition: background-color .7s ease-out;
+}
+
+
 
 h1 {
   background: url("img/show.gif")#cdd1d3;
@@ -37,34 +55,34 @@ h1 {
   text-shadow: 3px 3px black;
   border: 2px ridge white;
   border-radius: 9px;
-  max-width: 90% ;
+  max-width: 90%;
   margin: 0px auto;
   margin-top: 20px;
-  margin-bottom: 100px;
+  margin-bottom: 70px;
   font-family: "The Frontman";
   box-shadow: 20px 20px black;
 }
 
 h2 {
-  font-size: 3em;
-  max-width: 90% ;
+  font-size: 3.5em;
+  max-width: 80% ;
   margin: 0px auto;
-  color: black;
-  text-shadow: 2px 2px lightblue;
+  color: white;
+  text-shadow: 2px 2px black;
   word-spacing: .5em;
 }
 
 h3 {
-  font-size: 4em;
-  text-shadow: 2px 2px lightblue;
+  font-size: 2em;
+  color: white;
+  text-shadow: 2px 2px black;
 }
 
 h4 {
-  font-size: 3em;
+  font-size: 1.5em;
   text-shadow: 2px 2px black;
   font-weight: 800;
   border: none;
-
 }
 
 p {
@@ -73,30 +91,15 @@ p {
   color: black;
 }
 
-label {
-  font-size: 20px;
-  color:white;
-  text-shadow: 1px 1px black;
-}
-
-input {
-  /* display: block;*/
-  padding: 4px;
-  border: 2px solid lightblue;
-  border-radius: 3px;
-  font-size: 20px;
-  font-weight: 900;
-  text-align: center;
-  max-width: 80%;
-  margin: 0px auto;
-}
 
 .border {
-  background - color: lightgrey;
-  max-width: 70%;
+  background-color: black;
+  max-width: 80%;
   box-shadow: 15px 15px 10px black;
   padding-top: 20px;
   padding-bottom: 50px;
+  border: 2px solid white;
+  border-radius: 8px;
 }
 
 .guitar {
@@ -105,8 +108,9 @@ input {
   background-attachment: scroll;
   background-position: center;
   background-size: cover;
-  max-width: 90% ;
-  border: 4px ridge lightblue;
+  max-width: 80% ;
+  border: 2px solid white;
+  border-radius: 5px;
   box-shadow: 20px 20px 10px black;
   padding: 20px;
 }
@@ -114,74 +118,66 @@ input {
 .banner {
   max-width: 80% ;
   margin: 0px auto;
-  font-size: 2em;
   border-radius: 10px;
   margin-bottom: 10px;
   margin-top: 20px;
+}
+
+label {
+  font-size: 4em;
   color: white;
-  font-family: 'Shadows into light', cursive;
+  text-shadow: 1px 1px black;
 }
 
-.buttonOne:hover {
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+input {
+  padding: 4px;
+  border: 1px solid grey;
+  border-radius: 3px;
+  font-size: 20px;
+  font-weight: 900;
+  text-align: center;
+  max-width: 80%;
+  margin: 0px auto;
+   box-shadow: 5px 5px black;
+  
+}
+
+input:hover {
+
   background-color: lightblue;
+  color: black;
+    -webkit-transition: background-color .7s ease-out;
+  -moz-transition: background-color .7s ease-out;
+  -o-transition: background-color .7s ease-out;
+  transition: background-color .7s ease-out;
 }
 
-.buttonOne {
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-  }
-
-.buttonOrg {
-    font-size: 20px;
-    border-radius: 3px;
-    background-color: lightgrey;
-    border: 1px solid grey;
-    box-shadow: 7px 7px lightblue;
-    padding: 15px;
-    cursor: pointer; 
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.9s;
-    -webkit-transition: background-color 1s ease-out;
+.buttons {
+   -webkit-transition: background-color 1s ease-out;
   -moz-transition: background-color 1s ease-out;
   -o-transition: background-color 1s ease-out;
   transition: background-color 1s ease-out;
+}
+
+.buttons:hover {
+  background-color: black;
+  color: white;
+   -webkit-transition: background-color .7s ease-out;
+  -moz-transition: background-color .7s ease-out;
+  -o-transition: background-color .7s ease-out;
+  transition: background-color .7s ease-out;
   }
 
-.button {
-    font-size: 18px;
-    border-radius: 3px;
-    background-color: lightgrey;
-    border: 1px solid grey;
-    box-shadow: 2px 2px lightblue;
-    cursor: pointer;
-  }
+#sibut {
+   display: inline-block;
+  float: right;
+}
 
-.button:hover {
-    background-color: lightblue;
-  }
-
-.button:active {
-    box-shadow: 2px 2px white;
-  }
-
-  /*style for button*/
-.user {
-    font-size: 1.6em;
-    padding: 15px;
-    box-shadow: 7px 7px lightblue;
-  }
-
-.guest {
-    border: 6px ridge lightblue;
-    border-radius: 7px;
-    max-width: 30% ;
-    padding: 1px;
-    margin: 0px auto;
-    color: lightblue;
-    text-shadow: 2px 2px black;
-    box-shadow: 10px 10px 5px black;
-    background-clip: padding-box;
-  }
+#subut {
+  display: inline-block;
+  float: left;
+}
 
 .talk {
     background-color: white;
@@ -194,30 +190,19 @@ input {
     box-shadow: 10px 10 5px black;
   }
 
-.search_page {
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 1s;
-    transition: margin-bottom ease-in;
-  }
-
-.pic {
-  max-width: 90%;
-  background-color: white;
-  
-
-}
 
 .inputContainer {
-    max-width: 70%;
+    max-width: 80%;
     display: inline-block;
-    border: 5px ridge lightblue;
+    border: 2px solid white;
     border-radius:6px;
-    box-shadow: 10px 10px 5px white;
-    margin: 15px 20px;
-    padding - left: 10px;
-    padding - right: 10px;
-    color: lightblue;
-    text-shadow: 1px 1px black;
+    box-shadow: 10px 10px 5px black;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: black;
+    background-color: darkgrey;
+    margin-top: 30%;
+ 
   }
 
 .artist_results_page {
@@ -226,33 +211,22 @@ input {
   max-width: 70% ;
   padding: 10px;
   font-weight: 900;
-  border:7px ridge #007fAA;
+  border: 2px solid #007fAA;
   margin: 20px auto;
   background-image: url("img/g.jpeg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center;
   color: black;
-  transition: ease-in margin-bottom 2s;
-}
-
-.resultsContainer {
-  border: 3px ridge white;
-}
-li {
-  list-style: none;
-  font-size: 1em;
-  font-weight: 800;
 }
 
 .event_results_page {
-  /*display: none;*/
   outline-color: invert;
   border-radius: 6px;
   max-width: 70%;
   padding: 10px;
-  font-weight: 900;
-  border: 7px ridge #007fAA;
+
+  border: 2px solid #007fAA;
   margin: 20px auto;
   background-image: url("img/g.jpeg");
   background-repeat: no-repeat;
@@ -260,42 +234,51 @@ li {
   background-position: center;
   color: black;
 }
-
-.SUpage {
-  outline-color: invert;
-  border-radius: 6px;
-  max-width: 30% ;
-  font-weight: 900;
-  border: 7px ridge #007fAA;
-  margin: 20px auto;
-  background-image: url("img/sk.jpg");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  background-size: cover;
-  color: black;
-   -webkit-transition-duration: 0.4s; /* Safari */
-  transition: margin-bottom ease-in 1s;
+.resultsContainer {
+  border: 2px solid white;
+  max-width: 80%;
+  color: white;
+  background-color: black;
+  border-radius: 5px;
 }
 
-.box {
-  background-image: url("img/");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  border: 6px ridge lightblue;
-  border-radius: 7px;
-  max-width: 30%;
-  padding: 5px;
-  margin: 0px auto;
+.head {
+  color: lightblue;
+  font-weight: 800;
+}
+li {
+  list-style: none;
+  color: white;
+  font-size: 2.5em;
+  font-weight: 800;
+}
+
+
+
+.SUpage {
+background-color: black;
+max-width: 70%;
+margin: 0px auto;
+padding: 20px;
+border: 2px solid white;
+border-radius: 5px;
 }
 
 .SIpage {
+background-color: black;
+max-width: 70%;
+margin: 0px auto;
+padding: 20px;
+border: 2px solid white;
+border-radius: 5px;
+}
+
+.outer {
   outline-color: invert;
   border-radius: 6px;
-  max-width: 30%;
+  max-width: 80%;
   font-weight: 900;
-  border: 7px ridge #007fAA;
+  border: 2px solid white;
     margin: 20px auto;
     background-image: url("img/sk.jpg");
     background-repeat: no-repeat;
