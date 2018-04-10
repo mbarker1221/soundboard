@@ -1,18 +1,16 @@
 'use strict';
 /*jshint esversion: 6 */
 /*jshint node: true;*/
-
+const app="express";
 const express = require('express');
-const passport = require('passport');
+
 const bodyParser = require('body-parser');
 const {User} = require('./models');
 
-const app = express();
-const config = require('../config');
 const router = express.Router();
 const jsonParser = bodyParser.json();
 
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 
 
 router.post('/', jsonParser, (req, res) => {
@@ -65,13 +63,13 @@ router.post('/', jsonParser, (req, res) => {
     }
   };
   const tooSmallField = Object.keys(sizedFields).find( field =>
-      'min' in sizedFields[field] &&
-            req.body[field].trim().length < sizedFields[field].min
+    'min' in sizedFields[field] &&
+        req.body[field].trim().length < sizedFields[field].min
   );
   const tooLargeField = Object.keys(sizedFields).find(
     field =>
       'max' in sizedFields[field] &&
-            req.body[field].trim().length > sizedFields[field].max
+        req.body[field].trim().length > sizedFields[field].max
   );
 
   if (tooSmallField || tooLargeField) {
@@ -79,7 +77,7 @@ router.post('/', jsonParser, (req, res) => {
       code: 422,
       reason: 'ValidationError',
       message: tooSmallField
-              ? `Must be at least ${sizedFields[tooSmallField]
+        ? `Must be at least ${sizedFields[tooSmallField]
           .min} characters long`
         : `Must be at most ${sizedFields[tooLargeField]
           .max} characters long`,
@@ -93,44 +91,33 @@ router.post('/', jsonParser, (req, res) => {
     .count()
     .then(count => {
       if (count > 0) {
-     
-        return Promise.reject({
+      return Promise.reject({
           code: 422,
           reason: 'ValidationError',
           message: 'Username already taken',
           location: 'username'
         });
-      }
-      
+    }
       return User.hashPassword(password);
     })
     .then(hash => {
       return User.create({
         username,
         password: hash,
-       email
+        email
       });
     })
     .then(user => {
       return res.status(201).json(user.serialize());
     })
     .catch(err => {
-   
       if (err.reason === 'ValidationError') {
-        return res.status(err.code).json(err);
-      }
-      res.status(500).json({code: 500, message: 'Internal server error'});
-    });
+      return res.status(err.code).json(err);
+    }
+    res.status(500).json({code: 500, message: 'Internal server error'});
+  });
 });
-
 //router.get('/', (req, res) => {
  // res.json(User.get());
 //});
- 
-router.get('/', (req, res) => {
-  return User.find()
-    .then(users => res.json(users.map(user => user.serialize())))
-    .catch(err => res.status(500).json({message: 'Internal server error'}));
-});
-
 module.exports = {router};
