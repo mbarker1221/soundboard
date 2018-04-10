@@ -36,13 +36,10 @@ function toggleSignIn() {
   hideUnusedSections();
   $("#sign_in_page").show();
 }
-function renderSearchPage() {
-  hideUnusedSections();
-  $('#search_page').show();
-}
 
 function toggleArtist() {
   hideUnusedSections();
+    $("#artist_results_page").show();
   getArtist();
 }
 
@@ -66,7 +63,7 @@ function getArtist() {
 
 function showArtist(results) {
   $("#artistSearch").val('');
-  $("#artist_results_page").show();
+
   let id = results.performers.performer[0].url;
   $(`#id`).text(id);
   let name = results.performers.performer[0].name;
@@ -111,6 +108,8 @@ function showEvents(results) {
   $(`#address`).text(address);
   var description = results.events.event[0].description;
   $(`#description`).text(description);
+    var image = results.events.event[0].image.medium.url;
+  $(`#img`).text(image);
 
  $("#eventSearch").val('');
   var title = results.events.event[1].title;
@@ -125,6 +124,8 @@ function showEvents(results) {
   $(`#address2`).text(address);
   var description = results.events.event[1].description;
   $(`#description2`).text(description);
+  var image = results.events.event[1].image.medium.url;
+  $(`#img2`).text(image);
 
   $("#eventSearch").val('');
   var title = results.events.event[2].title;
@@ -138,9 +139,10 @@ function showEvents(results) {
   var address = results.events.event[2].venue_address;
   $(`#address3`).text(address);
   var description = results.events.event[2].description;
-  $(`#description3auth`).text(description);
+  $(`#description3`).text(description);
+   `<img src="${results.events.event[2].image.small.url}">`;
+  $(`#img3`).img(image);
 }
-
 
 
 function handleNewUser() {
@@ -156,7 +158,7 @@ function postNewUser(uN, pW, eM) {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": './server.js',
+    "url": 'mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users',
     "method": "POST",
     "headers": {
       "Content-Type": "application/x-www-form-urlencoded",
