@@ -1,4 +1,8 @@
 /*jshint esversion: 6 */
+
+var $ = require('jquery');
+'use strict';
+
 const serverBase = "http://localhost:8000";
 const USER_URL = serverBase + "/user";
 const EVENT_URL = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
@@ -13,13 +17,11 @@ const similar = "http://api.eventful.com/json/performers/get?c7nd5jGWK8tkcThz&id
 
 function hideUnusedSections() {
   $("#landing_page").hide();
-  $("#search_page").hide();
   $("#artist_results_page").hide();
   $("#event_results_page").hide();
   $("#sign_up_page").hide();
   $("#sign_in_page").hide();
   $('#profile_page').hide();
-  $("#sUsIpage").hide();
 }
 
 function renderPage() {
@@ -46,6 +48,7 @@ function toggleArtist() {
 function getArtist() {
   const artist_name = $("input[name=artistSearch]");
   const art = artist_name.val();
+   $("#artistSearch").val('');
   var settings = {
     "async": true,
     "crossDomain": true,
@@ -62,7 +65,6 @@ function getArtist() {
 }
 
 function showArtist(results) {
-  $("#artistSearch").val('');
 
   let id = results.performers.performer[0].url;
   $(`#id`).text(id);
@@ -79,6 +81,7 @@ function toggleEvents() {
 function getEvents() {
   var locate = $("input[name=eventSearch]");
   var loc = locate.val();
+   $("#eventSearch").val('');
   var settings = {
     "async": true,
     "crossDomain": true,
@@ -89,13 +92,13 @@ function getEvents() {
       "Cache-Control": "no-cache"
     }
   };
-  $.ajax(settings).done(function (response) {
+  $.ajax(settings).done(function (response) { 
+    hideUnusedSections();
     showEvents(response);
   });
 }
 
 function showEvents(results) {
-  $("#eventSearch").val('');
   var title = results.events.event[0].title;
   $(`#title`).text(title);
   var city = results.events.event[0].city_name;
@@ -108,10 +111,8 @@ function showEvents(results) {
   $(`#address`).text(address);
   var description = results.events.event[0].description;
   $(`#description`).text(description);
-    var image = results.events.event[0].image.medium.url;
-  $(`#img`).text(image);
-
- $("#eventSearch").val('');
+  
+    
   var title = results.events.event[1].title;
   $(`#title2`).text(title);
   var city = results.events.event[1].city_name;
@@ -124,10 +125,8 @@ function showEvents(results) {
   $(`#address2`).text(address);
   var description = results.events.event[1].description;
   $(`#description2`).text(description);
-  var image = results.events.event[1].image.medium.url;
-  $(`#img2`).text(image);
 
-  $("#eventSearch").val('');
+
   var title = results.events.event[2].title;
   $(`#title3`).text(title);
   var city = results.events.event[2].city_name;
@@ -140,28 +139,35 @@ function showEvents(results) {
   $(`#address3`).text(address);
   var description = results.events.event[2].description;
   $(`#description3`).text(description);
-   `<img src="${results.events.event[2].image.small.url}">`;
-  $(`#img3`).img(image);
-}
 
+  }
+
+ function toggleNewUser() {
+  hideUnusedSections();
+  $('#profile_page').show();
+  handleNewUser();
+ }
 
 function handleNewUser() {
-  hideUnusedSections();
+ // hideUnusedSections();
   const uN = $("input[name=username]").val();
   const pW = $("input[name=password]").val();
   const eM = $("input[name=email]").val();
+  $('#enterUser').val('');
+  $('#enterPass').val('');
+  $('#enterEmail').val('');
   postNewUser(uN, pW, eM);
 }
 
 function postNewUser(uN, pW, eM) {
-
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": 'mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users',
+    "url": 'localhost:8080/mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users',
     "method": "POST",
+    "dataType": "jsonp",
     "headers": {
-      "Content-Type": "application/x-www-form-urlencoded",
+     //"Content-Type": "application/x-www-form-urlencoded",
       "Content-Type": "application/json",
       "Cache-Control": "no-cache"
     },
@@ -219,8 +225,7 @@ function postNewUser(uN, pW, eM) {
 }
 */
 function displayProfile() {
-  hideUnusedSections();
-  $('profile_page').show();
+var currentUser = this.user.username;
   storeUser(response);
 }
 
@@ -238,60 +243,56 @@ function storeUser(response) {
     password: this.password[user.password],
     email: this.User[user.email]
   };
-  clearValues();
-}
-
-
-function clearValues() {
-  $('#enterUser').val('');
-  $('#enterPass').val('');
-  $('#enterEmail').val('');
   handleHello();
 }
 
 function handleHello() {
-  $('#profile_page').show();
   var hello = '<header>Hello,  ${username} ! </header>';
 }
 
-function toggleSignIn() {
+function toggleOldUser() {
   hideUnusedSections();
-  $("#sign_in_page").show();
-}
-
+  $('#profile_page').show();
+  handleOldUser();
+ }
 
 function handleOldUser() {
-  $("#sign_in_page").hide();
-  $('#profile_page').show();
   var usnm = $("input[name=un]").val();
   var pasw = $("input[name=pw]").val();
+  $("#userName").val('');
+  $("#userPass").val('');
   getOldUser(usnm, pasw);
 }
 
-function getOldUser(usrm, pasw) {
-  /* var settings = {
+function getOldUser(usnm, pasw) {
+  var settings = {
   "async": true,
   "crossDomain": true,
   "url": "http://localhost:8080/user",
   "method": "POST",
+  "dataType": "jsonp",
   "headers": {
-     "Content-Type": "application/x-www-form-urlencoded",
-    //"Content-Type": "application/json",
-    //"Cache-Control": "no-cache"
+    // "Content-Type": "application/x-www-form-urlencoded",
+    "Content-Type": "application/json",
+    "Cache-Control": "no-cache"
   },
   "processData": false,
   "data": {
-      "username": uN,
-      "password": pW,
-      "email": eM
+      "username": usnm,
+      "password": pasw
     }
-    };
+  };
 $.ajax(settings).done(function (response) {
   console.log(response);
   displayProfile();
 });
-*/
+}
 
+function displayProfile() {
+  handleHello();
+}
+
+/*
   $.ajax({
     method: "GET",
     url: USER_URL,
@@ -315,7 +316,8 @@ $.ajax(settings).done(function (response) {
     }
   });
 }
-
+*/
+/*
 function storeOldUser() {
   var User = {
     id: this.User[user.id],
@@ -326,11 +328,7 @@ function storeOldUser() {
   console.log(User);
   clearOldValues();
 }
-
-function clearOldValues() {
-  $('#userName').val('');
-  $('#userPass').val('');
-}
+*/
 
 function updateUser() {
   let userId = this.User[user.id];
@@ -384,6 +382,5 @@ function deleteUser() {
 $(document).ready();
 
 window.onload = function () {
-  hideUnusedSections();
   renderPage();
 };

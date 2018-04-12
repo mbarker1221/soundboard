@@ -9,7 +9,6 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
     .then(_user => {
       user = _user;
       if (!user) {
-        
         return Promise.reject({
           reason: 'LoginError',
           message: 'Incorrect username or password'
@@ -34,7 +33,8 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
     });
 });
 
-const jwtStrategy = new JwtStrategy({
+const jwtStrategy = new JwtStrategy(
+  {
     secretOrKey: JWT_SECRET,
     jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
     algorithms: ['HS256']
