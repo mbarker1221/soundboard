@@ -17,7 +17,7 @@ chai.use(chaiHttp);
 describe('Auth endpoints', function() {
   const username = 'exampleUser';
   const password = 'examplePass';
-  const email = 'example.com';
+  const email = 'example@example.com';
 
   before(function() {
     return runServer();
@@ -92,7 +92,7 @@ describe('Auth endpoints', function() {
           expect(res).to.have.status(401);
         });
     });
-  /*  it('Should return a valid auth token', function () {
+    it('Should return a valid auth token', function () {
       return chai
         .request(app)
         .post('/api/auth/login')
@@ -111,7 +111,7 @@ describe('Auth endpoints', function() {
           });
         });
     });
- */   });
+  });
 
   describe('/api/auth/refresh', function () {
     it('Should reject requests with no credentials', function () {
