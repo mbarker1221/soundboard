@@ -189,7 +189,7 @@ describe('Auth endpoints', function() {
 
           const res = err.response;
           expect(res).to.have.status(401);
-          console.log(err))
+          console.log(err)
 
         });
     });
