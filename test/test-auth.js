@@ -27,7 +27,7 @@ describe('Auth endpoints', function() {
     return closeServer();
   });
 
-  beforeEach(function() {
+ beforeEach(function() {
     return User.hashPassword(password).then(password =>
       User.create({
         username,
@@ -189,6 +189,8 @@ describe('Auth endpoints', function() {
 
           const res = err.response;
           expect(res).to.have.status(401);
+          console.log(err)
+
         });
     });
   });
