@@ -31,7 +31,8 @@ div {
     margin-top: 4px;
   }
 
-  .reg{  margin: 50px;
+  .reg{  
+    margin: 50px;
    }
 
 .buttonOne:hover {
@@ -214,7 +215,7 @@ input:hover {
 .artist_results_page {
   transition outline-color: invert;
   border-radius: 6px;
-  max-width: 70% ;
+  max-width: 70%;
   padding: 10px;
   font-weight: 900;
   border: 2px solid #007fAA;
@@ -260,8 +261,6 @@ li {
   font-weight: 800;
 }
 
-
-
 .SUpage {
 background-color: black;
 max-width: 70%;
@@ -301,7 +300,6 @@ border-radius: 5px;
     background-attachment: scroll;
     background-position: center;
     background-size: cover;
-    
     opacity: .9;
   background-color: lightgrey;
     max-width: 80%;
@@ -312,13 +310,11 @@ border-radius: 5px;
     padding-left: 10px;
     padding-right: 10px;
     color: black;
- 
-
   }
 
   .notifyContainer { 
     opacity: .7;
-  background-color: lightgrey;
+    background-color: lightgrey;
     max-width: 80%;
     display: inline-block;
     border: 2px solid black;
@@ -331,7 +327,6 @@ border-radius: 5px;
   }
 
 .updateContainer {
-
    opacity: .7;
   background-color: lightgrey;
     max-width: 80%;
@@ -343,7 +338,6 @@ border-radius: 5px;
     padding-right: 10px;
     color: black;
     margin-top: 30%;
-
 }
 
   .deleteContainer {

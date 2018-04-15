@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 var $ = require('jquery');
 const serverBase = "http://localhost:8000";
-const USER_URL = serverBase + '/users';
+const USER_URL = serverBase + './index.js';
 const EVENT_URL = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
 const ARTIST_Events_URL = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=";
 const ARTIST_URL = "http://api.eventful.com/json/performers/search?app_key=c7nd5jGWK8tkcThz&keywords=";
