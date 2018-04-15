@@ -12,10 +12,10 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe('/api/user', function() {
+describe('/api/users', function() {
   const username = 'exampleUser';
   const password = 'examplePass';
-  const email = 'example@example.com';
+  const email = 'example@email.com';
   const usernameB = 'exampleUserB';
   const passwordB = 'examplePassB';
   const emailB = 'exampleB@email.com';
@@ -134,30 +134,6 @@ describe('/api/user', function() {
             expect(res.body.location).to.equal('password');
           });
       });
-      it('Should reject users with missing email', function() {
-        return chai
-          .request(app)
-          .post('/api/users')
-          .send({
-            username,
-            password
-          })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
-          .catch(err => {
-            if (err instanceof chai.AssertionError) {
-              throw err;
-            }
-
-            const res = err.response;
-            expect(res).to.have.status(422);
-            expect(res.body.reason).to.equal('ValidationError');
-            expect(res.body.message).to.equal('incorrect field type');
-            expect(res.body.location).to.equal('email');
-          });
-      });
-     
       it('Should reject users with non-trimmed username', function() {
         return chai
           .request(app)
@@ -184,7 +160,7 @@ describe('/api/user', function() {
             expect(res.body.location).to.equal('username');
           });
       });
-      it('Should reject users with non-trimmed password', function() {
+      it('Should reject usernamesers with non-trimmed password', function() {
         return chai
           .request(app)
           .post('/api/users')
@@ -319,7 +295,7 @@ describe('/api/user', function() {
             );
             expect(res.body.location).to.equal('username');
           });
-      });
+        });
       });
     });
   });
