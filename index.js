@@ -6,6 +6,10 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
 
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
+const {User} = require('./users/models');
+
 const {router: userRouter} = require('./users');
 const {router: authRouter, localStrategy, jwtStrategy} = require('./auth');
 
@@ -46,11 +50,12 @@ app.get('/api/protected', jwtAuth, (req, res) => {
 });
 
 app.get('/', function (req, res) {
-  throw new Error('oh no!')
-})
+  throw new Error('oh no!');
+});
+
 app.use(function (err, req, res, next) {
-  console.log(err.message) // oh no!
-})
+  console.log(err.message);
+});
 
 app.use('*', (req, res) => {
   return res.status(404).json({message: 'Not Found'});
