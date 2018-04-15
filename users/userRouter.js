@@ -128,7 +128,6 @@ router.post('/', jsonParser, (req, res) => {
     .catch(err => {
    
       if (err.reason === 'ValidationError') {
-<<<<<<< HEAD:users/userRouter.js
       return res.status(err.code).json(err);
     }
 
@@ -137,12 +136,6 @@ router.post('/', jsonParser, (req, res) => {
   });
 });
 
-=======
-        return res.status(err.code).json(err);
-      }
-      res.status(500).json({code: 500, message: 'Internal server error'});
-    });
-});
 
 //router.get('/', (req, res) => {
  // res.json(User.get());
@@ -154,5 +147,4 @@ router.get('/', (req, res) => {
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
->>>>>>> 9714054910606969d57193199b1c734444b2c244:users/router.js
 module.exports = {router};
