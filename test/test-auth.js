@@ -18,7 +18,11 @@ chai.use(chaiHttp);
 describe('Auth endpoints', function () {
   const username = 'exampleUser';
   const password = 'examplePass';
+<<<<<<< HEAD
   const email = "example@example.com"
+=======
+  const email = 'example@example.com';
+>>>>>>> 9714054910606969d57193199b1c734444b2c244
 
   before(function() {
     return runServer();
@@ -93,7 +97,11 @@ describe('Auth endpoints', function () {
           expect(res).to.have.status(401);
         });
     });
+<<<<<<< HEAD
     it('Should return a valid auth token', function() {
+=======
+    it('Should return a valid auth token', function () {
+>>>>>>> 9714054910606969d57193199b1c734444b2c244
       return chai
         .request(app)
         .post('/api/auth/login')
