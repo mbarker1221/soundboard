@@ -317,11 +317,7 @@ border-radius: 5px;
   }
 
   .notifyContainer { 
-    background-image: url("img/seisure.gif");
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-position: center;
-    opacity: .9;
+    opacity: .7;
   background-color: lightgrey;
     max-width: 80%;
     display: inline-block;
@@ -336,7 +332,7 @@ border-radius: 5px;
 
 .updateContainer {
 
-   opacity: .9;
+   opacity: .7;
   background-color: lightgrey;
     max-width: 80%;
     display: inline-block;

@@ -1,4 +1,6 @@
 'use strict';
+/*jshint esversion: 6 */
+/*jshint node: true;*/
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 

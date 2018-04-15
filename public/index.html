@@ -16,10 +16,12 @@
   
         <section class="landing_page page" id="landing_page"> 
          <h1>Amped</h1><br>       
+         <form class="susi" name="susiForm" id="suf" action="#" onsubmit="return false"><br>
             <button class="buttonOne reg" id="sign_up_button" type="submit" onclick="toggleSignUp()" autofocus>Register for an account</button> 
             <button class="buttonOne reg" id="sign_in_button" type="submit" onclick="toggleSignIn()">Have an account? Sign in</button>
+          </form>
               <div class="border">
-                <p> Do you love being in an arena filled with hundreds of screaming fans?  Or would you rather check out some live music in a local club or bar?.     Whether you want to see a band you've followed for years or find some fresh talent, we have it here! </p>     
+                <p> Whether you want to see your favorite band playing live onstage in an arena filled with hundreds of screaming fans, or you'd rather watch a local act perform in a neighborhood club or bar, we have it here!     you want to see a band you've followed for years or find some fresh talent</p>     
                 <div class="guitar">
                   <h2>THE BEST BANDS!</h2>
                   <h2>THE HOTTEST SHOWS!</h2>        
@@ -38,10 +40,12 @@
                         <button class="buttonOne" id="btnGetEvents" type="submit" onclick="toggleEvents()">search</button><br>
                       </form><br>
                   </div>
-              </div>             
+              </div>   
+              </div>
+
         </section>
 
-        <section class="artist_results_page" id="artist_results_page">
+        <section class="artist_results_page page" id="artist_results_page">
           <h2>YOUR EVENTS</h2>
             <div class="resultsContainer">
               <ul class="artist_display">
@@ -51,10 +55,12 @@
                 <li><span id="id"></span></li>
               </ul>
            </div>
-            <button class="buttonOne" type="submit" onclick="renderPage()">back to search</button><br><br>
+            <form class="backToIt" name="goBack" id="babyBack" action = "#" onsubmit="return false">
+                <button class="buttonOne" type="submit" id="restart" onclick="renderPage()">back to search</button><br><br>
+              </form><br><br>
         </section>
 
-        <section class="event_results_page" id="event_results_page">
+        <section class="event_results_page page" id="event_results_page">
           <h2>YOUR EVENTS</h2>
             <div class="resultsContainer">
               <ul class="events_display">
@@ -100,12 +106,14 @@
                 <li class="image head">Image: </li>             
               </ul>
             </div>
-              <button class="buttonOne" type="submit" onclick="renderPage()">back to search</button><br><br>
+              <form class="backToIt" name="goBack" action = "#" onsubmit="return false">
+                <button class="buttonOne" type="submit" id="redo" onclick="renderPage()">back to search</button><br><br>
+              </form><br><br>
         </section>
 
-        <section class="SUpage" id="sign_up_page">
+        <section class="SUpage page" id="sign_up_page">
           <div class="outer">
-            <form class="signUpForm" name="signUpForm" id="suf" action="#" onsubmit="return false"><br>
+            <form class="signUpForm" name="signUpForm" id="siup" action="#" onsubmit="return false"><br>
               <h2>Sign Up</h2><br>
                 <input class="input" type="text" name="username" placeholder="Enter a username" id="enterUser" required/><br><br>
                 <input class="input" type="password" name="password" placeholder="Enter a password" id="enterPass" required/><br><br>
@@ -113,12 +121,14 @@
                 <button class="buttonOne" id="createUser" type="submit" onclick="toggleNewUser()">submit</button><br><br>
             </form>
           </div>
-            <button class="buttonOne" type="submit" onclick="renderPage()">back to search</button><br><br>
+            <form class="backToIt" name="goBack" id="backyard" action = "#" onsubmit="return false">
+                <button class="buttonOne" type="submit" id="replay" onclick="renderPage()">back to search</button><br><br>
+              </form><br><br>
         </section><br>
 
-        <section class="SIpage" id="sign_in_page">
+        <section class="SIpage page" id="sign_in_page">
           <div class = "outer">
-            <form class="signInForm" name="signInForm" id="sif">
+            <form class="signInForm" name="signInForm" id="sif" action="#" onsubmit="return false">
               <br><br><br>
               <h2>Sign In</h2><br><br>
                 <input class="input" type="text" name="un" placeholder="Enter username" id="userName" required/><br><br>
@@ -126,11 +136,13 @@
                   <button class="buttonOne" id="submitUser" type="submit" onclick="toggleOldUser()">submit</button><br><br><br><br>
             </form>
           </div>
-            <button class="buttonOne" type="submit" onclick="renderPage()">back to search</button><br><br>
+           <form class="backToIt" name="goBack" id="backItUp" action = "#" onsubmit="return false">
+                <button class="buttonOne" type="submit" id="rerun" onclick="renderPage()">back to search</button><br><br>
+              </form><br><br>
         </section><br>
 
-        <section class="profile_page" id="profile_page">
-          <h2>Hello! ${'currentUser'}</h2>
+        <section class="profile_page page" id="profile_page">
+          <h2>Hello! ${'hello'}</h2>
             <br><br><br><br>
             <div class="notifyContainer">
               <form class="notifications" name="notifications" action="#" onsubmit="return false">
@@ -154,17 +166,19 @@
                   <button class="buttonOne" id="deleteUser" type="submit" onclick="deleteUser()">delete me</button><br><br>
                 </form>
             </div>
-    
-            <button class="buttonOne" type="submit" onclick="renderPage()">back to search</button><br><br>
+              <form class="backToIt" name="goBack" id="backTalk" action = "#" onsubmit="return false">
+                <button class="buttonOne" type="submit" id="resynch" onclick="renderPage()">back to search</button><br><br>
+              </form>
           </section>
-        </section>
+      
     </main>
-      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
       <!--<script src="bundle.js"></script-->
       <!--<script type="text/javascript" src="server.js"></script-->
-      <script type="text/javascript" src="index.js"></script>
-  </body>
+      <script src="index.js"></script>
+</body>
 </html>

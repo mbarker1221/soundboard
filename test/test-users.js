@@ -12,7 +12,7 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe('/api/user', function() {
+describe('/api/users', function() {
   const username = 'exampleUser';
   const password = 'examplePass';
   const email = 'example@email.com';
@@ -160,7 +160,7 @@ describe('/api/user', function() {
             expect(res.body.location).to.equal('username');
           });
       });
-      it('Should reject users with non-trimmed password', function() {
+      it('Should reject usernamesers with non-trimmed password', function() {
         return chai
           .request(app)
           .post('/api/users')

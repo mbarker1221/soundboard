@@ -53,6 +53,17 @@ router.post('/', jsonParser, (req, res) => {
     });
   }
 
+ /* function ValidateEmail(mail) 
+{
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.emailAddr.value))
+  {
+    return (true)
+  }
+    alert("You have entered an invalid email address!")
+    return (false)
+}
+*/
+
   const sizedFields = {
     username: {
       min: 4
@@ -114,10 +125,10 @@ router.post('/', jsonParser, (req, res) => {
       if (err.reason === 'ValidationError') {
       return res.status(err.code).json(err);
     }
+
+
     res.status(500).json({code: 500, message: 'Internal server error'});
   });
 });
-//router.get('/', (req, res) => {
- // res.json(User.get());
-//});
+
 module.exports = {router};

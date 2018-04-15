@@ -1,10 +1,7 @@
 /*jshint esversion: 6 */
-
 var $ = require('jquery');
-'use strict';
-
 const serverBase = "http://localhost:8000";
-const USER_URL = serverBase + "/user";
+const USER_URL = serverBase + '/users';
 const EVENT_URL = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
 const ARTIST_Events_URL = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=";
 const ARTIST_URL = "http://api.eventful.com/json/performers/search?app_key=c7nd5jGWK8tkcThz&keywords=";
@@ -26,21 +23,31 @@ function hideUnusedSections() {
 
 function renderPage() {
   hideUnusedSections();
+ // handleNavigation();
   $("#landing_page").show();
 }
 
+
+//function setEventListeners() {
+ // hideUnusedSections()
+   //handleNavigation();
+//}
+
 function toggleSignUp() {
+ // handleNavigation();
   hideUnusedSections();
   $("#sign_up_page").show();
 }
 
 function toggleSignIn() {
-  hideUnusedSections();
+ hideUnusedSections();
+ // handleNavigation();
   $("#sign_in_page").show();
 }
 
 function toggleArtist() {
   hideUnusedSections();
+//   handleNavigation();
     $("#artist_results_page").show();
   getArtist();
 }
@@ -59,7 +66,7 @@ function getArtist() {
       "Cache-Control": "no-cache",
     }
   };
-  $.ajax(settings).done(function (response) {
+  $.ajax(settings).done(function(response) {
     showArtist(response);
   });
 }
@@ -74,6 +81,7 @@ function showArtist(results) {
 
 function toggleEvents() {
   hideUnusedSections();
+//   handleNavigation();
   $("#event_results_page").show();
   getEvents();
 }
@@ -81,8 +89,7 @@ function toggleEvents() {
 function getEvents() {
   var locate = $("input[name=eventSearch]");
   var loc = locate.val();
-   $("#eventSearch").val('');
-  var settings = {
+  var params = {
     "async": true,
     "crossDomain": true,
     "dataType": "jsonp",
@@ -92,68 +99,73 @@ function getEvents() {
       "Cache-Control": "no-cache"
     }
   };
-  $.ajax(settings).done(function (response) { 
-    hideUnusedSections();
+  $.ajax(params).done(function(response) { 
+  //$("#eventSearch").val('');
     showEvents(response);
   });
 }
 
 function showEvents(results) {
-  var title = results.events.event[0].title;
+
+  let title = results.events.event[0].title;
   $(`#title`).text(title);
-  var city = results.events.event[0].city_name;
+  let city = results.events.event[0].city_name;
   $(`#city_name`).text(city);
-  var start_time = results.events.event[0].start_time;
+  let start_time = results.events.event[0].start_time;
   $(`#starts`).text(start_time);
-  var venueE = results.events.event[0].venue_name;
+  let venueE = results.events.event[0].venue_name;
   $(`#venueE`).text(venueE);
-  var address = results.events.event[0].venue_address;
+  let address = results.events.event[0].venue_address;
   $(`#address`).text(address);
-  var description = results.events.event[0].description;
+  let description = results.events.event[0].description;
   $(`#description`).text(description);
   
     
-  var title = results.events.event[1].title;
+  let title2 = results.events.event[1].title;
   $(`#title2`).text(title);
-  var city = results.events.event[1].city_name;
+  let city2 = results.events.event[1].city_name;
   $(`#city_name2`).text(city);
-  var start_time = results.events.event[1].start_time;
+  let start_time2 = results.events.event[1].start_time;
   $(`#starts2`).text(start_time);
-  var venueE = results.events.event[1].venue_name;
+  let venueE2 = results.events.event[1].venue_name;
   $(`#venueE2`).text(venueE);
-  var address = results.events.event[1].venue_address;
+  let address2 = results.events.event[1].venue_address;
   $(`#address2`).text(address);
-  var description = results.events.event[1].description;
+  let description2 = results.events.event[1].description;
   $(`#description2`).text(description);
 
 
-  var title = results.events.event[2].title;
+  let title3 = results.events.event[2].title;
   $(`#title3`).text(title);
-  var city = results.events.event[2].city_name;
+  let city3 = results.events.event[2].city_name;
   $(`#city_name3`).text(city);
-  var start_time = results.events.event[2].start_time;
+  let start_time3 = results.events.event[2].start_time;
   $(`#starts3`).text(start_time);
-  var venueE = results.events.event[2].venue_name;
+  let venueE3 = results.events.event[2].venue_name;
   $(`#venueE3`).text(venueE);
-  var address = results.events.event[2].venue_address;
+  let address3 = results.events.event[2].venue_address;
   $(`#address3`).text(address);
-  var description = results.events.event[2].description;
+  let description3 = results.events.event[2].description;
   $(`#description3`).text(description);
 
   }
 
  function toggleNewUser() {
-  hideUnusedSections();
+hideUnusedSections();
+ //  handleNavigation();
   $('#profile_page').show();
   handleNewUser();
  }
 
 function handleNewUser() {
- // hideUnusedSections();
   const uN = $("input[name=username]").val();
   const pW = $("input[name=password]").val();
   const eM = $("input[name=email]").val();
-  $('#enterUser').val('');
+  clearFormValues();
+}
+
+function clearFormValues() {
+   $('#enterUser').val('');
   $('#enterPass').val('');
   $('#enterEmail').val('');
   postNewUser(uN, pW, eM);
@@ -163,7 +175,7 @@ function postNewUser(uN, pW, eM) {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": 'localhost:8080/mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users',
+    "url": 'mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users',
     "method": "POST",
     "dataType": "jsonp",
     "headers": {
@@ -247,11 +259,11 @@ function storeUser(response) {
 }
 
 function handleHello() {
-  var hello = '<header>Hello,  ${username} ! </header>';
+  var hello = this.user[username];
 }
 
 function toggleOldUser() {
-  hideUnusedSections();
+  handleNavigation();
   $('#profile_page').show();
   handleOldUser();
  }
@@ -259,6 +271,10 @@ function toggleOldUser() {
 function handleOldUser() {
   var usnm = $("input[name=un]").val();
   var pasw = $("input[name=pw]").val();
+  clearValues();
+}
+
+function clearValues() {
   $("#userName").val('');
   $("#userPass").val('');
   getOldUser(usnm, pasw);
@@ -378,9 +394,6 @@ function deleteUser() {
   });
 }
 
-
-$(document).ready();
-
-window.onload = function () {
+$(() => {
   renderPage();
-};
+});
