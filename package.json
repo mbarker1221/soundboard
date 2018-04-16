@@ -80,6 +80,7 @@
     "server": "^1.0.18",
     "server.js": "^1.0.0",
     "session-mongoose": "^0.5.2",
+    "uniq": "^1.0.1",
     "uuid": "^3.2.1",
     "webpack": "^4.4.1"
   },
