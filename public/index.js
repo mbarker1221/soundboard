@@ -22,8 +22,8 @@ function hideUnusedSections() {
 }
 
 function renderPage() {
+  hideUnusedSections();
   $("#landing_page").show();
-   hideUnusedSections();
 }
 
 function toggleSignUp() {
@@ -32,20 +32,20 @@ function toggleSignUp() {
 }
 
 function toggleSignIn() {
- hideUnusedSections();
+  hideUnusedSections();
   $("#sign_in_page").show();
 }
 
 function toggleArtist() {
   hideUnusedSections();
-    $("#artist_results_page").show();
+  $("#artist_results_page").show();
   getArtist();
 }
 
 function getArtist() {
   const artist_name = $("input[name=artistSearch]");
   const art = artist_name.val();
-   $("#artistSearch").val('');
+  $("#artistSearch").val('');
   var settings = {
     "async": true,
     "crossDomain": true,
@@ -53,10 +53,10 @@ function getArtist() {
     "url": ARTIST_URL + art,
     "method": "GET",
     "headers": {
-    "Cache-Control": "no-cache",
+      "Cache-Control": "no-cache",
     }
   };
-  $.ajax(settings).done(function(response) {
+  $.ajax(settings).done(function (response) {
     showArtist(response);
   });
 }
@@ -87,7 +87,7 @@ function getEvents() {
       "Cache-Control": "no-cache"
     }
   };
-  $.ajax(params).done(function(response) { 
+  $.ajax(params).done(function (response) {
     showEvents(response);
   });
 }
@@ -106,8 +106,8 @@ function showEvents(results) {
   $(`#address`).text(address);
   let description = results.events.event[0].description;
   $(`#description`).text(description);
-  
-    
+
+
   let title2 = results.events.event[1].title;
   $(`#title2`).text(title);
   let city2 = results.events.event[1].city_name;
@@ -134,13 +134,13 @@ function showEvents(results) {
   $(`#address3`).text(address);
   let description3 = results.events.event[2].description;
   $(`#description3`).text(description);
-  }
+}
 
- function toggleNewUser() {
+function toggleNewUser() {
   hideUnusedSections();
   $('#profile_page').show();
   handleNewUser();
- }
+}
 
 function handleNewUser() {
   const uN = $("input[name=username]").val();
@@ -150,7 +150,7 @@ function handleNewUser() {
 }
 
 function clearFormValues() {
-   $('#enterUser').val('');
+  $('#enterUser').val('');
   $('#enterPass').val('');
   $('#enterEmail').val('');
   postNewUser(uN, pW, eM);
@@ -221,7 +221,7 @@ function postNewUser(uN, pW, eM) {
 }
 */
 function displayProfile() {
-var currentUser = this.user.username;
+  var currentUser = this.user.username;
   storeUser(response);
 }
 
@@ -250,7 +250,7 @@ function toggleOldUser() {
   handleNavigation();
   $('#profile_page').show();
   handleOldUser();
- }
+}
 
 function handleOldUser() {
   var usnm = $("input[name=un]").val();
@@ -266,25 +266,25 @@ function clearValues() {
 
 function getOldUser(usnm, pasw) {
   var settings = {
-  "async": true,
-  "crossDomain": true,
-  "url": "http://localhost:8080/user",
-  "method": "POST",
-  "dataType": "jsonp",
-  "headers": {
-    "Content-Type": "application/json",
-    "Cache-Control": "no-cache"
-  },
-  "processData": false,
-  "data": {
+    "async": true,
+    "crossDomain": true,
+    "url": "http://localhost:8080/user",
+    "method": "POST",
+    "dataType": "jsonp",
+    "headers": {
+      "Content-Type": "application/json",
+      "Cache-Control": "no-cache"
+    },
+    "processData": false,
+    "data": {
       "username": usnm,
       "password": pasw
     }
   };
-$.ajax(settings).done(function (response) {
-  console.log(response);
-  displayProfile();
-});
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    displayProfile();
+  });
 }
 
 function displayProfile() {
@@ -377,7 +377,6 @@ function deleteUser() {
   });
 }
 
- $(document).ready(); { 
-  hideUnusedSections();
+$(document).ready(); {
   renderPage();
- }
+}

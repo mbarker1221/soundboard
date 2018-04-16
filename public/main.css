@@ -1,4 +1,4 @@
-*{
+* {
   box-sizing: border-box;
 }
 
@@ -10,8 +10,7 @@ body {
 }
 
 #landing_page {
-  
-  max-width: 85% ;
+  max-width: 85%;
   margin: 0px auto;
   padding: 20px;
   background-color: #99a2af;
@@ -22,23 +21,32 @@ div {
 }
 
 .buttonOne {
-   font-size: 1.5em;
-    border-radius: 6px;
-    background-color: lightgrey;
-    border: 1px solid grey;
-    box-shadow: 5px 5px black;
-    padding: 7px;
-    cursor: pointer;
-    margin-top: 4px;
-  }
+  font-size: 1.5em;
+  border-radius: 6px;
+  background-color: lightgrey;
+  border: 1px solid grey;
+  box-shadow: 5px 5px black;
+  padding: 7px;
+  cursor: pointer;
+  margin-top: 4px;
+}
 
-  .reg{  
-    margin: 2%;
-   }
+.reg {
+  margin: 2%;
+}
 
 .buttonOne:hover {
- background-color: black;
- color: white;
+  background-color: black;
+  color: white;
+  -webkit-transition: background-color .7s ease-out;
+  -moz-transition: background-color .7s ease-out;
+  -o-transition: background-color .7s ease-out;
+  transition: background-color .7s ease-out;
+}
+
+.butt {
+  background-color: black;
+  color: white;
   -webkit-transition: background-color .7s ease-out;
   -moz-transition: background-color .7s ease-out;
   -o-transition: background-color .7s ease-out;
@@ -46,7 +54,7 @@ div {
 }
 
 h1 {
-  background: url("img/show.gif")#cdd1d3;
+  background: url("img/show.gif");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
@@ -55,7 +63,7 @@ h1 {
   font-weight: 950;
   font-size: 15em;
   color: black;
-  text-shadow: 4px 4px #FEFE33;;
+  text-shadow: 4px 4px #FEFE33;
   border: 2px ridge white;
   border-radius: 9px;
   max-width: 90%;
@@ -77,14 +85,23 @@ h2 {
 h3 {
   padding: 5px;
   font-size: 2em;
-  color: black;  
+  color: black;
+  font-weight: 900;
 }
 
 h4 {
-  font-size: 1.5em;
+  font-size: 2em;
   text-shadow: 2px 2px black;
   font-weight: 800;
   border: none;
+  color: #FEFE33;
+}
+
+h5 {
+  padding: 5px;
+  font-size: 2em;
+  color: white;
+  font-weight: 900;
 }
 
 p {
@@ -105,9 +122,9 @@ p {
   border-radius: 8px;
 }
 
-.crowdWalk{
+.crowdWalk {
   background-image: url("img/legGrabColor copy.jpg");
-  background-repeat:no-repeat;
+  background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center;
   background-size: cover;
@@ -128,21 +145,20 @@ input {
   background-color: lightgrey;
   font-size: 4em;
   padding: 5px;
-  border: 2px solid white;
+  border: 1px solid white;
   border-radius: 6px;
   font-size: 1.5em;
   font-weight: 900;
   text-align: center;
   max-width: 80%;
   margin: 0px auto;
-  box-shadow: 5px 5px black; 
+  box-shadow: 5px 5px black;
   font-weight: 900;
 }
 
 input:hover {
-
- background-color: black;
- color: white;
+  background-color: black;
+  color: white;
   -webkit-transition: background-color .7s ease-out;
   -moz-transition: background-color .7s ease-out;
   -o-transition: background-color .7s ease-out;
@@ -163,10 +179,10 @@ input:hover {
   -moz-transition: background-color .7s ease-out;
   -o-transition: background-color .7s ease-out;
   transition: background-color .7s ease-out;
-  }
+}
 
 #sibut {
-   display: inline-block;
+  display: inline-block;
   float: left;
 }
 
@@ -176,29 +192,28 @@ input:hover {
 }
 
 .talk {
-    background-color: white;
-    border: 6px ridge lightblue;
-    border-radius: 7px;
-    max-width: 90% ;
-    padding: 19px;
-    margin: 20px auto;
-    color: black;
-    box-shadow: 10px 10 5px black;
-  }
+  background-color: white;
+  border: 6px ridge lightblue;
+  border-radius: 7px;
+  max-width: 90%;
+  padding: 19px;
+  margin: 20px auto;
+  color: black;
+  box-shadow: 10px 10 5px black;
+}
 
 .inputContainer {
-  opacity: .9;
-  background-color: white;
-    max-width: 80%;
-    display: inline-block;
-    border: 2px solid black;
-    border-radius:6px;
-    box-shadow: 10px 10px 5px black;
-    padding-left: 10px;
-    padding-right: 10px;
-    color: black;
-    margin-top: 30%;
-  }
+  background-color: black;
+  max-width: 80%;
+  display: inline-block;
+  border: 2px solid #FEFE33;
+  border-radius: 6px;
+  box-shadow: 10px 10px 5px black;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: white;
+  margin-top: 30%;
+}
 
 .boxes {
   margin-left: 30px;
@@ -255,21 +270,21 @@ li {
 }
 
 .SUpage {
-background-color: black;
-max-width: 70%;
-margin: 0px auto;
-padding: 20px;
-border: 2px solid white;
-border-radius: 7px;
+  background-color: black;
+  max-width: 70%;
+  margin: 0px auto;
+  padding: 20px;
+  border: 2px solid white;
+  border-radius: 7px;
 }
 
 .SIpage {
-background-color: black;
-max-width: 70%;
-margin: 0px auto;
-padding: 20px;
-border: 2px solid white;
-border-radius: 5px;
+  background-color: black;
+  max-width: 70%;
+  margin: 0px auto;
+  padding: 20px;
+  border: 2px solid white;
+  border-radius: 5px;
 }
 
 .outer {
@@ -278,64 +293,70 @@ border-radius: 5px;
   max-width: 80%;
   font-weight: 900;
   border: 2px solid white;
-    margin: 20px auto;
-    background-image: url("img/sk.jpg");
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-position: center;
-    background-size: cover;
-    color: black;
-  }
-
-  .profile_page {
-    background-image: url("img/rap.jpg");
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-position: center;
-    background-size: cover;
-    opacity: .9;
-  background-color: lightgrey;
-    max-width: 80%;
-    display: inline-block;
-    border: 2px solid black;
-    border-radius:6px;
-    box-shadow: 10px 10px 5px black;
-    padding-left: 10px;
-    padding-right: 10px;
-    color: black;
-  }
-
-  .notifyContainer { 
-    opacity: .7;
-    background-color: lightgrey;
-    max-width: 80%;
-    display: inline-block;
-    border: 2px solid black;
-    border-radius:6px;
-    box-shadow: 10px 10px 5px black;
-    padding-left: 10px;
-    padding-right: 10px;
-    color: black;
-    margin-top: 30%;
-  }
-
-.updateContainer {
-   opacity: .7;
-  background-color: lightgrey;
-    max-width: 80%;
-    display: inline-block;
-    border: 2px solid black;
-    border-radius:6px;
-    box-shadow: 10px 10px 5px black;
-    padding-left: 10px;
-    padding-right: 10px;
-    color: black;
-    margin-top: 30%;
+  margin: 20px auto;
+  background-image: url("img/sk.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: cover;
+  color: black;
 }
 
-  .deleteContainer {
-    background-image: url("img/original.gif");
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-position: center;
-  }
+.profile_page {
+  background-image: url("img/rap.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: cover;
+  opacity: .9;
+  background-color: lightgrey;
+  max-width: 80%;
+  display: inline-block;
+  border: 2px solid black;
+  border-radius: 6px;
+  box-shadow: 10px 10px 5px black;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: black;
+}
+
+.notifyContainer {
+  opacity: .7;
+  background-color: lightgrey;
+  max-width: 80%;
+  display: inline-block;
+  border: 2px solid black;
+  border-radius: 6px;
+  box-shadow: 10px 10px 5px black;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: black;
+  margin-top: 30%;
+}
+
+.updateContainer {
+  opacity: .7;
+  background-color: lightgrey;
+  max-width: 80%;
+  display: inline-block;
+  border: 2px solid black;
+  border-radius: 6px;
+  box-shadow: 10px 10px 5px black;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: black;
+  margin-top: 30%;
+}
+
+.deleteContainer {
+  background-image: url("img/pexels-photo-237459.jpeg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  max-width: 60%;
+  background-size: cover;
+  color: black;
+  border: 2px solid white;
+  border-radius: 6px;
+  box-shadow: 10px 10px 5px black;
+}
