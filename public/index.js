@@ -22,32 +22,22 @@ function hideUnusedSections() {
 }
 
 function renderPage() {
-  hideUnusedSections();
- // handleNavigation();
   $("#landing_page").show();
+   hideUnusedSections();
 }
 
-
-//function setEventListeners() {
- // hideUnusedSections()
-   //handleNavigation();
-//}
-
 function toggleSignUp() {
- // handleNavigation();
   hideUnusedSections();
   $("#sign_up_page").show();
 }
 
 function toggleSignIn() {
  hideUnusedSections();
- // handleNavigation();
   $("#sign_in_page").show();
 }
 
 function toggleArtist() {
   hideUnusedSections();
-//   handleNavigation();
     $("#artist_results_page").show();
   getArtist();
 }
@@ -63,7 +53,7 @@ function getArtist() {
     "url": ARTIST_URL + art,
     "method": "GET",
     "headers": {
-      "Cache-Control": "no-cache",
+    "Cache-Control": "no-cache",
     }
   };
   $.ajax(settings).done(function(response) {
@@ -72,7 +62,6 @@ function getArtist() {
 }
 
 function showArtist(results) {
-
   let id = results.performers.performer[0].url;
   $(`#id`).text(id);
   let name = results.performers.performer[0].name;
@@ -81,7 +70,6 @@ function showArtist(results) {
 
 function toggleEvents() {
   hideUnusedSections();
-//   handleNavigation();
   $("#event_results_page").show();
   getEvents();
 }
@@ -100,7 +88,6 @@ function getEvents() {
     }
   };
   $.ajax(params).done(function(response) { 
-  //$("#eventSearch").val('');
     showEvents(response);
   });
 }
@@ -147,12 +134,10 @@ function showEvents(results) {
   $(`#address3`).text(address);
   let description3 = results.events.event[2].description;
   $(`#description3`).text(description);
-
   }
 
  function toggleNewUser() {
-hideUnusedSections();
- //  handleNavigation();
+  hideUnusedSections();
   $('#profile_page').show();
   handleNewUser();
  }
@@ -179,7 +164,6 @@ function postNewUser(uN, pW, eM) {
     "method": "POST",
     "dataType": "jsonp",
     "headers": {
-     //"Content-Type": "application/x-www-form-urlencoded",
       "Content-Type": "application/json",
       "Cache-Control": "no-cache"
     },
@@ -288,7 +272,6 @@ function getOldUser(usnm, pasw) {
   "method": "POST",
   "dataType": "jsonp",
   "headers": {
-    // "Content-Type": "application/x-www-form-urlencoded",
     "Content-Type": "application/json",
     "Cache-Control": "no-cache"
   },
@@ -394,6 +377,7 @@ function deleteUser() {
   });
 }
 
-$(() => {
+ $(document).ready(); { 
+  hideUnusedSections();
   renderPage();
-});
+ }

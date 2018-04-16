@@ -43,7 +43,7 @@ describe('Auth endpoints', function () {
   });
 
   describe('/api/auth/login', function() {
-    it('Should reject requests with no credentials', function () {
+    it('Should reject requests with no credentials', function() {
       return chai
         .request(app)
         .post('/api/auth/login')
@@ -115,7 +115,7 @@ describe('Auth endpoints', function () {
     });
   });
 
-  describe('/api/auth/refresh', function () {
+  describe('/api/auth/refresh', function() {
     it('Should reject requests with no credentials', function() {
       return chai
         .request(app)
@@ -224,8 +224,7 @@ describe('Auth endpoints', function () {
           });
           expect(payload.user).to.deep.equal({
             username,
-            firstName,
-            lastName
+            email
           });
           expect(payload.exp).to.be.at.least(decoded.exp);
         });

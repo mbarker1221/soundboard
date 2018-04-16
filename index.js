@@ -10,16 +10,20 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const {User} = require('./users/models');
 
-const {router: userRouter} = require('./users');
-const {router: authRouter, localStrategy, jwtStrategy} = require('./auth');
+const {router: userRouter} = require('./users/index');
+const {router: authRouter, localStrategy, jwtStrategy} = require('./auth/index');
 
 mongoose.Promise = global.Promise;
 
 const {PORT, DATABASE_URL} = require('./config');
 
 const app = express();
-
+var MongoClient = require('mongodb').MongoClient;
 app.use(morgan('common'));
+
+var unique = require('uniq');
+var data = [1, 2, 2, 3, 4, 5, 5, 5, 6];
+console.log(unique(data));
 
 app.use(express.static('public'));
 
