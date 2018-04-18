@@ -24,7 +24,9 @@ const UserSchema = mongoose.Schema({
 
 UserSchema.methods.serialize = function () {
    return {
+      id: this.id,
       username: this.username,
+      password: this.password,
       email: this.email
    };
 };

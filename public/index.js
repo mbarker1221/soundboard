@@ -1,5 +1,7 @@
+
 /*jshint esversion: 6 */
-var $ = require('jquery');
+/*var $ = require('jquery');*/
+
 const serverBase = "http://localhost:8000";
 const USER_URL = serverBase + './index.js';
 const EVENT_URL = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
@@ -11,7 +13,6 @@ const events = "http://api.eventful.com/json/performers/events/list?app_key=c7nd
 const similar = "http://api.eventful.com/json/performers/get?c7nd5jGWK8tkcThz&id=P0-001-000000045-2";
 // "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
 
-
 function hideUnusedSections() {
   $("#landing_page").hide();
   $("#artist_results_page").hide();
@@ -21,13 +22,33 @@ function hideUnusedSections() {
   $('#profile_page').hide();
 }
 
-function renderPage() {
-  hideUnusedSections();
-  $("#landing_page").show();
+/*
+function handleNavigation() {
+   // select nav elements on"click'
+   $(".button").click(function(event) {
+      //prevent default
+      event.preventDefault();
+      //current page is current target using data method 
+      const currentPage = $(this).data("page");
+      //hiding elements using class
+      $(".page").hide();
+      //display current page
+      $(`.${currentPage}`).show();
+   });
 }
+*/
+function renderPage() {
+   hideUnusedSections();
+   $("#landing_page").show();
+}
+/*
+function setEventListeners() {
+   handleNavigation();
+}
+*/
 
 function toggleSignUp() {
-  hideUnusedSections();
+ hideUnusedSections();
   $("#sign_up_page").show();
 }
 
@@ -37,7 +58,7 @@ function toggleSignIn() {
 }
 
 function toggleArtist() {
-  hideUnusedSections();
+hideUnusedSections();
   $("#artist_results_page").show();
   getArtist();
 }
@@ -45,7 +66,7 @@ function toggleArtist() {
 function getArtist() {
   const artist_name = $("input[name=artistSearch]");
   const art = artist_name.val();
-  $("#artistSearch").val('');
+
   var settings = {
     "async": true,
     "crossDomain": true,
@@ -56,22 +77,24 @@ function getArtist() {
       "Cache-Control": "no-cache",
     }
   };
-  $.ajax(settings).done(function (response) {
+  
+  $.ajax(settings).done(function(response) {
     showArtist(response);
   });
 }
 
 function showArtist(results) {
+  $("#artistSearch").val('');
   let id = results.performers.performer[0].url;
-  $(`#id`).text(id);
+  $('#id').text(id);
   let name = results.performers.performer[0].name;
-  $(`#name`).text(name);
+  $('#name').text(name);
 }
 
 function toggleEvents() {
-  hideUnusedSections();
-  $("#event_results_page").show();
-  getEvents();
+hideUnusedSections();
+$(".event_results_page").show();
+getEvents();
 }
 
 function getEvents() {
@@ -87,58 +110,79 @@ function getEvents() {
       "Cache-Control": "no-cache"
     }
   };
-  $.ajax(params).done(function (response) {
+  
+  $.ajax(params).done(function(response) {
     showEvents(response);
   });
 }
+/*
+function displayResults(data) {
+  const searchResults = data.items.map((item, index) => displayResult(item));
 
+  $('.event_results_page').html(searchResults);
+}
+
+function watchSubmit() {
+  $('.locationSearch').submit(function(event) {
+    event.preventDefault();
+    let queryTarget = $(event.currentTarget).find('.inputL');
+    let query = queryTarget.val();
+
+    queryTarget.val("");
+    showEvents(query, displayResults);
+  });
+}
+
+$(watchSubmit);
+  */
 function showEvents(results) {
-
-  let title = results.events.event[0].title;
+  var title = results.events.event[0].title;
   $(`#title`).text(title);
-  let city = results.events.event[0].city_name;
+  var city = results.events.event[0].city_name;
   $(`#city_name`).text(city);
-  let start_time = results.events.event[0].start_time;
+  var start_time = results.events.event[0].start_time;
   $(`#starts`).text(start_time);
-  let venueE = results.events.event[0].venue_name;
+  var venueE = results.events.event[0].venue_name;
   $(`#venueE`).text(venueE);
-  let address = results.events.event[0].venue_address;
+  var address = results.events.event[0].venue_address;
   $(`#address`).text(address);
-  let description = results.events.event[0].description;
+  var description = results.events.event[0].description;
   $(`#description`).text(description);
-
-
-  let title2 = results.events.event[1].title;
+//  var image = results.events.event[0].image.medium.url;
+ // $(`#img`).text(image);
+ 
+  var title2 = results.events.event[1].title;
   $(`#title2`).text(title);
-  let city2 = results.events.event[1].city_name;
+  var city2 = results.events.event[1].city_name;
   $(`#city_name2`).text(city);
-  let start_time2 = results.events.event[1].start_time;
+  var start_time2 = results.events.event[1].start_time;
   $(`#starts2`).text(start_time);
-  let venueE2 = results.events.event[1].venue_name;
+  var venueE2 = results.events.event[1].venue_name;
   $(`#venueE2`).text(venueE);
-  let address2 = results.events.event[1].venue_address;
+  var address2 = results.events.event[1].venue_address;
   $(`#address2`).text(address);
-  let description2 = results.events.event[1].description;
+  var description2 = results.events.event[1].description;
   $(`#description2`).text(description);
 
 
-  let title3 = results.events.event[2].title;
+  var title3 = results.events.event[2].title;
   $(`#title3`).text(title);
-  let city3 = results.events.event[2].city_name;
+  var city3 = results.events.event[2].city_name;
   $(`#city_name3`).text(city);
-  let start_time3 = results.events.event[2].start_time;
+  var start_time3 = results.events.event[2].start_time;
   $(`#starts3`).text(start_time);
-  let venueE3 = results.events.event[2].venue_name;
+  var venueE3 = results.events.event[2].venue_name;
   $(`#venueE3`).text(venueE);
-  let address3 = results.events.event[2].venue_address;
+  var address3 = results.events.event[2].venue_address;
   $(`#address3`).text(address);
-  let description3 = results.events.event[2].description;
+  var description3 = results.events.event[2].description;
   $(`#description3`).text(description);
 }
 
+
 function toggleNewUser() {
-  hideUnusedSections();
-  $('#profile_page').show();
+hideUnusedSections();
+$('.profile_page').show();
   handleNewUser();
 }
 
@@ -160,7 +204,7 @@ function postNewUser(uN, pW, eM) {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": 'mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users',
+    "url": 'localhost:8080/mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users',
     "method": "POST",
     "dataType": "jsonp",
     "headers": {
@@ -247,8 +291,8 @@ function handleHello() {
 }
 
 function toggleOldUser() {
-  handleNavigation();
-  $('#profile_page').show();
+hideUnusedSections();
+  $('.profile_page').show();
   handleOldUser();
 }
 
@@ -377,6 +421,23 @@ function deleteUser() {
   });
 }
 
-$(document).ready(); {
+/*
+$(document).ready();
+
+window.onload = function () {
+  hideUnusedSections();
   renderPage();
-}
+};
+*/
+
+$(() => {
+  hideUnusedSections();
+  renderPage();
+})
+
+
+
+
+
+
+
