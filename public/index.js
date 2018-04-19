@@ -1,9 +1,9 @@
 
-/*jshint esversion: 6 */
-/*var $ = require('jquery');*/
+//jshint esversion: 6 
+//var $ = require("jquery");
 
-const serverBase = "http://localhost:8000";
-const USER_URL = serverBase + './index.js';
+const serverBase = "http://localhost:8080";
+const USER_URL = serverBase + "/user";
 const EVENT_URL = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
 const ARTIST_Events_URL = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=";
 const ARTIST_URL = "http://api.eventful.com/json/performers/search?app_key=c7nd5jGWK8tkcThz&keywords=";
@@ -19,33 +19,14 @@ function hideUnusedSections() {
   $("#event_results_page").hide();
   $("#sign_up_page").hide();
   $("#sign_in_page").hide();
-  $('#profile_page').hide();
+  $("#profile_page").hide();
 }
 
-/*
-function handleNavigation() {
-   // select nav elements on"click'
-   $(".button").click(function(event) {
-      //prevent default
-      event.preventDefault();
-      //current page is current target using data method 
-      const currentPage = $(this).data("page");
-      //hiding elements using class
-      $(".page").hide();
-      //display current page
-      $(`.${currentPage}`).show();
-   });
-}
-*/
+
 function renderPage() {
    hideUnusedSections();
    $("#landing_page").show();
 }
-/*
-function setEventListeners() {
-   handleNavigation();
-}
-*/
 
 function toggleSignUp() {
  hideUnusedSections();
@@ -86,9 +67,9 @@ function getArtist() {
 function showArtist(results) {
   $("#artistSearch").val('');
   let id = results.performers.performer[0].url;
-  $('#id').text(id);
+  $("#id").text(id);
   let name = results.performers.performer[0].name;
-  $('#name').text(name);
+  $("#name").text(name);
 }
 
 function toggleEvents() {
@@ -136,6 +117,7 @@ function watchSubmit() {
 $(watchSubmit);
   */
 function showEvents(results) {
+    $("#eventSearch").val('');
   var title = results.events.event[0].title;
   $(`#title`).text(title);
   var city = results.events.event[0].city_name;
@@ -182,29 +164,59 @@ function showEvents(results) {
 
 function toggleNewUser() {
 hideUnusedSections();
-$('.profile_page').show();
+$(".profile_page").show();
   handleNewUser();
 }
+
+/*
+function handleNewUser() {
+  const uN = $("input[name=username]").val();
+  const pW = $("input[name=password]").val();
+  const eM = $("input[name=email]").val();
+
+
+  $.ajax({
+    method: "POST",
+    url: USER_URL,
+    data: {
+      "username": uN,
+      "password": pW,
+      "email": eM
+    },
+
+    dataType: "json",
+    contentType: "application/json",
+    
+    success: function() {
+      displayProfile(response);
+  //    return {
+  //  id: this.id,
+  //  username: this.username,
+  //  password: this.password,
+  //  email: this.email
+  //}
+
+    },
+     error: function() {
+      alert('Error!')
+    }
+  });
+}
+*/
 
 function handleNewUser() {
   const uN = $("input[name=username]").val();
   const pW = $("input[name=password]").val();
   const eM = $("input[name=email]").val();
-  clearFormValues();
-}
-
-function clearFormValues() {
-  $('#enterUser').val('');
-  $('#enterPass').val('');
-  $('#enterEmail').val('');
-  postNewUser(uN, pW, eM);
+  postNewUser();
 }
 
 function postNewUser(uN, pW, eM) {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": 'localhost:8080/mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users',
+    "url": 'http://localhost:8080/user',
+    //"http://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users",
     "method": "POST",
     "dataType": "jsonp",
     "headers": {
@@ -219,10 +231,18 @@ function postNewUser(uN, pW, eM) {
     }
   };
   $.ajax(settings).done(function (response) {
-    console.log(response);
-    displayProfile();
+    //console.log(response);
+    displayProfile(response);
   });
 }
+/*
+function clearFormValues() {
+  $("#enterUser").val("");
+  $("#enterPass").val("");
+  $("#enterEmail").val("");
+  postNewUser(uN, pW, eM);
+}
+*/
 /* $.ajax({
     async: true,
     crossDomain: true,
@@ -264,7 +284,7 @@ function postNewUser(uN, pW, eM) {
   });
 }
 */
-function displayProfile() {
+function displayProfile(response) {
   var currentUser = this.user.username;
   storeUser(response);
 }
@@ -287,12 +307,14 @@ function storeUser(response) {
 }
 
 function handleHello() {
-  var hello = this.user[username];
+  hideUnusedSections();
+  $('#profile_page').show();
+  var hello = 'Hello, $(currentUser) !';
 }
 
 function toggleOldUser() {
 hideUnusedSections();
-  $('.profile_page').show();
+  $(".profile_page").show();
   handleOldUser();
 }
 
@@ -313,7 +335,7 @@ function getOldUser(usnm, pasw) {
     "async": true,
     "crossDomain": true,
     "url": "http://localhost:8080/user",
-    "method": "POST",
+    "method": "GET",
     "dataType": "jsonp",
     "headers": {
       "Content-Type": "application/json",
@@ -402,7 +424,7 @@ function handleUpdate(userId, usern, passw) {
 }
 
 function deleteUser() {
-  console.log('deleting user');
+  console.log("deleting user");
   var UserId = this.User[user.id];
 
   $.ajax({
@@ -412,11 +434,11 @@ function deleteUser() {
     contentType: "application/json",
 
     success: function () {
-      alert('Success!');
+      alert("Success!");
     },
 
     error: function () {
-      alert('Error!');
+      alert("Error!");
     }
   });
 }
@@ -433,7 +455,7 @@ window.onload = function () {
 $(() => {
   hideUnusedSections();
   renderPage();
-})
+});
 
 
 
