@@ -15,12 +15,12 @@
         <h1>Amped</h1><br>  
   
         <section class="landing_page page" id="landing_page">    
-          <form class="susi" name="susiForm" id="suf">
-            <button class="buttonOne button" id="sign_up_button" type="submit" onclick="toggleSignUp()" autofocus>Register a new account</button> 
-            <button class="buttonOne button" id="sign_in_button" type="submit" onclick="toggleSignIn()">Have an account? Sign in</button>
-          </form>
+          <form class="signUser" name="signUser" id="sigF" action="#" onsubmit="return false">
+          <button class="buttonOne reg" id="sign_up_button" type="submit" onclick="toggleSignUp()" autofocus>Register for an account</button> 
+          <button class="buttonOne reg" id="sign_in_button" type="submit" onclick="toggleSignIn()">Have an account? Sign in</button>
+        </form>
               <div class="border">
-                <p>Your favorite artists.  Unforgettable concerts.  Find them both here.  Live music + you.  Always a perfect match.</p>     
+                <p>Do you love seeing live music?  Find it here!</p>     
                   <div class="crowdWalk">
                     <h2>THE BEST BANDS!</h2>
                     <h2>THE HOTTEST SHOWS!</h2>                    
@@ -75,8 +75,36 @@
                 <li><span id="address"></span></li>
               </ul>
             </div>
-            
-           
+          <div class="resultsContainer">
+            <ul class="events_display">
+              <li class="title head">Event: </li>
+              <li><span id="title2"></span></li>
+              <li class="city_name head">City: </li>
+              <li><span id="city_name2"></span></li>
+              <li class="starts head">Date/Time: </li>
+              <li><span id="starts2"></span></li>
+              <li class="venueE head">Venue: </li>
+              <li><span id="venueE2"></span></li>
+              <li class="address head">Venue Address: </li>
+              <li><span id="address2"></span></li>
+              <li class="image head">Image: </li>
+            </ul>
+          </div>
+          <div class="resultsContainer">
+            <ul class="events_display">
+              <li class="title head">Event: </li>
+              <li><span id="title3"></span></li>
+              <li class="city_name head">City: </li>
+              <li><span id="city_name3"></span></li>
+              <li class="starts head">Date/Time: </li>
+              <li><span id="starts3"></span></li>
+              <li class="venueE head ">Venue: </li>
+              <li><span id="venueE3"></span></li>
+              <li class="address head">Venue Address: </li>
+              <li><span id="address3"></span></li>
+              <li class="image head">Image: </li>
+            </ul>
+          </div>           
               <form class="backToIt" name="goBack" action = "#" onsubmit="return false">
                 <button class="buttonOne button" type="submit" id="redo" onclick="renderPage()">back to search</button><br><br>
               </form><br><br>
@@ -113,33 +141,40 @@
         </section><br>
 
         <section class="profile_page page" id="profile_page">
-          <h2>Hello! ${'hello'}</h2>
+          <h2>Hello! $(hello)</h2>
             <br><br><br><br>
+             <ul class="profile_display">
+                <li><span id="username"></span></li>
+                 <li><span id="email"></span></li>
+               </ul>
             <div class="notifyContainer">
               <form class="notifications" name="notifications" action="#" onsubmit="return false">
-                <label>Sign up for email notifications and we'll keep you in the know about shows in your area!</label><br><br>
+                <label class="labelOne">Sign up for email notifications and we'll keep you in the know about shows in your area!</label><br>
                 <input class="input" type="text" name="band" id="band" placeholder="artist or band name" /><br><br>
-                  <button class="buttonOne button" id="submitFav" type="submit" onclick="getNotifications();">submit</button><br>
-              </form><br>
-            </div>
-            <div class="updateContainer">
-              <form class="updateUser" name="updateUser" id="updF" action="#" onsubmit="return false">
-                <label>To update your profile just enter a new username and password below</label><br>
-                <input class="input" type="text" name="updateUN" placeholder="new username" /><br><br>
-                <input class="input" type="text" name="updatePASS" placeholder="new password" /><br>
-                  <button class="buttonOne button" type="submit" onclick="updateUser()">submit</button>
+                  <button class="buttonOne button" id="submitFav" type="submit" onclick="getNotifications();">submit</button><br><br>
               </form>
             </div>
+      
+            <div class="updateContainer"><br>
+              <form class="updateUser" name="updateUser" id="updF" action="#" onsubmit="return false">
+                <label class="labelTwo">To update your profile just enter a new username and password below</label><br>
+                <input class="input" type="text" name="updateUN" placeholder="new username" />
+                <input class="input" type="text" name="updatePASS" placeholder="new password" /><br><br>
+                  <button class="buttonOne button" type="submit" onclick="updateUser()">submit</button><br><br><br>
+              </form>
+            
+          </div>
             <div class="deleteContainer">
-              <h3>Drop the Mic</h3>
-                <h3>warning -- mic drops cannot be undone</h3>
+              
         
                 <form class="deleteUser" name="deleteUser" id="delF" action="#" onsubmit="return false">
+                  <label class="labelThree">Drop the Mic</label><br>
+                <label class="labelThree">warning -- mic drops cannot be undone</label>
                   <button class="buttonOne button" id="deleteUser" type="submit" onclick="deleteUser()">delete my profile</button><br><br>
                 </form>
                 <br>
             </div>
-              <form class="backToIt" name="goBack" id="backTalk" action = "#" onsubmit="return false">
+              <form class="backToIt" name="goBack" id="backTalk" action = "#" onsubmit="return false"><br>
                 <button class="buttonOne button" type="submit" id="resynch" onclick="renderPage()">back to search</button><br><br>
               </form>
           </section>
