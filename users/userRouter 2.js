@@ -104,9 +104,7 @@ router.post('/', jsonParser, (req, res) => {
       email
    } = req.body;
 
-   return User.find({
-         username
-      })
+   return User.find({username})
       .count()
       .then(count => {
          if (count > 0) {
@@ -138,10 +136,7 @@ router.post('/', jsonParser, (req, res) => {
          }
 
 
-         res.status(500).json({
-            code: 500,
-            message: 'Internal server error'
-         });
+         res.status(500).json({code: 500,message: 'Internal server error'});
       });
 });
 //router.get('/', (req, res) => {

@@ -1,6 +1,6 @@
-'use strict'
-/*jshint esversion: 6 */
-/*jshint node: true;*/
+
+//jshint esversion: 6 
+//var $ = require("jquery");
 
 const serverBase = "http://localhost:8080";
 const USER_URL = serverBase + "/user";
@@ -214,7 +214,7 @@ function postNewUser(uN, pW, eM) {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users",
+    "url": 'http://localhost:8080/user',
     //"http://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users",
     "method": "POST",
     "dataType": "jsonp",
@@ -333,7 +333,7 @@ function getOldUser(usnm, pasw) {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users",
+    "url": "http://localhost:8080/user",
     "method": "GET",
     "dataType": "jsonp",
     "headers": {

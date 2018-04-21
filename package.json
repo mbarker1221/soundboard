@@ -26,7 +26,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "bootstrap": "^3.3.7",
-    "browserify": "^16.1.1",
+    "browserify": "^16.2.0",
     "connect": "^2.30.2",
     "connect-flash": "*",
     "connect-rest": "^3.0.15",
@@ -74,6 +74,7 @@
     "passport-local": "^1.0.0",
     "popper.js": "^1.14.1",
     "request": "^2.85.0",
+    "require": "^2.4.20",
     "require.js": "^1.0.0",
     "requirejs": "^2.3.5",
     "rollup": "^0.57.1",
@@ -82,7 +83,7 @@
     "session-mongoose": "^0.5.2",
     "uniq": "^1.0.1",
     "uuid": "^3.2.1",
-    "webpack": "^4.4.1"
+    "webpack": "^4.6.0"
   },
   "repository": {
     "type": "git",

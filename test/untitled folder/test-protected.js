@@ -6,9 +6,17 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const jwt = require('jsonwebtoken');
 
-const {app, runServer, closeServer} = require('../index');
-const {User} = require('../users');
-const {JWT_SECRET} = require('../config');
+const {
+   app,
+   runServer,
+   closeServer
+} = require('../index');
+const {
+   User
+} = require('../users/index');
+const {
+   JWT_SECRET
+} = require('../config');
 
 const expect = chai.expect;
 
@@ -60,8 +68,7 @@ describe('Protected endpoint', function () {
       });
 
       it('Should reject requests with an invalid token', function () {
-         const token = jwt.sign(
-         {
+         const token = jwt.sign({
                username,
                email
             },
@@ -87,7 +94,7 @@ describe('Protected endpoint', function () {
                expect(res).to.have.status(401);
             });
       });
-        it('Should reject requests with an expired token', function () {
+      it('Should reject requests with an expired token', function () {
          const token = jwt.sign({
                user: {
                   username,

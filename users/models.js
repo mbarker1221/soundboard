@@ -18,13 +18,14 @@ const UserSchema = mongoose.Schema({
    },
    email: {
       type: String,
-      required: true
-   }
+      required: true}
 });
 
 UserSchema.methods.serialize = function () {
    return {
+      id: this.id,
       username: this.username,
+      password: this.password,
       email: this.email
    };
 };
@@ -39,6 +40,4 @@ UserSchema.statics.hashPassword = function (password) {
 
 const User = mongoose.model('User', UserSchema);
 
-module.exports = {
-   User
-};
+module.exports = {User};

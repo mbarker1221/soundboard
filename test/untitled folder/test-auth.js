@@ -1,15 +1,20 @@
 'use strict';
-/*jshint esversion: 6 */
-/*jshint node: true;*/
-
 global.TEST_DATABASE_URL = "mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/userdata";
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const jwt = require('jsonwebtoken');
 
-const {app, runServer, closeServer} = require('../index');
-const {User} = require('../users');
-const {JWT_SECRET} = require('../config');
+const {
+   app,
+   runServer,
+   closeServer
+} = require('../index');
+const {
+   User
+} = require('../users/index');
+const {
+   JWT_SECRET
+} = require('../config');
 
 const expect = chai.expect;
 
@@ -66,7 +71,11 @@ describe('Auth endpoints', function () {
          return chai
             .request(app)
             .post('/api/auth/login')
-            .send({username: 'wrongUsername', password, email})
+            .send({
+               username: 'wrongUsername',
+               password,
+               email
+            })
             .then(() =>
                expect.fail(null, null, 'Request should not succeed')
             )
@@ -143,13 +152,11 @@ describe('Auth endpoints', function () {
             });
       });
       it('Should reject requests with an invalid token', function () {
-         const token = jwt.sign(
-         {
+         const token = jwt.sign({
                username,
                email
             },
-            'wrongSecret', 
-            {
+            'wrongSecret', {
                algorithm: 'HS256',
                expiresIn: '7d'
             }
@@ -172,8 +179,7 @@ describe('Auth endpoints', function () {
             });
       });
       it('Should reject requests with an expired token', function () {
-         const token = jwt.sign(
-         {
+         const token = jwt.sign({
                user: {
                   username,
                   email

@@ -61,7 +61,7 @@ h1 {
   background-size: cover;
   padding-bottom: 40px;
   font-weight: 950;
-  font-size: 15em;
+  font-size: 14em;
   color: black;
   text-shadow: 4px 4px #FEFE33;
   border: 2px ridge white;
@@ -115,7 +115,7 @@ p {
 
 .border {
   background-color: black;
-  max-width: 80%;
+  max-width: 75%;
   box-shadow: 15px 15px 10px black;
   padding-bottom: 50px;
   border: 2px solid white;
@@ -128,17 +128,32 @@ p {
   background-attachment: scroll;
   background-position: center;
   background-size: cover;
-  max-width: 80%;
+  max-width: 75%;
   border: 2px solid white;
   border-radius: 6px;
   box-shadow: 20px 20px 10px black;
   padding: 20px;
 }
 
-label {
-  font-size: 4em;
+.labelTwo {
+  font-size: 2em;
+  font-weight: 800;
   color: black;
-  text-shadow: 4px 4px white;
+  text-shadow: 2px 2px #FEFE33;
+}
+
+.labelOne {
+  font-size: 2em;
+  font-weight: 800;
+  color: #FEFE33;
+  text-shadow: 2px 2px black;
+}
+
+.labelThree {
+  font-size: 2em;
+  font-weight: 800;
+  color: black;
+  text-shadow: 2px 2px #FEFE33;
 }
 
 input {
@@ -203,7 +218,8 @@ input:hover {
 }
 
 .inputContainer {
-  background-color: black;
+  opacity: .9;
+  background-color: lightgrey;
   max-width: 80%;
   display: inline-block;
   border: 2px solid #FEFE33;
@@ -216,12 +232,13 @@ input:hover {
 }
 
 .boxes {
-  margin-left: 30px;
-  margin-right: 30px;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 .artist_results_page {
   transition outline-color: invert;
+  transition: margin bottom 1s;
   border-radius: 6px;
   max-width: 70%;
   padding: 10px;
@@ -236,6 +253,7 @@ input:hover {
 }
 
 .event_results_page {
+  transition: margin bottom 1s;
   outline-color: invert;
   border-radius: 6px;
   max-width: 70%;
@@ -253,6 +271,7 @@ input:hover {
   border: 2px solid white;
   max-width: 80%;
   color: white;
+  
   background-color: black;
   border-radius: 7px;
 }
@@ -269,7 +288,8 @@ li {
   font-weight: 800;
 }
 
-.SUpage {
+.sign_up_page {
+  transition: margin bottom 1s;
   background-color: black;
   max-width: 70%;
   margin: 0px auto;
@@ -278,7 +298,8 @@ li {
   border-radius: 7px;
 }
 
-.SIpage {
+.sign_in_page {
+  transition: margin bottom 1s;
   background-color: black;
   max-width: 70%;
   margin: 0px auto;
@@ -288,6 +309,7 @@ li {
 }
 
 .outer {
+  transition: margin bottom 1s;
   outline-color: invert;
   border-radius: 6px;
   max-width: 80%;
@@ -303,6 +325,7 @@ li {
 }
 
 .profile_page {
+  transition: margin bottom 1s;
   background-image: url("img/rap.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -321,41 +344,47 @@ li {
 }
 
 .notifyContainer {
-  opacity: .7;
-  background-color: lightgrey;
-  max-width: 80%;
-  display: inline-block;
-  border: 2px solid black;
-  border-radius: 6px;
-  box-shadow: 10px 10px 5px black;
-  padding-left: 10px;
-  padding-right: 10px;
-  color: black;
-  margin-top: 30%;
-}
-
-.updateContainer {
-  opacity: .7;
-  background-color: lightgrey;
-  max-width: 80%;
-  display: inline-block;
-  border: 2px solid black;
-  border-radius: 6px;
-  box-shadow: 10px 10px 5px black;
-  padding-left: 10px;
-  padding-right: 10px;
-  color: black;
-  margin-top: 30%;
-}
-
-.deleteContainer {
-  background-image: url("img/pexels-photo-237459.jpeg");
+  max-width: 30%;
+  transition: margin bottom 1s;
+   background-image: url("img/lighters.jpeg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center;
-  max-width: 60%;
   background-size: cover;
-  color: black;
+  display: inline-block;
+  border: 2px solid white;
+  border-radius: 6px;
+  box-shadow: 10px 10px 5px black;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 20%;
+}
+
+.updateContainer {
+  transition: margin bottom 1s;
+   background-image: url("img/pexels-photo-167478 copy.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: cover;
+  max-width: 30%;
+  display: inline-block;
+  border: 2px solid white;
+  border-radius: 6px;
+  box-shadow: 10px 10px 5px black;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 20%;
+}
+
+.deleteContainer {
+   max-width: 30%;
+  transition: margin bottom 1s;
+  background-image: url("img/mic_Fotor.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: cover;
   border: 2px solid white;
   border-radius: 6px;
   box-shadow: 10px 10px 5px black;
