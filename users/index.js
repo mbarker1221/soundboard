@@ -1,6 +1,6 @@
 'use strict';
 /*jshint esversion: 6 */
-/*jshint node: true;*/
+/*jshint node: true */
 
 const {User} = require('./models');
 const {router} = require('./router');

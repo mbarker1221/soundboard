@@ -1,6 +1,6 @@
 'use strict';
 /*jshint esversion: 6 */
-/*jshint node: true;*/
+/*jshint node: true */
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 
@@ -25,7 +25,6 @@ UserSchema.methods.serialize = function () {
    return {
       id: this.id,
       username: this.username,
-      password: this.password,
       email: this.email
    };
 };
