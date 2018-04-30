@@ -12,7 +12,7 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const {User} = require('./models');
 
-const {router: userRouter} = require('./users');
+const {router: userRouter} = require('./server');
 const {router: authRouter,localStrategy,jwtStrategy} = require('./auth');
 
 mongoose.Promise = global.Promise;
