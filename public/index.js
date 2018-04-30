@@ -1,11 +1,12 @@
-
 /*jshint esversion: 6 */
-var $ = require('jquery');
+/*jshint node: true */
 
-const serverBase = "http://localhost:8000";
-const USER_URL = serverBase + './index.js';
-const EVENT_URL = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
-const ARTIST_Events_URL = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=";
+const serverBase = "http://localhost:8080";
+const USER_URL = "./server";
+var EVENT_URL="http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
+//const ARTIST_URL= "/artistRouter";
+//const EVENT_URL = "./eventsRouter";
+const ARTIST_LIST_URL = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=";
 const ARTIST_URL = "http://api.eventful.com/json/performers/search?app_key=c7nd5jGWK8tkcThz&keywords=";
 const ALL_URL = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&keywords=music";
 const searchSimilar = "http://api.songkick.com/api/3.0/artists/68043/similar_artists.json?apikey=ovLum2i3CCGRjtHA";
@@ -19,33 +20,14 @@ function hideUnusedSections() {
   $("#event_results_page").hide();
   $("#sign_up_page").hide();
   $("#sign_in_page").hide();
-  $('#profile_page').hide();
+  $("#profile_page").hide();
+  $("#deletePage").hide();
 }
 
-/*
-function handleNavigation() {
-   // select nav elements on"click'
-   $(".button").click(function(event) {
-      //prevent default
-      event.preventDefault();
-      //current page is current target using data method 
-      const currentPage = $(this).data("page");
-      //hiding elements using class
-      $(".page").hide();
-      //display current page
-      $(`.${currentPage}`).show();
-   });
-}
-*/
 function renderPage() {
    hideUnusedSections();
    $("#landing_page").show();
 }
-/*
-function setEventListeners() {
-   handleNavigation();
-}
-*/
 
 function toggleSignUp() {
  hideUnusedSections();
@@ -72,7 +54,7 @@ function getArtist() {
     "crossDomain": true,
     "dataType": "jsonp",
     "url": ARTIST_URL + art,
-    "method": "GET",
+    "type": "GET",
     "headers": {
       "Cache-Control": "no-cache",
     }
@@ -86,9 +68,9 @@ function getArtist() {
 function showArtist(results) {
   $("#artistSearch").val('');
   let id = results.performers.performer[0].url;
-  $('#id').text(id);
+  $("#id").text(id);
   let name = results.performers.performer[0].name;
-  $('#name').text(name);
+  $("#name").text(name);
 }
 
 function toggleEvents() {
@@ -105,7 +87,7 @@ function getEvents() {
     "crossDomain": true,
     "dataType": "jsonp",
     "url": EVENT_URL + loc,
-    "method": "GET",
+    "type": "GET",
     "headers": {
       "Cache-Control": "no-cache"
     }
@@ -115,27 +97,9 @@ function getEvents() {
     showEvents(response);
   });
 }
-/*
-function displayResults(data) {
-  const searchResults = data.items.map((item, index) => displayResult(item));
 
-  $('.event_results_page').html(searchResults);
-}
-
-function watchSubmit() {
-  $('.locationSearch').submit(function(event) {
-    event.preventDefault();
-    let queryTarget = $(event.currentTarget).find('.inputL');
-    let query = queryTarget.val();
-
-    queryTarget.val("");
-    showEvents(query, displayResults);
-  });
-}
-
-$(watchSubmit);
-  */
 function showEvents(results) {
+    $("#eventSearch").val('');
   var title = results.events.event[0].title;
   $(`#title`).text(title);
   var city = results.events.event[0].city_name;
@@ -146,11 +110,10 @@ function showEvents(results) {
   $(`#venueE`).text(venueE);
   var address = results.events.event[0].venue_address;
   $(`#address`).text(address);
-  var description = results.events.event[0].description;
-  $(`#description`).text(description);
+ // var description = results.events.event[0].description;
+  //$(`#description`).text(description);
 //  var image = results.events.event[0].image.medium.url;
  // $(`#img`).text(image);
- 
   var title2 = results.events.event[1].title;
   $(`#title2`).text(title);
   var city2 = results.events.event[1].city_name;
@@ -161,9 +124,6 @@ function showEvents(results) {
   $(`#venueE2`).text(venueE);
   var address2 = results.events.event[1].venue_address;
   $(`#address2`).text(address);
-  var description2 = results.events.event[1].description;
-  $(`#description2`).text(description);
-
 
   var title3 = results.events.event[2].title;
   $(`#title3`).text(title);
@@ -175,28 +135,20 @@ function showEvents(results) {
   $(`#venueE3`).text(venueE);
   var address3 = results.events.event[2].venue_address;
   $(`#address3`).text(address);
-  var description3 = results.events.event[2].description;
-  $(`#description3`).text(description);
 }
 
 
 function toggleNewUser() {
 hideUnusedSections();
-$('.profile_page').show();
+$(".profile_page").show();
   handleNewUser();
 }
+
 
 function handleNewUser() {
   const uN = $("input[name=username]").val();
   const pW = $("input[name=password]").val();
   const eM = $("input[name=email]").val();
-  clearFormValues();
-}
-
-function clearFormValues() {
-  $('#enterUser').val('');
-  $('#enterPass').val('');
-  $('#enterEmail').val('');
   postNewUser(uN, pW, eM);
 }
 
@@ -204,8 +156,10 @@ function postNewUser(uN, pW, eM) {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": 'localhost:8080/mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users',
-    "method": "POST",
+    "url": USER_URL,
+    //"http://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users",
+    //"http://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users",
+    "type": "POST",
     "dataType": "jsonp",
     "headers": {
       "Content-Type": "application/json",
@@ -219,64 +173,28 @@ function postNewUser(uN, pW, eM) {
     }
   };
   $.ajax(settings).done(function (response) {
-    console.log(response);
-    displayProfile();
+    //console.log(response);
+    displayProfile(response);
   });
 }
-/* $.ajax({
-    async: true,
-    crossDomain: true,
-    url: USER_URL,
-    method: "POST",
-    dataType: "json",
-    contentType: "application/json",
-    data: {
-      "username": uN,
-      "password": pW,
-      "email": eM
-    },
-    
-    success: function() {
-      displayProfile();
-    },
-     error: function() {
-       alert('Error!');
-     }
-  });
-}
-*/
 
+function displayProfile(response) {
+hideUnusedSections();
+  handleHello();
+}
 /*
- var settings = {
-    "async": true,
-    "crossDomain": true,
-    "dataType": "json",
-    "url": USER_URL,
-    "method": "POST",
-    "headers": {
-      "Cache-Control": "no-cache",
-      "Postman-Token": "2150d766-dacf-479c-9a1a-036d07309f72"
-    }
-  };
-
-  $.ajax(settings).done(function (response) {
-    storeUser(response);
-  });
-}
-*/
-function displayProfile() {
   var currentUser = this.user.username;
   storeUser(response);
 }
 
 function storeUser(response) {
-  /* var User = {
+   var User = {
     id: this.id,
     username: this.username,
     password: this.password,
     email: this.email
     }
-  */
+  
   var User = {
     id: this.User[user.id],
     username: this.User[user.username],
@@ -285,14 +203,16 @@ function storeUser(response) {
   };
   handleHello();
 }
-
+*/
 function handleHello() {
-  var hello = this.user[username];
+  hideUnusedSections();
+  $('#profile_page').show();
+ var hello = ( `Hello, (${user.username}) !`);
 }
 
 function toggleOldUser() {
 hideUnusedSections();
-  $('.profile_page').show();
+  $(".profile_page").show();
   handleOldUser();
 }
 
@@ -312,8 +232,8 @@ function getOldUser(usnm, pasw) {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost:8080/user",
-    "method": "POST",
+    "url": "http://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users",
+    "type": "GET",
     "dataType": "jsonp",
     "headers": {
       "Content-Type": "application/json",
@@ -326,52 +246,18 @@ function getOldUser(usnm, pasw) {
     }
   };
   $.ajax(settings).done(function (response) {
-    console.log(response);
-    displayProfile();
+   //console.log(response);
+    displayProfile(response);
   });
 }
 
-function displayProfile() {
-  handleHello();
+function displayProfile(response) {
+  hideUnusedSections();
+  $('#profile_page').show();
 }
+// handleHello();
+//}
 
-/*
-  $.ajax({
-    method: "GET",
-    url: USER_URL,
-    dataType: "json",
-    contentType: "application/json",
-    query: {
-      "username": usnm,
-      "password": pasw
-    },
-    success: function () {
-      return {
-        id: user.id,
-        username: user.username,
-        password: user.password,
-        email: user.email
-      },
-      storeOldUser();
-    },
-    error: function () {
-      alert('Error!');
-    }
-  });
-}
-*/
-/*
-function storeOldUser() {
-  var User = {
-    id: this.User[user.id],
-    username: this.User[user.username],
-    password: this.password[user.password],
-    email: this.User[user.email]
-  };
-  console.log(User);
-  clearOldValues();
-}
-*/
 
 function updateUser() {
   let userId = this.User[user.id];
@@ -402,7 +288,7 @@ function handleUpdate(userId, usern, passw) {
 }
 
 function deleteUser() {
-  console.log('deleting user');
+  console.log("deleting user");
   var UserId = this.User[user.id];
 
   $.ajax({
@@ -412,11 +298,13 @@ function deleteUser() {
     contentType: "application/json",
 
     success: function () {
-      alert('Success!');
+      hideUnusedSections();
+      $('.deletePage').show();
+      alert("Success!");
     },
 
     error: function () {
-      alert('Error!');
+      alert("Error!");
     }
   });
 }
@@ -433,7 +321,7 @@ window.onload = function () {
 $(() => {
   hideUnusedSections();
   renderPage();
-});
+})
 
 
 
