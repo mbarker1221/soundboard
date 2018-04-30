@@ -1,6 +1,6 @@
 
 /*jshint esversion: 6 */
-/*var $ = require('jquery');*/
+var $ = require('jquery');
 
 const serverBase = "http://localhost:8000";
 const USER_URL = serverBase + './index.js';
@@ -383,7 +383,7 @@ function updateUser() {
 function handleUpdate(userId, usern, passw) {
 
   $.ajax({
-    method: "PUT",
+    type: "PUT",
     url: USER_URL + "/" + userId,
     dataType: "json",
     contentType: "application/json",
@@ -406,7 +406,7 @@ function deleteUser() {
   var UserId = this.User[user.id];
 
   $.ajax({
-    method: "DELETE",
+    type: "DELETE",
     url: USER_URL + "/" + UserId,
     dataType: "jsonp",
     contentType: "application/json",
@@ -433,7 +433,7 @@ window.onload = function () {
 $(() => {
   hideUnusedSections();
   renderPage();
-})
+});
 
 
 
