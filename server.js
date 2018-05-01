@@ -1,26 +1,26 @@
 'use strict';
 /*jshint esversion: 6 */
 /*jshint node: true */
-//thist thingl
+
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
-const app = express();
-const {User} = require('./users/models');
-
-app.use(express.json());
-const {router: usersRouter } = require('./users/userRouter');
+const {User} = require('./users');
+const {router: userRouter} = require('./users/userRouter');
 const {router: authRouter, localStrategy, jwtStrategy} = require('./auth');
-var MongoClient = require('mongodb').MongoClient;
+
 mongoose.Promise = global.Promise;
 
 const {PORT, DATABASE_URL} = require('./config');
 
-
+const app = express();
+app.use(express.json());
+// Logging
 app.use(morgan('common'));
 
+// CORS
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
@@ -34,116 +34,116 @@ app.use(function (req, res, next) {
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-app.use('/api/users/', usersRouter);
+app.use('/api/users/', userRouter);
 app.use('/api/auth/', authRouter);
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
+// A protected endpoint which needs a valid JWT to access it
 app.get('/api/protected', jwtAuth, (req, res) => {
   return res.json({
     data: 'rosebud'
-   });
-});
-
-//app.get('/', (req, res) => {
- //  res.sendFile(__dirname + "/public/index.html");
-//}); 
-
-app.use('*', function (req, res) {
-  res.status(404).json({message: 'Other * error'});
-});
-
-process.on('unhandledRejection', (reason, promise) => {
-  console.error(reason, 'Unhandled Rejection at Promise', promise);
-   })
-   .on('uncaughtException', err => {
-    console.error(err, 'Uncaught Exception thrown');
-    process.exit(1);
-   });
-
-let server;
-
-function runServer(databaseUrl, port = PORT) {
-
-  return new Promise((resolve, reject) => {
-    mongoose.connect(databaseUrl, err => {
-      if (err) {
-        return reject(err);
-      }
-      server = app.listen(port, () => {
-        console.log(`Your app is listening on port ${port}`);
-        resolve();
-      })
-        .on('error', err => {
-          mongoose.disconnect();
-          reject(err);
-        });
-    });
   });
-}
+});
 
-function closeServer() {
-  return mongoose.disconnect().then(() => {
-    return new Promise((resolve, reject) => {
-      console.log('Closing server');
-      server.close(err => {
-        if (err) {
-          return reject(err);
+app.use(express.static('public'));
+app.get('/', (req, res) => {
+   res.sendFile(__dirname + "/public/index.html");
+});
+
+app.get('/user', (req, res) => {
+    const filters = {};
+    const queryableFields = ["username", "password"];
+    queryableFields.forEach(field => {
+        if (req.query[field]) {
+            filters[field] = req.query[field];
         }
-        resolve();
-      });
     });
+    User
+        .find(filters)
+        .then(User => res.json(
+            User.map(user => user.serialize())
+        ))
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({message: "something is seriously wrong"});
+        });
+});
+
+app.post('/user', (req, res) => {
+  const requiredFields = ["username", "password", "email"];
+      for (let i=0; i<requiredFields.length; i++) {
+        const field = requiredFields[i];
+      if (!(field in req.body)) {
+        const message = `Missing \`${field}\` in request body`;
+        console.error(message);
+      return res.status(400).send(message);
+      }
+  }
+     User
+      .create({
+        username: req.body.username, 
+        password: req.body.password, 
+        email: req.body.email
+      })
+  .then(user => res.status(201).json(user.serialize()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: "Internal server error"});
+    });
+});
+
+app.put('/user/:id', (req, res) => {
+if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+    const message = (
+      `Request path id (${req.params.id}) and request body id ` +
+      `(${req.body.id}) must match`);
+    console.error(message);
+    return res.status(400).json({message: message});
+  }
+
+  const toUpdate = {};
+  const updateableFields = ['name', 'password', 'email'];
+
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      toUpdate[field] = req.body[field];
+    }
   });
-}
 
-if (require.main === module) {
-  runServer(DATABASE_URL).catch(err => console.error(err));
-}
+  User
+    .findByIdAndUpdate(req.params.id, {$set: toUpdate})
+    .then(user => res.status(204).end())
+    .catch(err => res.status(500).json({message: "Internal server error"}));
+});
 
-module.exports = {app, runServer, closeServer};
+  app.delete('/user/:id', (req, res) => {
+    console.log(`Deleted User \`${req.params.id}\``);
+      User
+       .findByIdAndRemove(req.params.id)
+    .then(user => res.status(204).end())
+    .catch(err => res.status(500).json({message: "Internal server error"}));
+});
 
-
-
-
-
-
-//app.get('/', (req, res) => {
-  // res.sendFile(__dirname + "/public/index.html");
-//}); 
-
-//app.get('/', function (req, res) {
-//   throw new Error('oh no!');
-//});
-
-//app.use(function (err, req, res, next) {
-  // console.log(err.message);
-//});
-/*
 app.use('*', (req, res) => {
-   return res.status(404).json({message: 'Not Found'});
+  return res.status(404).json({ message: 'Not Found' });
 });
 
-process.on('unhandledRejection', (reason, promise) => {
-  console.error(reason, 'Unhandled Rejection at Promise', promise);
-   })
-   .on('uncaughtException', err => {
-    console.error(err, 'Uncaught Exception thrown');
-    process.exit(1);
-   });
-
+// Referenced by both runServer and closeServer. closeServer
+// assumes runServer has run and set `server` to a server object
 let server;
 
-function runServer(databaseUrl, port = PORT) {
-
+function runServer() {
   return new Promise((resolve, reject) => {
-    mongoose.connect(databaseUrl, err => {
+    mongoose.connect(DATABASE_URL, err => {
       if (err) {
         return reject(err);
       }
-      server = app.listen(port, () => {
-        console.log(`Your app is listening on port ${port}`);
-        resolve();
-      })
+      server = app
+        .listen(PORT, () => {
+          console.log(`Your app is listening on port ${PORT}`);
+          resolve();
+        })
         .on('error', err => {
           mongoose.disconnect();
           reject(err);
@@ -167,8 +167,7 @@ function closeServer() {
 }
 
 if (require.main === module) {
-  runServer(DATABASE_URL).catch(err => console.error(err));
+  runServer().catch(err => console.error(err));
 }
 
 module.exports = {app, runServer, closeServer};
-*/

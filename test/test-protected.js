@@ -1,6 +1,6 @@
 'use strict';
 /*jshint esversion: 6 */
-/*jshint node: true;*/
+/*jshint node: true */
 global.TEST_DATABASE_URL = 'mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/userdata';
 const chai = require('chai');
 const chaiHttp = require('chai-http');
