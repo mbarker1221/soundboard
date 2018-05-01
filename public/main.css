@@ -7,50 +7,88 @@ body {
   text-align: center;
   font-family: 'Rock Salt';
   font-size: .5em;
+  word-spacing: 4px;
 }
 
 #landing_page {
-  max-width: 85%;
+  max-width: 75%;
+  margin: 5px auto;
+  padding: 15px;
+  background-color: #99a2af;
+}
+
+.artist_results_page {
+  transition outline-color: invert;
+  transition: margin bottom 1s;
+  border-radius: 6px;
+  max-width: 70%;
+  padding: 10px;
+  font-weight: 900;
+  border: 2px solid #007fAA;
+  margin: 20px auto;
+  background-image: url("img/g.jpeg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  color: black;
+}
+
+.event_results_page {
+  transition: margin bottom 1s;
+  outline-color: invert;
+  border-radius: 6px;
+  max-width: 70%;
+  padding: 10px;
+  border: 2px solid #007fAA;
+  margin: 20px auto;
+  background-image: url("img/g.jpeg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  color: black;
+}
+
+
+.sign_up_page {
+  transition: margin bottom 1s;
+  background-color: black;
+  max-width: 70%;
   margin: 0px auto;
   padding: 20px;
-  background-color: #99a2af;
+  border: 2px solid white;
+  border-radius: 7px;
+}
+
+.sign_in_page {
+  transition: margin bottom 1s;
+  background-color: black;
+  max-width: 70%;
+  margin: 0px auto;
+  padding: 20px;
+  border: 2px solid white;
+  border-radius: 5px;
+}
+
+.profile_page {
+ background-color: lightgrey;
+  max-width: 70%;
+  display: inline-block;
+  border: 2px solid #007fAA;
+  border-radius: 6px;
+  box-shadow: 10px 10px 5px black;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 div {
   margin: 3% auto;
 }
 
-.buttonOne {
+li {
+  list-style: none;
+  color: lightblue;
   font-size: 1.5em;
-  border-radius: 6px;
-  background-color: lightgrey;
-  border: 1px solid grey;
-  box-shadow: 5px 5px black;
-  padding: 7px;
-  cursor: pointer;
-  margin-top: 4px;
-}
-
-.reg {
-  margin: 2%;
-}
-
-.buttonOne:hover {
-  background-color: black;
-  color: white;
-  -webkit-transition: background-color .7s ease-out;
-  -moz-transition: background-color .7s ease-out;
-  -o-transition: background-color .7s ease-out;
-  transition: background-color .7s ease-out;
-}
-
-.butt {
-  background-color: black;
-  color: white;
-  -webkit-transition: background-color .7s ease-out;
-  -moz-transition: background-color .7s ease-out;
-  -o-transition: background-color .7s ease-out;
-  transition: background-color .7s ease-out;
+  font-weight: 800;
 }
 
 h1 {
@@ -59,21 +97,21 @@ h1 {
   background-attachment: scroll;
   background-position: center center;
   background-size: cover;
-  padding-bottom: 40px;
+  padding-bottom: 50px;
   font-weight: 950;
-  font-size: 15em;
+  font-size: 7em;
   color: black;
   text-shadow: 4px 4px #FEFE33;
   border: 2px ridge white;
   border-radius: 9px;
-  max-width: 90%;
+  max-width: 80%;
   margin: 0px auto;
   font-family: "The Frontman";
   box-shadow: 20px 20px black;
 }
 
 h2 {
-  font-size: 4.5em;
+  font-size: 3em;
   margin: 0px auto;
   color: #FEFE33;
   text-shadow: 3px 3px black;
@@ -84,7 +122,7 @@ h2 {
 
 h3 {
   padding: 5px;
-  font-size: 2em;
+  font-size: 1.8em;
   color: black;
   font-weight: 900;
 }
@@ -123,7 +161,7 @@ p {
 }
 
 .crowdWalk {
-  background-image: url("img/legGrabColor copy.jpg");
+  background-image: url("img/legGrabColor copyIt.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center;
@@ -132,22 +170,30 @@ p {
   border: 2px solid white;
   border-radius: 6px;
   box-shadow: 20px 20px 10px black;
-  padding: 20px;
+  padding: 7px;
 }
 
-label {
-  font-size: 4em;
+.labelTwo {
+  font-size: 2em;
+  font-weight: 800;
   color: black;
-  text-shadow: 4px 4px white;
+  text-shadow: 2px 2px #FEFE33;
+}
+
+.labelOne {
+  font-size: 2em;
+  font-weight: 800;
+  color: #FEFE33;
+  text-shadow: 2px 2px black;
 }
 
 input {
   background-color: lightgrey;
-  font-size: 4em;
+  font-size: 3em;
   padding: 5px;
   border: 1px solid white;
   border-radius: 6px;
-  font-size: 1.5em;
+  font-size: 1.4em;
   font-weight: 900;
   text-align: center;
   max-width: 80%;
@@ -165,14 +211,18 @@ input:hover {
   transition: background-color .7s ease-out;
 }
 
-.buttons {
-  -webkit-transition: background-color 1s ease-out;
-  -moz-transition: background-color 1s ease-out;
-  -o-transition: background-color 1s ease-out;
-  transition: background-color 1s ease-out;
+.buttonOne {
+  font-size: 1.4em;
+  border-radius: 6px;
+  background-color: lightgrey;
+  border: 1px solid grey;
+  box-shadow: 5px 5px black;
+  padding: 8px;
+  cursor: pointer;
+  margin-top: 4px;
 }
 
-.buttons:hover {
+.buttonOne:hover {
   background-color: black;
   color: white;
   -webkit-transition: background-color .7s ease-out;
@@ -181,75 +231,23 @@ input:hover {
   transition: background-color .7s ease-out;
 }
 
-#sibut {
-  display: inline-block;
-  float: left;
-}
-
-#subut {
-  display: inline-block;
-  float: right;
-}
-
-.talk {
-  background-color: white;
-  border: 6px ridge lightblue;
-  border-radius: 7px;
-  max-width: 90%;
-  padding: 19px;
-  margin: 20px auto;
-  color: black;
-  box-shadow: 10px 10 5px black;
-}
-
 .inputContainer {
   opacity: .9;
   background-color: lightgrey;
-  max-width: 80%;
+  max-width: 75%;
   display: inline-block;
   border: 2px solid #FEFE33;
   border-radius: 6px;
   box-shadow: 10px 10px 5px black;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 7px;
+  padding-right: 7px;
   color: white;
-  margin-top: 30%;
+  margin-top: 25%;
 }
 
 .boxes {
   margin-left: 10%;
   margin-right: 10%;
-}
-
-.artist_results_page {
-  transition outline-color: invert;
-  transition: margin bottom 1s;
-  border-radius: 6px;
-  max-width: 70%;
-  padding: 10px;
-  font-weight: 900;
-  border: 2px solid #007fAA;
-  margin: 20px auto;
-  background-image: url("img/g.jpeg");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  color: black;
-}
-
-.event_results_page {
-  transition: margin bottom 1s;
-  outline-color: invert;
-  border-radius: 6px;
-  max-width: 70%;
-  padding: 10px;
-  border: 2px solid #007fAA;
-  margin: 20px auto;
-  background-image: url("img/g.jpeg");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  color: black;
 }
 
 .resultsContainer {
@@ -260,46 +258,12 @@ input:hover {
   border-radius: 7px;
 }
 
-.head {
-  color: lightblue;
-  font-weight: 800;
-}
-
-li {
-  list-style: none;
-  color: white;
-  font-size: 1.5em;
-  font-weight: 800;
-}
-
-.SUpage {
-  transition: margin bottom 1s;
-  background-color: black;
-  max-width: 70%;
-  margin: 0px auto;
-  padding: 20px;
-  border: 2px solid white;
-  border-radius: 7px;
-}
-
-.SIpage {
-  transition: margin bottom 1s;
-  background-color: black;
-  max-width: 70%;
-  margin: 0px auto;
-  padding: 20px;
-  border: 2px solid white;
-  border-radius: 5px;
-}
-
 .outer {
-  transition: margin bottom 1s;
-  outline-color: invert;
   border-radius: 6px;
   max-width: 80%;
   font-weight: 900;
   border: 2px solid white;
-  margin: 20px auto;
+  margin: 10px auto;
   background-image: url("img/sk.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -308,65 +272,52 @@ li {
   color: black;
 }
 
-.profile_page {
-  transition: margin bottom 1s;
-  background-image: url("img/rap.jpg");
+.notifyContainer {
+  max-width: 30%;
+   background-image: url("img/lighters.jpeg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center;
   background-size: cover;
-  opacity: .9;
-  background-color: lightgrey;
-  max-width: 80%;
   display: inline-block;
-  border: 2px solid black;
+  border: 2px solid white;
   border-radius: 6px;
   box-shadow: 10px 10px 5px black;
   padding-left: 10px;
   padding-right: 10px;
-  color: black;
-}
-
-.notifyContainer {
-  transition: margin bottom 1s;
-  opacity: .7;
-  background-color: lightgrey;
-  max-width: 80%;
-  display: inline-block;
-  border: 2px solid black;
-  border-radius: 6px;
-  box-shadow: 10px 10px 5px black;
-  padding-left: 10px;
-  padding-right: 10px;
-  color: black;
-  margin-top: 30%;
+  margin-top: 20%;
 }
 
 .updateContainer {
   transition: margin bottom 1s;
-  opacity: .7;
-  background-color: lightgrey;
-  max-width: 80%;
+   background-image: url("img/pexels-photo-167478 copy.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: cover;
+  max-width: 30%;
   display: inline-block;
-  border: 2px solid black;
+  border: 2px solid white;
   border-radius: 6px;
   box-shadow: 10px 10px 5px black;
   padding-left: 10px;
   padding-right: 10px;
-  color: black;
-  margin-top: 30%;
+  margin: 10% 10%;
 }
 
 .deleteContainer {
+   max-width: 30%;
   transition: margin bottom 1s;
-  background-image: url("img/pexels-photo-237459.jpeg");
+  background-image: url("img/mic_Fotor.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center;
-  max-width: 60%;
   background-size: cover;
-  color: black;
   border: 2px solid white;
   border-radius: 6px;
   box-shadow: 10px 10px 5px black;
+}
+
+.delete {
+  font-size: 10em;
 }
