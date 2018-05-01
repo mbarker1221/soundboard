@@ -1,5 +1,3 @@
-/*jshint esversion: 6 */
-/*jshint node: true */
 
 const serverBase = "http://localhost:8080";
 const USER_URL = "./server";
@@ -307,7 +305,7 @@ function deleteUser() {
       alert("Error!");
     }
   });
-}
+};
 
 /*
 $(document).ready();

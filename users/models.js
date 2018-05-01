@@ -1,6 +1,7 @@
 'use strict';
 /*jshint esversion: 6 */
-/*jshint node: true;*/
+/*jshint node: true */
+
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 
@@ -41,6 +42,4 @@ UserSchema.statics.hashPassword = function (password) {
 
 const User = mongoose.model('User', UserSchema);
 
-module.exports = {
-   User
-};
+module.exports = {User};
