@@ -1,7 +1,7 @@
 'use strict';
 /*jshint esversion: 6 */
 /*jshint node: true */
-
+//thist thingl
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
