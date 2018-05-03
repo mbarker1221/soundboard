@@ -22,22 +22,22 @@
               <h2>THE HOTTEST SHOWS!</h2>                    
                 <div class="inputContainer boxes">
                   <h3>Search by name:</h3>
-                      <form class = "artistS" name = "artistS">
-                        <input class = "inputA" type = "text" name = "artistSearch" id = "artistSearch" placeholder = "artist or event" /><br>
+                      <form class = "artistS" name = "artistS" id="artistS" action="#" onsubmit="return false">
+                        <input class = "inputA" type = "text" name = "artistSearch" id = "artistSearch" placeholder = "artist or event"/><br>
                         <button class="buttonOne button" id="btnFindArtist" type="submit" onclick = "toggleArtist()">search</button>
                       </form><br>
                 </div>
                 <div class="inputContainer boxes">
                   <h3>Search by location:</h3>
-                    <form class="locationSearch" name="locationSearch">
+                    <form class="locationS" name="locationS" id="locationS" action="#" onsubmit="return false">
                       <input class="inputL" type="text" name="eventSearch" id="eventSearch" placeholder="city or zip code" /><br>
                         <button class="buttonOne button" id="btnGetEvents" type="submit" onclick="toggleEvents()">search</button><br>
                       </form><br>
                 </div>
                 </div> 
-                  <form class="signUser" name="signUser" id="sigF">
-                    <button class="buttonOne" id="sign_up_button" type="submit" onclick="toggleSignUp()">Register for an account</button> 
-                    <button class="buttonOne" id="sign_in_button" type="submit" onclick="toggleSignIn()">Have an account? Sign in</button>
+                  <form class="signUser" name="signUser" id="signF" action="#" onsubmit="return false">
+                    <button class="buttonOne" id="sign_up_button" type="submit" action="#" onclick="toggleSignUp()">Register for an account</button> 
+                    <button class="buttonOne" id="sign_in_button" type="submit" action="#" onclick="toggleSignIn()">Have an account? Sign in</button>
                   </form>  
           </div>
         </section>
@@ -52,7 +52,7 @@
                 <li><span id="id"></span></li>
               </ul>
            </div>
-              <form class="backToIt" name="goBack"> 
+              <form class="backToIt" name="goBack" id="getBack" action="#" onsubmit="return false"> 
                 <button class="buttonOne button" type="submit" id="restart" onclick="renderPage()">back to search</button><br><br>
               </form><br><br>
         </section>
@@ -101,14 +101,14 @@
               <li><span id="address3"></span></li>
             </ul>
           </div>           
-              <form class="backToIt" name="goBack" id="backUp">
+              <form class="backToIt" name="goBack" id="backUp" action="#" onsubmit="return false">
                 <button class="buttonOne button" type="submit" id="redo" onclick="renderPage()">back to search</button><br><br>
               </form><br><br>
         </section>
 
         <section class="sign_up_page page" id="sign_up_page">
           <div class="outer">
-            <form class="signUpForm" name="signUpForm" id="siup"><br>
+            <form class="signUpForm" name="signUpForm" id="siupF" action="#" onsubmit="return false"><br>
               <h2>Sign Up</h2><br>
                 <input class="input" type="text" name="username" placeholder="Enter a username" id="enterUser"/><br><br>
                 <input class="input" type="password" name="password" placeholder="Enter a password" id="enterPass"/><br><br>
@@ -116,14 +116,14 @@
                 <button class="buttonOne button" id="createUser" type="submit" onclick="toggleNewUser()">submit</button><br><br>
             </form>
           </div>
-            <form class="backToIt" name="goBack" id="backyard">
+            <form class="backToIt" name="goBack" id="backyard" action="#" onsubmit="return false">
                 <button class="buttonOne button" type="submit" id="replay" onclick="renderPage()">back to search</button><br><br>
               </form><br><br>
         </section><br>
 
         <section class="sign_in_page page" id="sign_in_page">
           <div class = "outer">
-            <form class="signInForm" name="signInForm" id="sif">
+            <form class="signInForm" name="signInForm" id="siinF" action="#" onsubmit="return false">
               <br><br><br>
               <h2>Sign In</h2><br><br>
                 <input class="input" type="text" name="un" placeholder="Enter username" id="userName" required/><br><br>
@@ -131,7 +131,7 @@
                   <button class="buttonOne button" id="submitUser" type="submit" onclick="toggleOldUser()">submit</button><br><br><br><br>
             </form>
           </div>
-           <form class="backToIt" name="goBack" id="backItUp">
+           <form class="backToIt" name="goBack" id="backItUp" action="#" onsubmit="return false">
                 <button class="buttonOne button" type="submit" id="rerun" onclick="renderPage()">back to search</button><br><br>
               </form><br><br>
         </section><br>
@@ -146,7 +146,7 @@
                 </ul>
               </div>
               <div class="updateContainer"><br>
-                <form class="updateUser" name="updateUser" id="updF">
+                <form class="updateUser" name="updateUser" id="updF" action="#" onsubmit="return false">
                   <label class="labelTwo">Update profile - enter a new username and password below</label><br>
                   <input class="input" type="text" name="updateUN" placeholder="new username" />
                   <input class="input" type="text" name="updatePASS" placeholder="new password" /><br><br>
@@ -155,21 +155,21 @@
               </div>
         
               <div class="notifyContainer">
-                <form class="notifications" name="notifications">
+                <form class="notifications" name="notifications" id="notifications" action="#" onsubmit="return false">
                   <label class="labelOne">Sign up for email notifications and we'll keep you in the know about shows in your area!</label><br>
                   <input class="input" type="text" name="band" id="band" placeholder="artist or band name" /><br><br>
                     <button class="buttonOne button" id="submitFav" type="submit" onclick="getNotifications();">submit</button><br><br>
                 </form>
               </div>        
               <div class="deleteContainer">      
-                <form class="deleteUser" name="deleteUser" id="delF">
+                <form class="deleteUser" name="deleteUser" id="delF" action="#" onsubmit="return false">
                   <label class="labelTwo">Drop the Mic</label><br>
                   <label class="labelTwo">warning -- mic drops cannot be undone</label>
                     <button class="buttonOne button" id="deleteUser" type="submit" onclick="deleteUser()">delete my profile</button><br><br>
                 </form>
                 <br>
               </div>
-                <form class="backToIt" name="goBack" id="backTalk"><br>
+                <form class="backToIt" name="goBack" id="backTalk" action="#" onsubmit="return false"><br>
                 <button class="buttonOne button" type="submit" id="resync" onclick="renderPage()">back to search</button><br><br>
               </form>
             </div>
@@ -179,7 +179,9 @@
           </section>
     </main>
    
-      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+      <script src="//code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
       <script src="index.js" ></script>
 </body>
 </html>          
