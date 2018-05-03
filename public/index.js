@@ -1,15 +1,17 @@
+/*jshint esversion: 6 */
+/*jshint node: true */
 
-const serverBase = "http://localhost:8080";
-const USER_URL = "./server";
+var serverBase = "http://localhost:8080/";
+var USER_URL = "./server";
 var EVENT_URL="http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
 //const ARTIST_URL= "/artistRouter";
 //const EVENT_URL = "./eventsRouter";
-const ARTIST_LIST_URL = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=";
-const ARTIST_URL = "http://api.eventful.com/json/performers/search?app_key=c7nd5jGWK8tkcThz&keywords=";
-const ALL_URL = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&keywords=music";
-const searchSimilar = "http://api.songkick.com/api/3.0/artists/68043/similar_artists.json?apikey=ovLum2i3CCGRjtHA";
-const events = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=P0-001-000034547-0";
-const similar = "http://api.eventful.com/json/performers/get?c7nd5jGWK8tkcThz&id=P0-001-000000045-2";
+var ARTIST_LIST_URL = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=";
+var ARTIST_URL = "http://api.eventful.com/json/performers/search?app_key=c7nd5jGWK8tkcThz&keywords=";
+var ALL_URL = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&keywords=music";
+var searchSimilar = "http://api.songkick.com/api/3.0/artists/68043/similar_artists.json?apikey=ovLum2i3CCGRjtHA";
+var events = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=P0-001-000034547-0";
+var similar = "http://api.eventful.com/json/performers/get?c7nd5jGWK8tkcThz&id=P0-001-000000045-2";
 // "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
 
 function hideUnusedSections() {
@@ -44,6 +46,7 @@ hideUnusedSections();
 }
 
 function getArtist() {
+  event.preventDefault();
   const artist_name = $("input[name=artistSearch]");
   const art = artist_name.val();
 
@@ -65,9 +68,9 @@ function getArtist() {
 
 function showArtist(results) {
   $("#artistSearch").val('');
-  let id = results.performers.performer[0].url;
+  var id = results.performers.performer[0].url;
   $("#id").text(id);
-  let name = results.performers.performer[0].name;
+  var name = results.performers.performer[0].name;
   $("#name").text(name);
 }
 
@@ -76,6 +79,7 @@ hideUnusedSections();
 $(".event_results_page").show();
 getEvents();
 }
+
 
 function getEvents() {
   var locate = $("input[name=eventSearch]");
@@ -97,7 +101,7 @@ function getEvents() {
 }
 
 function showEvents(results) {
-    $("#eventSearch").val('');
+  $("#eventSearch").val('');
   var title = results.events.event[0].title;
   $(`#title`).text(title);
   var city = results.events.event[0].city_name;
@@ -108,10 +112,7 @@ function showEvents(results) {
   $(`#venueE`).text(venueE);
   var address = results.events.event[0].venue_address;
   $(`#address`).text(address);
- // var description = results.events.event[0].description;
-  //$(`#description`).text(description);
-//  var image = results.events.event[0].image.medium.url;
- // $(`#img`).text(image);
+ 
   var title2 = results.events.event[1].title;
   $(`#title2`).text(title);
   var city2 = results.events.event[1].city_name;
@@ -135,18 +136,16 @@ function showEvents(results) {
   $(`#address3`).text(address);
 }
 
-
 function toggleNewUser() {
 hideUnusedSections();
 $(".profile_page").show();
   handleNewUser();
 }
 
-
 function handleNewUser() {
-  const uN = $("input[name=username]").val();
-  const pW = $("input[name=password]").val();
-  const eM = $("input[name=email]").val();
+  var uN = $("input[name=username]").val();
+  var pW = $("input[name=password]").val();
+  var eM = $("input[name=email]").val();
   postNewUser(uN, pW, eM);
 }
 
@@ -155,8 +154,9 @@ function postNewUser(uN, pW, eM) {
     "async": true,
     "crossDomain": true,
     "url": USER_URL,
+    //USER_URL + "/",
     //"http://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users",
-    //"http://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users",
+  
     "type": "POST",
     "dataType": "jsonp",
     "headers": {
@@ -180,32 +180,11 @@ function displayProfile(response) {
 hideUnusedSections();
   handleHello();
 }
-/*
-  var currentUser = this.user.username;
-  storeUser(response);
-}
 
-function storeUser(response) {
-   var User = {
-    id: this.id,
-    username: this.username,
-    password: this.password,
-    email: this.email
-    }
-  
-  var User = {
-    id: this.User[user.id],
-    username: this.User[user.username],
-    password: this.password[user.password],
-    email: this.User[user.email]
-  };
-  handleHello();
-}
-*/
 function handleHello() {
   hideUnusedSections();
   $('#profile_page').show();
- var hello = ( `Hello, (${user.username}) !`);
+ var hello = ( `Hello, ${this.username} !`);
 }
 
 function toggleOldUser() {
@@ -230,7 +209,7 @@ function getOldUser(usnm, pasw) {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users",
+    "url": "http://localhost:8080/user",
     "type": "GET",
     "dataType": "jsonp",
     "headers": {
@@ -253,14 +232,11 @@ function displayProfile(response) {
   hideUnusedSections();
   $('#profile_page').show();
 }
-// handleHello();
-//}
-
 
 function updateUser() {
-  let userId = this.User[user.id];
-  let usern = $("input[name=updateUN]").val();
-  let passw = $("input[name=updatePASS]").val();
+  var userId = this.User[user.id];
+  var usern = $("input[name=updateUN]").val();
+  var passw = $("input[name=updatePASS]").val();
   handleUpdate(userId, usern, passw);
 }
 
@@ -286,6 +262,7 @@ function handleUpdate(userId, usern, passw) {
 }
 
 function deleteUser() {
+  $('.deletePage').show();
   console.log("deleting user");
   var UserId = this.User[user.id];
 
@@ -297,7 +274,7 @@ function deleteUser() {
 
     success: function () {
       hideUnusedSections();
-      $('.deletePage').show();
+      
       alert("Success!");
     },
 
@@ -305,21 +282,12 @@ function deleteUser() {
       alert("Error!");
     }
   });
-};
-
-/*
-$(document).ready();
-
-window.onload = function () {
-  hideUnusedSections();
-  renderPage();
-};
-*/
+}
 
 $(() => {
   hideUnusedSections();
   renderPage();
-})
+});
 
 
 
