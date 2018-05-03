@@ -11,9 +11,9 @@ body {
 }
 
 #landing_page {
-  max-width: 75%;
+  max-width: 70%;
   margin: 5px auto;
-  padding: 15px;
+  padding: 10px;
   background-color: #99a2af;
 }
 
@@ -105,7 +105,7 @@ h1 {
   text-shadow: 4px 4px #FEFE33;
   border: 2px ridge white;
   border-radius: 9px;
-  max-width: 80%;
+  max-width: 75%;
   margin: 0px auto;
   font-family: "The Frontman";
   box-shadow: 20px 20px black;
@@ -154,9 +154,9 @@ p {
 
 .border {
   background-color: black;
-  max-width: 80%;
+  max-width: 78%;
   box-shadow: 15px 15px 10px black;
-  padding-bottom: 50px;
+  padding-bottom: 45px;
   border: 2px solid white;
   border-radius: 8px;
 }
@@ -235,7 +235,7 @@ input:hover {
 .inputContainer {
   opacity: .9;
   background-color: lightgrey;
-  max-width: 75%;
+  max-width: 73%;
   display: inline-block;
   border: 2px solid #FEFE33;
   border-radius: 6px;

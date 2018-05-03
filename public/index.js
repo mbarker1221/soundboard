@@ -142,6 +142,7 @@ $(".profile_page").show();
   handleNewUser();
 }
 
+
 function handleNewUser() {
   var uN = $("input[name=username]").val();
   var pW = $("input[name=password]").val();
