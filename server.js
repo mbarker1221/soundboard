@@ -17,10 +17,9 @@ const {PORT, DATABASE_URL} = require('./config');
 
 const app = express();
 app.use(express.json());
-// Logging
+
 app.use(morgan('common'));
 
-// CORS
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
@@ -34,12 +33,11 @@ app.use(function (req, res, next) {
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-app.use('/api/users/', userRouter);
+app.use('/api/user/', userRouter);
 app.use('/api/auth/', authRouter);
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
-// A protected endpoint which needs a valid JWT to access it
 app.get('/api/protected', jwtAuth, (req, res) => {
   return res.json({
     data: 'rosebud'
@@ -47,27 +45,9 @@ app.get('/api/protected', jwtAuth, (req, res) => {
 });
 
 app.use(express.static('public'));
+
 app.get('/', (req, res) => {
    res.sendFile(__dirname + "/public/index.html");
-});
-
-app.get('/user', (req, res) => {
-    const filters = {};
-    const queryableFields = ["username", "password"];
-    queryableFields.forEach(field => {
-        if (req.query[field]) {
-            filters[field] = req.query[field];
-        }
-    });
-    User
-        .find(filters)
-        .then(User => res.json(
-            User.map(user => user.serialize())
-        ))
-        .catch(err => {
-            console.error(err);
-            res.status(500).json({message: "something is seriously wrong"});
-        });
 });
 
 app.post('/user', (req, res) => {
@@ -86,18 +66,38 @@ app.post('/user', (req, res) => {
         password: req.body.password, 
         email: req.body.email
       })
-  .then(user => res.status(201).json(user.serialize()))
+    .then(user => res.status(201).json(user.serialize()))
     .catch(err => {
       console.error(err);
       res.status(500).json({message: "Internal server error"});
+      
     });
+});
+
+app.get('/user', (req, res) => {
+    const filters = {};
+    const queryableFields = ["username", "password"];
+    queryableFields.forEach(field => {
+        if (req.query[field]) {
+            filters[field] = req.query[field];
+        }
+    });
+    User
+        .find(filters)
+        .then(User => res.json(
+            User.map(user => user.serialize())
+        ))
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({message: "something is seriously wrong"});
+        return this.users.find(user => user.id === id);
+        });
 });
 
 app.put('/user/:id', (req, res) => {
 if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     const message = (
-      `Request path id (${req.params.id}) and request body id ` +
-      `(${req.body.id}) must match`);
+      `Request path id (${req.params.id}) and request body id (${req.body.id}) must match`);
     console.error(message);
     return res.status(400).json({message: message});
   }
@@ -121,16 +121,14 @@ if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     console.log(`Deleted User \`${req.params.id}\``);
       User
        .findByIdAndRemove(req.params.id)
-    .then(user => res.status(204).end())
-    .catch(err => res.status(500).json({message: "Internal server error"}));
-});
+       .then(user => res.status(204).end())
+       .catch(err => res.status(500).json({message: "Internal server error"}));
+  });
 
 app.use('*', (req, res) => {
   return res.status(404).json({ message: 'Not Found' });
 });
 
-// Referenced by both runServer and closeServer. closeServer
-// assumes runServer has run and set `server` to a server object
 let server;
 
 function runServer() {

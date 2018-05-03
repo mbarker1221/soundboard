@@ -3,13 +3,13 @@
 /*jshint node: true */
 
 const express = require('express');
-const passport = require('passport');
+//const passport = require('passport');
 const bodyParser = require('body-parser');
 const {User} = require('./models');
 const router = express.Router();
 
 const app = express();
-const config = require('../config');
+//const config = require('../config');
 const jsonParser = bodyParser.json();
 
 app.use(bodyParser.json());
@@ -161,7 +161,7 @@ router.get('/user', (req, res) => {
         });
 });
 
-app.get('/user/:id', (req,res) => {
+router.get('/user/:id', (req,res) => {
   const {userId} = req.params;
 });
 /*
@@ -191,7 +191,7 @@ app.post('/user', (req, res) => {
 });
 */
 
-router.put('/users/:id', (req, res) => {
+router.put('/user/:id', (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     const message = (
       `Request path id (${req.params.id}) and request body id ` +
@@ -241,7 +241,7 @@ app.get('/:userId', (req, res) => {
 });
 */
 
-router.delete('/users/:id', (req, res) => {
+router.delete('/user/:id', (req, res) => {
   User
     .findByIdAndRemove(req.params.id)
     .then(user => res.status(204).end())
