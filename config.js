@@ -5,3 +5,16 @@ exports.TEST_DATABASE_URL=process.env.TEST_DATABASE_URL || global.TEST_DATABASE_
 exports.PORT=process.env.PORT || 8080;
 exports.JWT_SECRET="C20FE91EBF6958C4C6E673A23C58C3AB6B55C5A768FB0E245B511DB203C2A019";
 exports.JWT_EXPIRY=process.env.JWT_EXPIRY || '7d';
+
+exports.serverBase=process.env.serverBase || "http://localhost:5000/";
+exports.USER_URL=process.env.USER_URL || "./server";
+exports.EVENT_URL=process.env.EVENT_URL || "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
+//const ARTIST_URL= "/artistRouter";
+//const EVENT_URL = "./eventsRouter";
+exports.ARTIST_LIST_URL=process.env.ARTIST_LIST_URL || "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=";
+exports.ARTIST_URL=process.env.ARTIST_URL || "http://api.eventful.com/json/performers/search?app_key=c7nd5jGWK8tkcThz&keywords=";
+exports.ALL_URL=process.env.ALL_URL || "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&keywords=music";
+exports.searchSimilar=process.env.searchSimilar || "http://api.songkick.com/api/3.0/artists/68043/similar_artists.json?apikey=ovLum2i3CCGRjtHA";
+exports.events=process.env.events || "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=P0-001-000034547-0";
+exports.similar=process.env.similar || "http://api.eventful.com/json/performers/get?c7nd5jGWK8tkcThz&id=P0-001-000000045-2";
+// "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";

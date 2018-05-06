@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 /*jshint node: true */
 
-var serverBase = "http://localhost:8080/";
+var serverBase = "http://localhost:8080/user";
 var USER_URL = "./server";
 var EVENT_URL="http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
 //const ARTIST_URL= "/artistRouter";
@@ -53,7 +53,7 @@ function getArtist() {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "dataType": "jsonp",
+    "dataType": "json",
     "url": ARTIST_URL + art,
     "type": "GET",
     "headers": {
@@ -87,7 +87,7 @@ function getEvents() {
   var params = {
     "async": true,
     "crossDomain": true,
-    "dataType": "jsonp",
+    "dataType": "json",
     "url": EVENT_URL + loc,
     "type": "GET",
     "headers": {
@@ -154,7 +154,7 @@ function postNewUser(uN, pW, eM) {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": USER_URL,
+    "url": serverBase,
     //USER_URL + "/",
     //"http://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users",
   
@@ -169,8 +169,9 @@ function postNewUser(uN, pW, eM) {
       "username": uN,
       "password": pW,
       "email": eM
-    }
+    } 
   };
+
   $.ajax(settings).done(function (response) {
     //console.log(response);
     displayProfile(response);
@@ -197,13 +198,7 @@ hideUnusedSections();
 function handleOldUser() {
   var usnm = $("input[name=un]").val();
   var pasw = $("input[name=pw]").val();
-  clearValues();
-}
-
-function clearValues() {
-  $("#userName").val('');
-  $("#userPass").val('');
-  getOldUser(usnm, pasw);
+  getOldUser();
 }
 
 function getOldUser(usnm, pasw) {
@@ -270,7 +265,7 @@ function deleteUser() {
   $.ajax({
     type: "DELETE",
     url: USER_URL + "/" + UserId,
-    dataType: "jsonp",
+    dataType: "json",
     contentType: "application/json",
 
     success: function () {

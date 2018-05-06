@@ -8,6 +8,10 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
 const {User} = require('./users');
+const bodyParser = require('body-parser');
+
+const jsonParser = bodyParser.json();
+
 const {router: userRouter} = require('./users/userRouter');
 const {router: authRouter, localStrategy, jwtStrategy} = require('./auth');
 
@@ -44,13 +48,13 @@ app.get('/api/protected', jwtAuth, (req, res) => {
 });
 
 app.use(express.static('public'));
-
+/*
 app.get('/', (req, res) => {
    res.sendFile(__dirname + "/public/index.html");
 });
+*/
 
-
-app.post('/user', (req, res) => {
+app.post('/user', jsonParser, (req, res) => {
   const requiredFields = ["username", "password", "email"];
       for (let i=0; i<requiredFields.length; i++) {
         const field = requiredFields[i];
@@ -60,18 +64,18 @@ app.post('/user', (req, res) => {
       return res.status(400).send(message);
       }
     }
-     User
-      .create({
-        username: req.body.username, 
-        password: req.body.password, 
-        email: req.body.email
+    const user = User.create(req.body.username, req.body.password, req.body.email);
+    res.status(201).json(user);
+  });
+     /*
+     User.create({username: req.body.username, password: req.body.password, email: req.body.email
      })
     .then(user => res.status(201).json(user.serialize()))
     .catch(err => {
       console.error(err);
       res.status(500).json({message: "Internal server error"});  
     });
-});
+});*/
 
 app.get('/user', (req, res) => {
     const filters = {};
