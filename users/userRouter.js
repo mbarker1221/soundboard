@@ -95,7 +95,7 @@ const nonStringField = stringFields.find(
       });
    }
 
-   let {username, password, email} = req.body;
+   var {username, password, email} = req.body;
 
    return User.find({username})
       .count()
@@ -131,18 +131,8 @@ const nonStringField = stringFields.find(
          res.status(500).json({code: 500, message: 'Internal server error'});
       });
 });
-//router.get('/', (req, res) => {
-// res.json(User.get());
-//});
-/*
-router.get('/', (req, res) => {
-  return User.find()
-    .then(users => res.json(users.map(user => user.serialize())))
-    .catch(err => res.status(500).json({message: 'Internal server error'}));
-});
-*/
 
-router.get('/user', (req, res) => {
+router.get('/', (req, res) => {
     const filters = {};
     const queryableFields = ["username", "password"];
     queryableFields.forEach(field => {
@@ -161,11 +151,11 @@ router.get('/user', (req, res) => {
         });
 });
 
-router.get('/user/:id', (req,res) => {
+router.get('/:id', (req,res) => {
   const {userId} = req.params;
 });
 /*
-app.post('/user', (req, res) => {
+router.post('/user', (req, res) => {
   const requiredFields = ['username', 'password', 'email'];
 
   for (let i = 0; i < requiredFields.length; i++) {
@@ -191,7 +181,7 @@ app.post('/user', (req, res) => {
 });
 */
 
-router.put('/user/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     const message = (
       `Request path id (${req.params.id}) and request body id ` +
@@ -241,7 +231,7 @@ app.get('/:userId', (req, res) => {
 });
 */
 
-router.delete('/user/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   User
     .findByIdAndRemove(req.params.id)
     .then(user => res.status(204).end())
