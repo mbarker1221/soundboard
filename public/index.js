@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 /*jshint node: true */
-
-var serverBase = "mongodb://localhost:8080/mbarker1221:shompin1@ds131698.mlab.com:31698/users";
+var serverBase="http://localhost:8080/user";
+var clientBase = "mongodb://localhost:8080/mbarker1221:shompin1@ds131698.mlab.com:31698/users";
 var USER_URL = "./server";
 var EVENT_URL="http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
 var ARTIST_LIST_URL = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=";
@@ -156,7 +156,7 @@ function postNewUser(uN, pW, eM) {
     //USER_URL + "/",
     //"http://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users",
   
-    "type": "GET",
+    "type": "POST",
     "dataType": "jsonp",
     "headers": {
      "contentType": "application/json",
