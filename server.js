@@ -25,14 +25,23 @@ app.use(morgan('common'));
 
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
-  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   if (req.type === 'OPTIONS') {
     return res.send(204);
   }
   next();
 });
-
+/*
+switch ($_SERVER['HTTP_ORIGIN']) {
+    case 'http://from.com': case 'https://from.com':
+   res.header('Access-Control-Allow-Origin: '.$_SERVER['HTTP_ORIGIN']);
+    res.header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Max-Age: 1000');
+    res.header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+    break;
+}
+*/
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
@@ -64,10 +73,10 @@ app.post('/user', jsonParser, (req, res) => {
       return res.status(400).send(message);
       }
     }
-    const user = User.create(req.body.username, req.body.password, req.body.email);
-    res.status(201).json(user);
-  });
-     /*
+    //const user = User.create(req.body.username, req.body.password, req.body.email);
+   // res.status(201).json(user);
+  //});
+     
      User.create({username: req.body.username, password: req.body.password, email: req.body.email
      })
     .then(user => res.status(201).json(user.serialize()))
@@ -75,7 +84,7 @@ app.post('/user', jsonParser, (req, res) => {
       console.error(err);
       res.status(500).json({message: "Internal server error"});  
     });
-});*/
+});
 
 app.get('/user', (req, res) => {
     const filters = {};
@@ -131,6 +140,15 @@ app.put('/user/:id', (req, res) => {
 app.use('*', (req, res) => {
   return res.status(404).json({ message: 'Not Found' });
 });
+
+process.on('unhandledRejection', (reason, promise) => {
+console.error(reason, 'Unhandled Rejection at Promise', promise);
+ })
+.on('uncaughtException', err => {
+ console.error(err, 'Uncaught Exception thrown');
+process.exit(1);
+ });
+
 
 let server;
 
