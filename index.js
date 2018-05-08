@@ -1,16 +1,18 @@
 /*jshint esversion: 6 */
 /*jshint node: true */
-
-var serverBase = "mongodb://localhost:8080/mbarker1221:shompin1@ds131698.mlab.com:31698/users";
+var $ = require('jquery');
+var serverBase = "http://localhost:8080/";
 var USER_URL = "./server";
 var EVENT_URL="http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
+//const ARTIST_URL= "/artistRouter";
+//const EVENT_URL = "./eventsRouter";
 var ARTIST_LIST_URL = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=";
 var ARTIST_URL = "http://api.eventful.com/json/performers/search?app_key=c7nd5jGWK8tkcThz&keywords=";
 var ALL_URL = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&keywords=music";
 var searchSimilar = "http://api.songkick.com/api/3.0/artists/68043/similar_artists.json?apikey=ovLum2i3CCGRjtHA";
 var events = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=P0-001-000034547-0";
 var similar = "http://api.eventful.com/json/performers/get?c7nd5jGWK8tkcThz&id=P0-001-000000045-2";
-
+// "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
 
 function hideUnusedSections() {
   $("#landing_page").hide();
@@ -51,7 +53,7 @@ function getArtist() {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "dataType": "json",
+    "dataType": "jsonp",
     "url": ARTIST_URL + art,
     "type": "GET",
     "headers": {
@@ -85,7 +87,7 @@ function getEvents() {
   var params = {
     "async": true,
     "crossDomain": true,
-    "dataType": "json",
+    "dataType": "jsonp",
     "url": EVENT_URL + loc,
     "type": "GET",
     "headers": {
@@ -140,6 +142,7 @@ $(".profile_page").show();
   handleNewUser();
 }
 
+
 function handleNewUser() {
   var uN = $("input[name=username]").val();
   var pW = $("input[name=password]").val();
@@ -147,19 +150,18 @@ function handleNewUser() {
   postNewUser(uN, pW, eM);
 }
 
-
 function postNewUser(uN, pW, eM) {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": serverBase,
+    "url": USER_URL,
     //USER_URL + "/",
     //"http://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users",
   
-    "type": "GET",
+    "type": "POST",
     "dataType": "jsonp",
     "headers": {
-     "contentType": "application/json",
+      "Content-Type": "application/json",
       "Cache-Control": "no-cache"
     },
     "processData": false,
@@ -170,25 +172,10 @@ function postNewUser(uN, pW, eM) {
     } 
   };
 
-  $.ajax({
-    type: 'POST',
-    url: serverBase,
-    crossDomain: true,
-    data: {
-      "username": uN,
-      "password": pW,
-      "email": eM
-    },
-    dataType: 'json',
-
-     success: function(data, textStatus, xhr) {
-      console.log(xhr.status);
-      displayProfile(response);
-    },
-    complete: function(data, xhr, textStatus) {
-      console.log(xhr.status);
-    } 
-});
+  $.ajax(settings).done(function (response) {
+    //console.log(response);
+    displayProfile(response);
+  });
 }
 
 function displayProfile(response) {
@@ -199,7 +186,7 @@ hideUnusedSections();
 function handleHello() {
   hideUnusedSections();
   $('#profile_page').show();
- var hello = ( `Hello, (this.username) !`);
+ var hello = ( `Hello, ${this.username} !`);
 }
 
 function toggleOldUser() {
@@ -211,7 +198,13 @@ hideUnusedSections();
 function handleOldUser() {
   var usnm = $("input[name=un]").val();
   var pasw = $("input[name=pw]").val();
-  getOldUser();
+  clearValues();
+}
+
+function clearValues() {
+  $("#userName").val('');
+  $("#userPass").val('');
+  getOldUser(usnm, pasw);
 }
 
 function getOldUser(usnm, pasw) {
@@ -231,6 +224,10 @@ function getOldUser(usnm, pasw) {
       "password": pasw
     }
   };
+  $.ajax(settings).done(function (response) {
+   //console.log(response);
+    displayProfile(response);
+  });
 }
 
 function displayProfile(response) {
@@ -274,7 +271,7 @@ function deleteUser() {
   $.ajax({
     type: "DELETE",
     url: USER_URL + "/" + UserId,
-    dataType: "json",
+    dataType: "jsonp",
     contentType: "application/json",
 
     success: function () {
@@ -298,5 +295,104 @@ $(() => {
 
 
 
+
+var userTemplate = (
+  '<div class="user js-user">' +
+    '<h3 class="js-user-username"><h3>' +
+    '<hr>' +
+    '<ul class="js-user-email">' +
+    '</ul>' +
+    '</div>' +
+  '</div>'
+);
+
+
+var USER_URL = '/user';
+
+
+
+function getAndDisplayUsers() {
+
+  $.getJSON(USER_URL, function(users) {
+    console.log('Rendering users');
+    var usersElement = users.map(function(user) {
+      var element = $(userTemplate);
+      element.attr('id', user.id);
+      element.find('.js-user-username').text(user.username);
+      user.identifiers.forEach(function(identifier) {
+        element.find('.js-user-identifiers').append(
+          '<li>' + identifier + '</li>');
+      });
+      return element;
+    });
+    $('.js-users').html(usersElement)
+  });
+}
+
+function addUser(user) {
+
+  $.ajax({
+    type: 'POST',
+    url: USER_URL,
+    data: JSON.stringify(user),
+    success: function(data) {
+      getAndDisplayUsers();
+    },
+    dataType: 'json',
+    contentType: 'application/json'
+  });
+}
+
+function deleteUser(userId) {
+  console.log('Deleting user`' + userId + '`');
+  $.ajax({
+    url: USER_URL + '/' + userId,
+    method: 'DELETE',
+    success: getAndDisplayUsers
+  });
+}
+
+ updateUser(user) {
+  console.log('Updating user `' + user.id + '`');
+  $.ajax({
+    url: USER_URL + '/' + user.id,
+    type: 'PUT',
+    data: user,
+    success: function(data) {
+      getAndDisplayUsers();
+    }
+  });
+}
+
+function handleUserAdd() {
+  $('#js-user-form').submit(function(e) {
+    e.preventDefault();
+    var identifiers = $(
+      e.currentTarget).find(
+      '#identifiers-list').val().split(',').map(
+        function(identifier) { return identifier.trim() });
+    addUser({
+      name: $(e.currentTarget).find('#user-name').val(),
+      ingredients: ingredients
+    });
+  });
+}
+
+
+function handleUserDelete() {
+  $('.js-users').on('click', '.js-user-delete', function(e) {
+    e.preventDefault();
+    deleteUser(
+      $(e.currentTarget).closest('.js-user').attr('id'));
+  });
+}
+}
+
+
+$(function() {
+  getAndDisplayUsers();
+  handleUserAdd();
+  handleUserDelete();
+});
 
 
