@@ -1,18 +1,16 @@
 /*jshint esversion: 6 */
 /*jshint node: true */
 
-var serverBase = "http://localhost:8080/user";
+var serverBase = "mongodb://localhost:8080/mbarker1221:shompin1@ds131698.mlab.com:31698/users";
 var USER_URL = "./server";
 var EVENT_URL="http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
-//const ARTIST_URL= "/artistRouter";
-//const EVENT_URL = "./eventsRouter";
 var ARTIST_LIST_URL = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=";
 var ARTIST_URL = "http://api.eventful.com/json/performers/search?app_key=c7nd5jGWK8tkcThz&keywords=";
 var ALL_URL = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&keywords=music";
 var searchSimilar = "http://api.songkick.com/api/3.0/artists/68043/similar_artists.json?apikey=ovLum2i3CCGRjtHA";
 var events = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=P0-001-000034547-0";
 var similar = "http://api.eventful.com/json/performers/get?c7nd5jGWK8tkcThz&id=P0-001-000000045-2";
-// "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
+
 
 function hideUnusedSections() {
   $("#landing_page").hide();
@@ -142,13 +140,13 @@ $(".profile_page").show();
   handleNewUser();
 }
 
-
 function handleNewUser() {
   var uN = $("input[name=username]").val();
   var pW = $("input[name=password]").val();
   var eM = $("input[name=email]").val();
   postNewUser(uN, pW, eM);
 }
+
 
 function postNewUser(uN, pW, eM) {
   var settings = {
@@ -158,10 +156,10 @@ function postNewUser(uN, pW, eM) {
     //USER_URL + "/",
     //"http://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users",
   
-    "type": "POST",
+    "type": "GET",
     "dataType": "jsonp",
     "headers": {
-      "Content-Type": "application/json",
+     "contentType": "application/json",
       "Cache-Control": "no-cache"
     },
     "processData": false,
@@ -172,12 +170,27 @@ function postNewUser(uN, pW, eM) {
     } 
   };
 
-  $.ajax(settings).done(function (response) {
-    //console.log(response);
-    displayProfile(response);
-  });
-}
 
+  $.ajax({
+    type: 'POST',
+    url: serverBase,
+    crossDomain: true,
+    data: {
+      "username": uN,
+      "password": pW,
+      "email": eM
+    },
+    dataType: 'json',
+
+     success: function(data, textStatus, xhr) {
+      console.log(xhr.status);
+      displayProfile(response);
+    },
+    complete: function(data, xhr, textStatus) {
+      console.log(xhr.status);
+    } 
+});
+}
 function displayProfile(response) {
 hideUnusedSections();
   handleHello();
@@ -186,7 +199,7 @@ hideUnusedSections();
 function handleHello() {
   hideUnusedSections();
   $('#profile_page').show();
- var hello = ( `Hello, ${this.username} !`);
+ var hello = ( `Hello, (this.username) !`);
 }
 
 function toggleOldUser() {
@@ -218,10 +231,6 @@ function getOldUser(usnm, pasw) {
       "password": pasw
     }
   };
-  $.ajax(settings).done(function (response) {
-   //console.log(response);
-    displayProfile(response);
-  });
 }
 
 function displayProfile(response) {
