@@ -32,6 +32,7 @@ app.use(function (req, res, next) {
   }
   next();
 });
+/*
 switch ($_SERVER['HTTP_ORIGIN']) {
     case 'http://from.com': case 'https://from.com':
    res.header('Access-Control-Allow-Origin: '.$_SERVER['HTTP_ORIGIN']);
@@ -40,6 +41,7 @@ switch ($_SERVER['HTTP_ORIGIN']) {
     res.header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
     break;
 }
+*/
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
