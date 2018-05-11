@@ -8,17 +8,23 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
 const {User} = require('./users');
-const bodyParser = require('body-parser');
-
-const jsonParser = bodyParser.json();
 
 const {router: userRouter} = require('./users/userRouter');
 const {router: authRouter, localStrategy, jwtStrategy} = require('./auth');
 
 mongoose.Promise = global.Promise;
+const app = express();
+const MongoClient = require('mongodb').MongoClient;
+//mongoose.connect("mongodb://localhost:8080/users");
+mongoose.connect("mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users");
 
 const {PORT, DATABASE_URL} = require('./config');
-const app = express();
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+const jsonParser = bodyParser.json();
+
+
 app.use(express.json());
 
 app.use(morgan('common'));
@@ -32,16 +38,7 @@ app.use(function (req, res, next) {
   }
   next();
 });
-/*
-switch ($_SERVER['HTTP_ORIGIN']) {
-    case 'http://from.com': case 'https://from.com':
-   res.header('Access-Control-Allow-Origin: '.$_SERVER['HTTP_ORIGIN']);
-    res.header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
-    res.header('Access-Control-Max-Age: 1000');
-    res.header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
-    break;
-}
-*/
+
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
@@ -62,9 +59,21 @@ app.get('/', (req, res) => {
    res.sendFile(__dirname + "/public/index.html");
 });
 */
-
+app.post("/users", (req, res) => {
+   const user = 
+     User.create({username: req.body.username, password: req.body.password, email: req.body.email
+     })
+  //var userData = new User(req.body);
+  //userData.save()
+    .then(user => {
+      res.send("user saved to database");
+    })
+    .catch(err => {
+      res.status(400).send("unable to save to database");
+    });
+});
 app.post('/user', jsonParser, (req, res) => {
-  const requiredFields = ["username", "password", "email"];
+  /*const requiredFields = ["username", "password", "email"];
       for (let i=0; i<requiredFields.length; i++) {
         const field = requiredFields[i];
       if (!(field in req.body)) {
@@ -72,11 +81,8 @@ app.post('/user', jsonParser, (req, res) => {
         console.error(message);
       return res.status(400).send(message);
       }
-    }
-    //const user = User.create(req.body.username, req.body.password, req.body.email);
-   // res.status(201).json(user);
-  //});
-     
+    }*/
+   const user = 
      User.create({username: req.body.username, password: req.body.password, email: req.body.email
      })
     .then(user => res.status(201).json(user.serialize()))

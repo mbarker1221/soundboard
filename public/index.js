@@ -2,7 +2,17 @@
 /*jshint node: true */
 var serverBase="http://localhost:8080/user";
 var clientBase = "mongodb://localhost:8080/mbarker1221:shompin1@ds131698.mlab.com:31698/users";
+var base="mongodb://localhost:8080/ds131698.mlab.com:31698/users";
+var DATABASE_URL = "mbarker1221:shompin1@ds131698.mlab.com:31698/users";
 var USER_URL = "./server";
+var db = "mongo ds131698.mlab.com:31698/users -u mbarker1221 -p shompin1";
+var db2 = "mongo//ds131698.mlab.com:31698/users -u mbarker1221 -p shompin1";
+var db3 = "mongodb://127.0.0.1:27017";
+var db4 = "pid=14955 port=27017 dbpath=/data/db 64-bit host=Callys-MBP";
+var db5 = "% nc -w 3 -v ds31698.mlab.com:27107/users";
+var db6 = "mongodb://ds131698.mlab.com:31698/users";
+
+
 var EVENT_URL="http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
 var ARTIST_LIST_URL = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=";
 var ARTIST_URL = "http://api.eventful.com/json/performers/search?app_key=c7nd5jGWK8tkcThz&keywords=";
@@ -149,6 +159,7 @@ function handleNewUser() {
 
 
 function postNewUser(uN, pW, eM) {
+
   var settings = {
     "async": true,
     "crossDomain": true,
@@ -157,7 +168,7 @@ function postNewUser(uN, pW, eM) {
     //"http://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users",
   
     "type": "POST",
-    "dataType": "jsonp",
+    "dataType": "json",
     "headers": {
      "contentType": "application/json",
       "Cache-Control": "no-cache"
@@ -183,7 +194,8 @@ function postNewUser(uN, pW, eM) {
 
      success: function(data, textStatus, xhr) {
       console.log(xhr.status);
-      displayProfile(response);
+    //  this.users[user.id] = user;
+      displayProfile(data);
     },
     complete: function(data, xhr, textStatus) {
       console.log(xhr.status);
@@ -191,15 +203,14 @@ function postNewUser(uN, pW, eM) {
 });
 }
 
-function displayProfile(response) {
-hideUnusedSections();
-  handleHello();
+function displayProfile(data) {
+  hideUnusedSections();
+  $('#profile_page').show();
+ // handleHello();
 }
 
 function handleHello() {
-  hideUnusedSections();
-  $('#profile_page').show();
- var hello = ( `Hello, (this.username) !`);
+ var hello = ( `Hello, ` + user + `!`);
 }
 
 function toggleOldUser() {
@@ -288,13 +299,10 @@ function deleteUser() {
     }
   });
 }
-
-$(() => {
+$ (window).on("load", function() { 
   hideUnusedSections();
   renderPage();
 });
-
-
 
 
 

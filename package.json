@@ -58,7 +58,7 @@
     "minimatch": "^3.0.4",
     "mkdirp": "^0.5.1",
     "mongo": "^0.1.0",
-    "mongodb": "^3.0.6",
+    "mongodb": "^3.0.8",
     "mongoose": "^5.0.14",
     "morgan": "^1.9.0",
     "moz": "^0.1.5",
