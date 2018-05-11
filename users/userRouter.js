@@ -157,7 +157,6 @@ router.get('/:id', (req,res) => {
 /*
 router.post('/user', (req, res) => {
   const requiredFields = ['username', 'password', 'email'];
-
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -166,7 +165,6 @@ router.post('/user', (req, res) => {
       return res.status(400).send(message);
     }
   }
-
   User
     .create({
      username: req.body.username,

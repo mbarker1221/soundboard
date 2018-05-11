@@ -10,32 +10,32 @@ mongoose.Promise = global.Promise;
 
 const Users = {
   create: function(username, password, email) {
-    console.log('Creating a new user');
-    const user = {
+    console.log('Creating a new User');
+    const User = {
       //id: uuid.v4(),
       username: username,
       password: password,
       email: email
     };
-    this.users[user.id] = user;
-    return user;
+    this.Users[User.id] = User;
+    return User;
   },
   get: function() {
     console.log('Retreiving users');
-    return Object.keys(this.users).map(key => this.users[key]);
+    return Object.keys(this.Users).map(key => this.Users[key]);
   },
-  delete: function(userId) {
-    console.log(`Deleting user with id \`${userId}\``);
-    delete this.users[userId];
+  delete: function(UserId) {
+    console.log(`Deleting User with id \`${UserId}\``);
+    delete this.Users[UserId];
   },
   update: function(updatedUser) {
-    console.log(`Updating user with id \`${updatedUser.id}\``);
+    console.log(`Updating User with id \`${updatedUser.id}\``);
     const {id} = updatedUser;
-    if (!(id in this.users)) {
+    if (!(id in this.User)) {
       throw StorageException(
-        `Can't update user \`${id}\` because it doesn't exist.`);
+        `Can't update User \`${id}\` because it doesn't exist.`);
     }
-    this.users[updatedUser.id] = updatedUser;
+    this.Users[updatedUser.id] = updatedUser;
     return updatedUser;
   }
 };
