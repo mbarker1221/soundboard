@@ -14,8 +14,6 @@ const {router: authRouter, localStrategy, jwtStrategy} = require('./auth');
 
 mongoose.Promise = global.Promise;
 const app = express();
-const MongoClient = require('mongodb').MongoClient;
-//mongoose.connect("mongodb://localhost:8080/users");
 mongoose.connect("mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users");
 
 const {PORT, DATABASE_URL} = require('./config');
