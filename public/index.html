@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-  <html>
+  <html lang="en">
 
     <head>
       <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width">
-          <link href="main.css" rel="stylesheet" type="text/css">
+      <title>Live Music Event Search API</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+     
       <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.css" rel="stylesheet">
   
       <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
- <link href="main.css" rel="stylesheet" type="text/css">
+      
+      <link href="main.css" rel="stylesheet" />
       <title>Live Music Event API</title>
     </head>
-    <body>
+    <body class = "preload">
       <main> 
         <h1>Amped</h1><br>  
   
@@ -117,8 +119,8 @@
             </form>
           </div>
             <form class="backToIt" name="goBack" id="backyard" action="#" onsubmit="return false">
-                <button class="buttonOne button" type="submit" id="replay" onclick="renderPage()">back to search</button><br><br>
-              </form><br><br>
+              <button class="buttonOne button" type="submit" id="replay" onclick="renderPage()">back to search</button><br><br>
+            </form><br><br>
         </section><br>
 
         <section class="sign_in_page page" id="sign_in_page">
@@ -132,51 +134,60 @@
             </form>
           </div>
            <form class="backToIt" name="goBack" id="backItUp" action="#" onsubmit="return false">
-                <button class="buttonOne button" type="submit" id="rerun" onclick="renderPage()">back to search</button><br><br>
-              </form><br><br>
+              <button class="buttonOne button" type="submit" id="rerun" onclick="renderPage()">back to search</button><br><br>
+           </form><br><br>
         </section><br>
 
         <section class="profile_page page" id="profile_page">
           <div class ="border">
             <div class="inside">
-              <h2>${hello} (`Hello, (${user.username}) !`)</h2>
+              <h2></h2>
                 <ul class="profile_display">
-                  <li><span id="username"></span></li>
-                  <li><span id="email"></span></li>
+                  <li class="hello head">Hello, </li>
+                  <li><span id="hello"></span></li>
+                  <li class="appMail">Email: </li>
+                  <li><span id="appMail"></span></li>
                 </ul>
               </div>
               <div class="updateContainer"><br>
                 <form class="updateUser" name="updateUser" id="updF" action="#" onsubmit="return false">
                   <label class="labelTwo">Update profile - enter a new username and password below</label><br>
-                  <input class="input" type="text" name="updateUN" placeholder="new username" />
+                  <input class="input" type="text" name="updateUN" placeholder="new username" /><br>
                   <input class="input" type="text" name="updatePASS" placeholder="new password" /><br><br>
-                    <button class="buttonOne button" type="submit" onclick="updateUser()">submit</button><br><br><br>
+                    <button class="buttonOne button" type="submit" onclick="updateUser()">submit</button>
                 </form>
-              </div>
-        
+             
+            </div>
+     
               <div class="notifyContainer">
                 <form class="notifications" name="notifications" id="notifications" action="#" onsubmit="return false">
-                  <label class="labelOne">Sign up for email notifications and we'll keep you in the know about shows in your area!</label><br>
+                  <label class="labelOne">Sign up here and we'll keep you in the know about shows in your area!</label><br>
                   <input class="input" type="text" name="band" id="band" placeholder="artist or band name" /><br><br>
                     <button class="buttonOne button" id="submitFav" type="submit" onclick="getNotifications();">submit</button><br><br>
                 </form>
-              </div>        
+              </div><br> <br>
+           
+
+                 
               <div class="deleteContainer">      
                 <form class="deleteUser" name="deleteUser" id="delF" action="#" onsubmit="return false">
                   <label class="labelTwo">Drop the Mic</label><br>
-                  <label class="labelTwo">warning -- mic drops cannot be undone</label>
+                  <label class="labelTwo">warning -- mic drops cannot be undone</label></form><br>
                     <button class="buttonOne button" id="deleteUser" type="submit" onclick="deleteUser()">delete my profile</button><br><br>
                 </form>
                 <br>
-              </div>
+          
+            </div>
+
                 <form class="backToIt" name="goBack" id="backTalk" action="#" onsubmit="return false"><br>
                 <button class="buttonOne button" type="submit" id="resync" onclick="renderPage()">back to search</button><br><br>
               </form>
-            </div>
-          </section>
-          <section class="deletePage" id="deletePage">
-            <h1>BYE</h1>
-          </section>
+          
+          </div>
+        </section>
+        <section class="deletePage" id="deletePage">
+          <h1>BYE</h1>
+        </section>
     </main>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script src="index.js"></script>

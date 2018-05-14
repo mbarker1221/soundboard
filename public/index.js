@@ -2,15 +2,16 @@
 /*jshint node: true */
 var serverBase="http://localhost:8080/user";
 var clientBase = "mongodb://localhost:8080/mbarker1221:shompin1@ds131698.mlab.com:31698/users";
-var base="mongodb://localhost:8080/ds131698.mlab.com:31698/users";
+var base="http://mongodb:localhost:8080/ds131698.mlab.com:31698/users";
 var DATABASE_URL = "mbarker1221:shompin1@ds131698.mlab.com:31698/users";
 var USER_URL = "./server";
-var db = "mongo ds131698.mlab.com:31698/users -u mbarker1221 -p shompin1";
+var db = "http://mongodb://ds131698.mlab.com:31698/users";
 var db2 = "mongo//ds131698.mlab.com:31698/users -u mbarker1221 -p shompin1";
 var db3 = "mongodb://127.0.0.1:27017";
 var db4 = "pid=14955 port=27017 dbpath=/data/db 64-bit host=Callys-MBP";
 var db5 = "% nc -w 3 -v ds31698.mlab.com:27107/users";
 var db6 = "mongodb://ds131698.mlab.com:31698/users";
+var db7 = "mongod --dbpath 'C:/data/db'";
 
 
 var EVENT_URL="http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
@@ -145,42 +146,22 @@ function showEvents(results) {
 }
 
 function toggleNewUser() {
-hideUnusedSections();
-$(".profile_page").show();
-  handleNewUser();
-}
-
-function handleNewUser() {
-  var uN = $("input[name=username]").val();
+var uN = $("input[name=username]").val();
   var pW = $("input[name=password]").val();
   var eM = $("input[name=email]").val();
+  handleNewUser(uN, pW, eM);
+}
+
+function handleNewUser(uN, pW, eM) {
+  var newUser = {
+  "username": uN,
+  "password": pW,
+  "email": eM 
+  }
   postNewUser(uN, pW, eM);
 }
 
-
 function postNewUser(uN, pW, eM) {
-
-  var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": serverBase,
-    //USER_URL + "/",
-    //"http://mongodb://mbarker1221:shompin1@ds131698.mlab.com:31698/users",
-  
-    "type": "POST",
-    "dataType": "json",
-    "headers": {
-     "contentType": "application/json",
-      "Cache-Control": "no-cache"
-    },
-    "processData": false,
-    "data": {
-      "username": uN,
-      "password": pW,
-      "email": eM
-    } 
-  };
-
   $.ajax({
     type: 'POST',
     url: serverBase,
@@ -193,12 +174,10 @@ function postNewUser(uN, pW, eM) {
     dataType: 'json',
 
      success: function(data, textStatus, xhr) {
-      console.log(xhr.status);
-    //  this.users[user.id] = user;
       displayProfile(data);
     },
     complete: function(data, xhr, textStatus) {
-      console.log(xhr.status);
+      displayProfile(data);
     } 
 });
 }
@@ -206,11 +185,14 @@ function postNewUser(uN, pW, eM) {
 function displayProfile(data) {
   hideUnusedSections();
   $('#profile_page').show();
- // handleHello();
+  handleHello();
 }
-
+ 
 function handleHello() {
- var hello = ( `Hello, ` + user + `!`);
+
+  $(`#hello`).text(this[newUser.username]);
+
+  $(`#appMail`).text(this[newUser.email]);
 }
 
 function toggleOldUser() {
@@ -229,9 +211,9 @@ function getOldUser(usnm, pasw) {
   var settings = {
     "async": true,
     "crossDomain": true,
-    "url": "http://localhost:8080/user",
+    "url": "serverBase",
     "type": "GET",
-    "dataType": "jsonp",
+    "dataType": "json",
     "headers": {
       "Content-Type": "application/json",
       "Cache-Control": "no-cache"
@@ -302,6 +284,7 @@ function deleteUser() {
 $ (window).on("load", function() { 
   hideUnusedSections();
   renderPage();
+   $("body").removeClass("preload");
 });
 
 
