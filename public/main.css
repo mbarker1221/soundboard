@@ -10,6 +10,7 @@ body {
   word-spacing: 4px;
 }
 
+
 .landing_page {
   max-width: 70%;
   margin: 5px auto;
@@ -172,7 +173,7 @@ p {
 }
 
 .labelTwo {
-  font-size: 200%;
+  font-size: 300%;
   font-weight: 800;
   color: black;
   text-shadow: 2px 2px #FEFE33;
@@ -269,13 +270,7 @@ input:hover {
 }
 
 .notifyContainer {
-  transition: 1s;
-  max-width: 30%;
-  background-image: url("img/lighters.jpeg");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  background-size: cover;
+  
   display: inline-block;
   border: 2px solid white;
   border-radius: 6px;
@@ -286,12 +281,7 @@ input:hover {
 }
 
 .updateContainer {
-  transition: 1s;
-  background-image: url("img/pexels-photo-167478 copy.jpg");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  background-size: cover;
+  
   max-width: 30%;
   display: inline-block;
   border: 2px solid white;
@@ -303,14 +293,7 @@ input:hover {
 }
 
 .deleteContainer {
-  transition: 1s;
-  max-width: 30%;
-  transition: margin bottom 1s;
-  background-image: url("img/mic_Fotor.jpg");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center;
-  background-size: cover;
+  max-width: 30%; 
   border: 2px solid white;
   border-radius: 6px;
   box-shadow: 10px 10px 5px black;
@@ -320,6 +303,13 @@ input:hover {
   font-size: 900%;
 }
 
+.prof {
+  background-image: url("img/mic_Fotor.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: cover;
+}
 
 @media screen and (max-width: 480px) {
   body {
@@ -355,27 +345,26 @@ input:hover {
     max-width: 95%;
   }
   .notifyContainer {
-    max-width: 98%;
+    max-width: 94%;
   }
   .updateContainer {
-    background-color: white;
     display: inline-block;
     border: 2px solid white;
     border-radius: 6px;
     box-shadow: 2px 2px 2px black;
     margin: 2px auto;
-    max-width: 95%;
+    max-width: 94%;
   }
   .profile_page {
     background-color: lightgrey;
-    max-width: 95%;
+    max-width: 94%;
     border: 2px solid #007fAA;
     border-radius: 6px;
     box-shadow: 2px 2px 2px black;
     margin: 0px auto;
   }
   .deleteContainer {
-    max-width: 100%;
+    max-width: 90%;
   }
 }
 @media screen and (max-width: 780px) and (min-width: 481px) {
@@ -403,36 +392,35 @@ input:hover {
   }
   .border {
     background-color: black;
-    max-width: 98%;
+    max-width: 97%;
     box-shadow: 3px 3px 2px black;
     border: 2px solid white;
     border-radius: 8px;
   }
   .inside {
-    max-width: 96%;
+    max-width: 94%;
   }
   .notifyContainer {
-    max-width: 95%;
+    max-width: 91%;
   }
   .updateContainer {
-    background-color: white;
     display: inline-block;
     border: 2px solid white;
     border-radius: 6px;
     box-shadow: 2px 2px 2px black;
     margin: 2px auto;
-    max-width: 96%;
+    max-width: 91%;
   }
   .profile_page {
     background-color: lightgrey;
-    max-width: 95%;
+    max-width: 91%;
     border: 2px solid #007fAA;
     border-radius: 6px;
     box-shadow: 2px 2px 2px black;
     margin: 0px auto;
   }
   .deleteContainer {
-    max-width: 98%;
+    max-width: 80%;
   }
 }
   @media screen and (max-width: 1029px) and (min-width: 781px) {
@@ -469,16 +457,15 @@ input:hover {
     max-width: 96%;
   }
   .notifyContainer {
-    max-width: 95%;
+    max-width: 90%;
   }
   .updateContainer {
-    background-color: white;
     display: inline-block;
     border: 2px solid white;
     border-radius: 6px;
     box-shadow: 2px 2px 2px black;
     margin: 2px auto;
-    max-width: 96%;
+    max-width: 90%;
   }
   .profile_page {
     background-color: lightgrey;
@@ -489,7 +476,7 @@ input:hover {
     margin: 0px auto;
   }
   .deleteContainer {
-    max-width: 98%;
+    max-width: 75%;
   }
 }
 
@@ -524,30 +511,29 @@ input:hover {
     border-radius: 8px;
   }
   .inside {
-    max-width: 96%;
-  }
-  .notifyContainer {
     max-width: 95%;
   }
+  .notifyContainer {
+    max-width: 90%;
+  }
   .updateContainer {
-    background-color: white;
     display: inline-block;
     border: 2px solid white;
     border-radius: 6px;
     box-shadow: 2px 2px 2px black;
     margin: 2px auto;
-    max-width: 96%;
+    max-width: 90%;
   }
   .profile_page {
     background-color: lightgrey;
-    max-width: 95%;
+    max-width: 90%;
     border: 2px solid #007fAA;
     border-radius: 6px;
     box-shadow: 2px 2px 2px black;
     margin: 0px auto;
   }
   .deleteContainer {
-    max-width: 98%;
+    max-width: 70%;
   }
 }
 
@@ -568,4 +554,3 @@ input:hover {
   -ms-transition-duration: 1s, !important;
   -ms-transition-property: ease-in, !important;
 }
-

@@ -11,12 +11,10 @@
       <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
       
       <link href="main.css" rel="stylesheet" />
-      <title>Live Music Event API</title>
     </head>
     <body class = "preload">
       <main> 
         <h1>Amped</h1><br>  
-  
         <section class="landing_page page" id="landing_page">    
           <div class="border">  
             <div class="crowdWalk">
@@ -112,10 +110,11 @@
           <div class="outer">
             <form class="signUpForm" name="signUpForm" id="siupF" action="#" onsubmit="return false"><br>
               <h2>Sign Up</h2><br>
-                <input class="input" type="text" name="username" placeholder="Enter a username" id="enterUser"/><br><br>
+                <input class="input" type="text" name="username" placeholder="Enter a username" id="enterUser" autofocus/><br><br>
                 <input class="input" type="password" name="password" placeholder="Enter a password" id="enterPass"/><br><br>
                 <input class="input" type="email" name="email" placeholder="Enter your email" id="enterEmail"/><br><br>
                 <button class="buttonOne button" id="createUser" type="submit" onclick="toggleNewUser()">submit</button><br><br>
+               
             </form>
           </div>
             <form class="backToIt" name="goBack" id="backyard" action="#" onsubmit="return false">
@@ -141,7 +140,9 @@
         <section class="profile_page page" id="profile_page">
           <div class ="border">
             <div class="inside">
-              <h2></h2>
+             >
+
+              <h2></h2>                
                 <ul class="profile_display">
                   <li class="hello head">Hello, </li>
                   <li><span id="hello"></span></li>
@@ -149,31 +150,30 @@
                   <li><span id="appMail"></span></li>
                 </ul>
               </div>
+               <div class = "prof">
               <div class="updateContainer"><br>
-                <form class="updateUser" name="updateUser" id="updF" action="#" onsubmit="return false">
+                <form class="updateUser" name="udUser" id="updF" action="#" onsubmit="return false">
                   <label class="labelTwo">Update profile - enter a new username and password below</label><br>
-                  <input class="input" type="text" name="updateUN" placeholder="new username" /><br>
+                  <input class="input" type="text" name="updateUN" placeholder="new username" /><br><br>
                   <input class="input" type="text" name="updatePASS" placeholder="new password" /><br><br>
-                    <button class="buttonOne button" type="submit" onclick="updateUser()">submit</button>
-                </form>
+                    <button class="buttonOne button" type="submit" onclick="updateUser()">send</button>
+                </form><br>
              
             </div>
      
               <div class="notifyContainer">
                 <form class="notifications" name="notifications" id="notifications" action="#" onsubmit="return false">
-                  <label class="labelOne">Sign up here and we'll keep you in the know about shows in your area!</label><br>
-                  <input class="input" type="text" name="band" id="band" placeholder="artist or band name" /><br><br>
-                    <button class="buttonOne button" id="submitFav" type="submit" onclick="getNotifications();">submit</button><br><br>
+                  <label class="labelTwo">Stay in the know and never miss a show!</label><br><br><br>
+                  <input class="input" type="text" name="band" id="band" placeholder="artist or band name" /><br><br><br>
+                    <button class="buttonOne button" id="submitFav" type="submit" onclick="getNotifications()">submit</button><br><br><br>
                 </form>
               </div><br> <br>
-           
-
                  
               <div class="deleteContainer">      
                 <form class="deleteUser" name="deleteUser" id="delF" action="#" onsubmit="return false">
-                  <label class="labelTwo">Drop the Mic</label><br>
-                  <label class="labelTwo">warning -- mic drops cannot be undone</label></form><br>
-                    <button class="buttonOne button" id="deleteUser" type="submit" onclick="deleteUser()">delete my profile</button><br><br>
+                  <label class="labelTwo">Delete my profile</label><br><br>
+                 
+                    <button class="buttonOne button" type="submit" onclick="deleteUser()">delete my profile</button><br><br>
                 </form>
                 <br>
           
@@ -184,6 +184,7 @@
               </form>
           
           </div>
+        </div>
         </section>
         <section class="deletePage" id="deletePage">
           <h1>BYE</h1>
