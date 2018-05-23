@@ -1,27 +1,10 @@
 /*jshint esversion: 6 */
 /*jshint node: true */
 var serverBase="http://localhost:8080/user";
-var clientBase = "mongodb://localhost:8080/mbarker1221:shompin1@ds131698.mlab.com:31698/users";
-var base="http://mongodb:localhost:8080/ds131698.mlab.com:31698/users";
 var DATABASE_URL = "mbarker1221:shompin1@ds131698.mlab.com:31698/users";
 var USER_URL = "./server";
-var db = "http://mongodb://ds131698.mlab.com:31698/users";
-var db2 = "mongo//ds131698.mlab.com:31698/users -u mbarker1221 -p shompin1";
-var db3 = "mongodb://127.0.0.1:27017";
-var db4 = "pid=14955 port=27017 dbpath=/data/db 64-bit host=Callys-MBP";
-var db5 = "% nc -w 3 -v ds31698.mlab.com:27107/users";
-var db6 = "mongodb://ds131698.mlab.com:31698/users";
-var db7 = "mongod --dbpath 'C:/data/db'";
-
-
 var EVENT_URL="http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";
-var ARTIST_LIST_URL = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=";
 var ARTIST_URL = "http://api.eventful.com/json/performers/search?app_key=c7nd5jGWK8tkcThz&keywords=";
-var ALL_URL = "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&keywords=music";
-var searchSimilar = "http://api.songkick.com/api/3.0/artists/68043/similar_artists.json?apikey=ovLum2i3CCGRjtHA";
-var events = "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=P0-001-000034547-0";
-var similar = "http://api.eventful.com/json/performers/get?c7nd5jGWK8tkcThz&id=P0-001-000000045-2";
-
 
 function hideUnusedSections() {
   $("#landing_page").hide();
@@ -34,8 +17,8 @@ function hideUnusedSections() {
 }
 
 function renderPage() {
-   hideUnusedSections();
-   $("#landing_page").show();
+  hideUnusedSections();
+  $("#landing_page").show();
 }
 
 function toggleSignUp() {
@@ -88,7 +71,6 @@ hideUnusedSections();
 $(".event_results_page").show();
 getEvents();
 }
-
 
 function getEvents() {
   var locate = $("input[name=eventSearch]");
@@ -146,7 +128,7 @@ function showEvents(results) {
 }
 
 function toggleNewUser() {
-var uN = $("input[name=username]").val();
+  var uN = $("input[name=username]").val();
   var pW = $("input[name=password]").val();
   var eM = $("input[name=email]").val();
   handleNewUser(uN, pW, eM);
@@ -154,10 +136,10 @@ var uN = $("input[name=username]").val();
 
 function handleNewUser(uN, pW, eM) {
   var newUser = {
-  "username": uN,
-  "password": pW,
-  "email": eM 
-  }
+    "username": uN,
+    "password": pW,
+    "email": eM 
+  };
   postNewUser(uN, pW, eM);
 }
 
@@ -172,86 +154,66 @@ function postNewUser(uN, pW, eM) {
       "email": eM
     },
     dataType: 'json',
-
-     success: function(data, textStatus, xhr) {
-      displayProfile(data);
+     success: function() {
+       displayProfile();
     },
-    complete: function(data, xhr, textStatus) {
-      displayProfile(data);
+    complete: function() {
+      displayProfile();
     } 
 });
 }
 
-function displayProfile(data) {
+function displayProfile(uN, pW, eM) {
   hideUnusedSections();
   $('#profile_page').show();
-  handleHello();
-}
- 
-function handleHello() {
-
-  $(`#hello`).text(this[newUser.username]);
-
-  $(`#appMail`).text(this[newUser.email]);
 }
 
 function toggleOldUser() {
-hideUnusedSections();
-  $(".profile_page").show();
-  handleOldUser();
+  var username = $("input[name=un]").val();
+  var password = $("input[name=pw]").val();
+  getOldUser(username, password);
 }
 
-function handleOldUser() {
-  var usnm = $("input[name=un]").val();
-  var pasw = $("input[name=pw]").val();
-  getOldUser();
-}
-
-function getOldUser(usnm, pasw) {
-  var settings = {
-    "async": true,
-    "crossDomain": true,
-    "url": "serverBase",
-    "type": "GET",
-    "dataType": "json",
-    "headers": {
-      "Content-Type": "application/json",
-      "Cache-Control": "no-cache"
+function getOldUser(username, password) {
+  $.ajax({
+    type: 'GET',
+    url: serverBase,
+    crossDomain: true,
+    data: {
+      "username": username,
+      "password": password
     },
-    "processData": false,
-    "data": {
-      "username": usnm,
-      "password": pasw
+    dataType: 'json',
+    success: function() {
+      displayProfile();
+    },
+
+    complete: function() {
+     displayProfile();
     }
-  };
+    });
 }
-
-function displayProfile(response) {
-  hideUnusedSections();
-  $('#profile_page').show();
-}
-
+  
 function updateUser() {
-  var userId = this.User[user.id];
-  var usern = $("input[name=updateUN]").val();
-  var passw = $("input[name=updatePASS]").val();
-  handleUpdate(userId, usern, passw);
+  var newUsername = $("input[name=updateUN]").val();
+  var newPassword = $("input[name=updatePASS]").val();
+  sendUpdatedUser(newUsername, newPassword);
 }
 
-function handleUpdate(userId, usern, passw) {
-
+function sendUpdatedUser(newUsername, newPassword) {
+   
   $.ajax({
     type: "PUT",
-    url: USER_URL + "/" + userId,
+    url: serverBase + '/' + id,
     dataType: "json",
     contentType: "application/json",
     data: {
-      "username": usern,
-      "password": passw
+      "username": newUsername,
+      "password": newPassword
     },
-    success: function (User) {
+    success: function(data, textStatus, xhr) {
       console.log(response);
-      storeUser();
+      alert('success');
     },
     error: function () {
       alert('Error!');
@@ -260,19 +222,15 @@ function handleUpdate(userId, usern, passw) {
 }
 
 function deleteUser() {
-  $('.deletePage').show();
-  console.log("deleting user");
-  var UserId = this.User[user.id];
-
   $.ajax({
     type: "DELETE",
-    url: USER_URL + "/" + UserId,
+    url: serverBase + "/" + id,
     dataType: "json",
     contentType: "application/json",
 
     success: function () {
       hideUnusedSections();
-      
+      $('.deletePage').show();
       alert("Success!");
     },
 
