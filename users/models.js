@@ -3,16 +3,14 @@
 /*jshint node: true */
 
 const mongoose = require("mongoose");
-const uuid = require('uuid');
+//const uuid = require('uuid');
 
 mongoose.Promise = global.Promise;
 
-
-
 const UserSchema = mongoose.Schema({
-   id: {
-      type: String
-   },
+  // id: {
+    //  type: String
+   //},
    username: {
       type: String,
       required: true,
@@ -28,6 +26,7 @@ const UserSchema = mongoose.Schema({
    }, 
 });
   
+
 UserSchema.methods.serialize = function () {
    return {
       id: this._id,

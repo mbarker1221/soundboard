@@ -1,7 +1,6 @@
 'use strict';
-/*jshint esversion: 6 */
-/*jshint node: true */
 const express = require('express');
+const app = express();
 const bodyParser = require('body-parser');
 
 const {User} = require('./models');
@@ -9,15 +8,22 @@ const {User} = require('./models');
 const router = express.Router();
 
 const jsonParser = bodyParser.json();
-
-router.use(bodyParser.json());
-
-router.get('/', (req, res) => {
-  res.json(User.get());
-});
+app.use(bodyParser.json());
 
 router.post('/', jsonParser, (req, res) => {
-  const stringFields = ['id', 'username', 'password', 'email'];
+  const requiredFields = ['username', 'password', 'email'];
+  const missingField = requiredFields.find(field => !(field in req.body));
+
+  if (missingField) {
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: 'Missing field',
+      location: missingField
+    });
+  }
+
+  const stringFields = ['username', 'password', 'email'];
   const nonStringField = stringFields.find(
     field => field in req.body && typeof req.body[field] !== 'string'
   );
@@ -51,6 +57,8 @@ router.post('/', jsonParser, (req, res) => {
     },
     password: {
       min: 4,
+      // bcrypt truncates after 72 characters, so let's not give the illusion
+      // of security by storing extra (unused) info
       max: 25
     }
   };
@@ -66,24 +74,29 @@ router.post('/', jsonParser, (req, res) => {
   );
 
   if (tooSmallField || tooLargeField) {
-      return res.status(422).json({
-         code: 422,
-         reason: 'ValidationError',
-         message: tooSmallField ?
-            `Must be at least ${sizedFields[tooSmallField]
-          .min} characters long` :
-            `Must be at most ${sizedFields[tooLargeField]
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: tooSmallField
+        ? `Must be at least ${sizedFields[tooSmallField]
+          .min} characters long`
+        : `Must be at most ${sizedFields[tooLargeField]
           .max} characters long`,
-         location: tooSmallField || tooLargeField
-      });
-   }
+      location: tooSmallField || tooLargeField
+    });
+  }
 
   let {username, password, email} = req.body;
+  // Username and password come in pre-trimmed, otherwise we throw an error
+  // before this
+  firstName = firstName.trim();
+  lastName = lastName.trim();
+
   return User.find({username})
     .count()
     .then(count => {
       if (count > 0) {
-      
+        // There is an existing user with the same username
         return Promise.reject({
           code: 422,
           reason: 'ValidationError',
@@ -91,12 +104,11 @@ router.post('/', jsonParser, (req, res) => {
           location: 'username'
         });
       }
-
+      // If there is no existing user, hash the password
       return User.hashPassword(password);
     })
     .then(hash => {
       return User.create({
-        id,
         username,
         password: hash,
         email
@@ -106,6 +118,8 @@ router.post('/', jsonParser, (req, res) => {
       return res.status(201).json(user.serialize());
     })
     .catch(err => {
+      // Forward validation errors on to the client, otherwise give a 500
+      // error because something unexpected has happened
       if (err.reason === 'ValidationError') {
         return res.status(err.code).json(err);
       }
@@ -113,91 +127,5 @@ router.post('/', jsonParser, (req, res) => {
     });
 });
 
-router.get('/user', (req, res) => {
-    const filters = {};
-    const queryableFields = ["username", "password"];
-      queryableFields.forEach(field => {
-        if (req.query[field]) {
-            filters[field] = req.query[field];
-        }
 
-      });
-    User
-      .find(filters)
-      .then(User => res.json(
-          User.map(user => user.serialize())
-      ))
-    
-      .catch(err => {
-        console.error(err);
-        res.status(500).json({message: "something is seriously wrong"});
-      });
-});
-
-
-router.get('/:id', (req,res) => {
-  const {userId} = req.params;
-});
-
-
-router.put('/user/:username', jsonParser, (req, res) => {  
- const toUpdate = {};
-  const updateableFields = ['username', 'password'];
-
-  updateableFields.forEach(field => {
-    if (field in req.body) {
-      toUpdate[field] = req.body[field];
-    }
-  })
-User
-  .update({
-    username: req.body.username,
-    password: req.body.password
-  })
-  .then(user => res.status(201).json(user.serialize()))
-
-  .catch(err => {
-    console.err(err);
-    res.status(500).json({message: 'error'});
-  });
-  });
-  
-/*
-KEEP THIS!!!!
-const userData = [
-{
-  username: 'username',
-  password: 'password',
-  email: 'email@email.com'
-}
-];
-// the user would actually make a request
-// to one of the IDs, like `/9920711`. `studentId`
-// is accessible in the `req.params` object.
-app.get('/:userId', (req, res) => {
-  // use destructuring assignment to adsign `req.params.studentId`
-  // to its own variable
-  const {userId} = req.params;
-  let requestedData;
-  // loop through studentData td find a matching studentId
-  for (let i = 0; i<userData.length; i++) {
-    if (userData[i].userId === userId) {
-      requestedData = userData[i]
-    }
-  };
-  // send the data matchdng the requested studentId
-  res.json(requestedData);
-});
-*/
-
-router.delete('/:id', (req, res) => {
-  User
-    .findByIdAndRemove(req.params.id)
-    .then(user => res.status(204).end())
-    .catch(err => res.status(500).json({message: 'Did not delete'}));
-});
-
-/*
-  
-*/
 module.exports = {router};
