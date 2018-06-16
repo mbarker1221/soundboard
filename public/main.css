@@ -3,13 +3,13 @@
 }
 
 body {
-  color: white;
+  background-color: black;
+  color: #FEFE33;
   text-align: center;
   font-family: 'Rock Salt';
   font-size: 50%;
   word-spacing: 4px;
 }
-
 
 .landing_page {
   max-width: 70%;
@@ -48,7 +48,6 @@ body {
   color: black;
 }
 
-
 .sign_up_page {
   transition: margin-bottom 1s;
   background-color: black;
@@ -71,12 +70,23 @@ body {
 
 .profile_page {
   background-color: lightgrey;
-  max-width: 70%;
+  max-width: 60%;
   border: 2px solid #007fAA;
   border-radius: 6px;
   box-shadow: 10px 10px 5px black;
   margin: 0px auto;
+  padding: 10px;
+  max-height: 70%;
+}
+
+.editPage {
+   transition: margin-bottom 1s;
+  background-color: black;
+  max-width: 70%;
+  margin: 0px auto;
   padding: 20px;
+  border: 2px solid white;
+  border-radius: 7px;
 }
 
 div {
@@ -270,18 +280,16 @@ input:hover {
 }
 
 .notifyContainer {
-  
   display: inline-block;
   border: 2px solid white;
   border-radius: 6px;
   box-shadow: 10px 10px 5px black;
   padding-left: 10px;
   padding-right: 10px;
-  margin-top: 20%;
+  margin-top: 5%;
 }
 
 .updateContainer {
-  
   max-width: 30%;
   display: inline-block;
   border: 2px solid white;
@@ -299,16 +307,18 @@ input:hover {
   box-shadow: 10px 10px 5px black;
 }
 
+
 .delete {
   font-size: 900%;
 }
 
 .prof {
-  background-image: url("img/mic_Fotor.jpg");
+  background-image: url("img/mic.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center;
   background-size: cover;
+  max-width: 90;
 }
 
 @media screen and (max-width: 480px) {

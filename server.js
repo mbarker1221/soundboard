@@ -1,7 +1,7 @@
 'use strict';
 /*jshint esversion: 6 */
 /*jshint node: true */
-const uuid = require('uuid');
+//const uuid = require('uuid');
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -65,6 +65,7 @@ app.get('/user', (req, res) => {
         }
 
       });
+
     User
       .find(filters)
       .then(User => res.json(
@@ -81,13 +82,14 @@ app.post('/user', jsonParser, (req, res) => {
 
   User
   .create({
-   id: uuid.v4(),  
+  // id: uuid.v4(),  
   // id: this.User.{$oid}=>to_string,
     username: req.body.username,
     password: req.body.password,
     email: req.body.email,
     //id: $oid=>to_string
   })
+  .then(console.log(User))
   .then(user => res.status(201).json(user.serialize()))
 
   .catch(err => {
@@ -97,7 +99,7 @@ app.post('/user', jsonParser, (req, res) => {
   });
 
 app.put('/user', jsonParser, (req, res) => {  
-
+  const {_id} = req.params;
  const toUpdate = {'username': req.body.username, 
  'password': req.body.password};
   const updateableFields = ['username', 'password'];
@@ -106,7 +108,7 @@ app.put('/user', jsonParser, (req, res) => {
     if (field in req.body) {
       toUpdate[field] = req.body[field];
     }
-  })
+  });
 User
   .update({
     username: req.body.username,
@@ -126,9 +128,7 @@ User
     .then(user => res.status(204).end())
     .catch(err => res.status(500).json({message: "did not update"}));
 });
-
 /*
-
 // the user would actually make a request
 // to one of the IDs, like `/9920711`. `studentId`
 // is accessible in the `req.params` object.
@@ -147,7 +147,7 @@ app.get('/:id', (req, res) => {
   res.json(requestedData);
 });
 */
-  app.delete('/user/:id', (req, res) => {
+  app.delete('/users/:id', (req, res) => {
     console.log(`Deleted User \`${req.params.id}\``);
       User
        .findByIdAndRemove(req.params.id)

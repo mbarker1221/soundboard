@@ -17,3 +17,4 @@ exports.ALL_URL=process.env.ALL_URL || "http://api.eventful.com/json/events/sear
 exports.searchSimilar=process.env.searchSimilar || "http://api.songkick.com/api/3.0/artists/68043/similar_artists.json?apikey=ovLum2i3CCGRjtHA";
 exports.events=process.env.events || "http://api.eventful.com/json/performers/events/list?app_key=c7nd5jGWK8tkcThz&id=P0-001-000034547-0";
 exports.similar=process.env.similar || "http://api.eventful.com/json/performers/get?c7nd5jGWK8tkcThz&id=P0-001-000000045-2";
+
