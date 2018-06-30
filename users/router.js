@@ -1,11 +1,18 @@
-'use strict';
+//'use strict';
+
+
+
+//'use strict';
+/*jshint esversion: 6 */
+/*jshint node: true */
+/*global jQuery, Handlebars, Router */
+
+//jQuery(function ($) {const {User} = require('./models');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-
-const {User} = require('./models');
-
 const router = express.Router();
+const {User} = require('./models');
 
 const jsonParser = bodyParser.json();
 app.use(bodyParser.json());
@@ -87,10 +94,7 @@ router.post('/', jsonParser, (req, res) => {
   }
 
   let {username, password, email} = req.body;
-  // Username and password come in pre-trimmed, otherwise we throw an error
-  // before this
-  firstName = firstName.trim();
-  lastName = lastName.trim();
+ 
 
   return User.find({username})
     .count()
@@ -109,12 +113,13 @@ router.post('/', jsonParser, (req, res) => {
     })
     .then(hash => {
       return User.create({
+        id,
         username,
         password: hash,
         email
       });
     })
-    .then(user => {
+    .then(User => {
       return res.status(201).json(user.serialize());
     })
     .catch(err => {
