@@ -52,11 +52,6 @@ app.get('/api/protected', jwtAuth, (req, res) => {
   });
 });
 
-app.param('user', function(req, res, next, collectionName){
-  id = require('./models').db.User(id);
-  //req.collection = db.collection(collectionName)
-  return next();
-});
 
 app.get('/', (req, res) => {
    res.sendFile(__dirname + "/public/index.html");
