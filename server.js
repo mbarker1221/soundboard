@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 /*jshint esversion: 6 */
 /*jshint node: true */
 //const uuid = require('uuid');
@@ -7,8 +7,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const passport = require('passport');
-const {User} = require('./users');
-
+const {User} = require('./users/index');
+//var y = require('events').EventEmitter.prototype._maxListeners = 100; 
 const {router: userRouter} = require('./users/router');
 const {router: authRouter, localStrategy, jwtStrategy} = require('./auth');
 
@@ -40,7 +40,9 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 app.use('/api/users/', userRouter);
+app.use('/api/user', userRouter);
 app.use('/api/auth/', authRouter);
+app.use(express.static('public'));
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
@@ -50,28 +52,25 @@ app.get('/api/protected', jwtAuth, (req, res) => {
   });
 });
 
-app.use(express.static('public'));
 
 app.get('/', (req, res) => {
    res.sendFile(__dirname + "/public/index.html");
 });
 
 app.get('/user', (req, res) => {
-    const filters = {};
+   const filters = {};
     const queryableFields = ["username", "password"];
       queryableFields.forEach(field => {
         if (req.query[field]) {
             filters[field] = req.query[field];
         }
-
       });
-
     User
       .find(filters)
-      .then(User => res.json(
-          User.map(User => User.serialize())
-      ))
-    
+      .then(user => res.json(user.map(User => User.serialize())))
+      //.then(user => res.status(201).json(user.serialize()))
+      //var id = require('mongodb').ObjectID
+  
       .catch(err => {
         console.error(err);
         res.status(500).json({message: "something is seriously wrong"});
@@ -82,26 +81,41 @@ app.post('/user', jsonParser, (req, res) => {
 
   User
   .create({
-  // id: uuid.v4(),  
-  // id: this.User.{$oid}=>to_string,
     username: req.body.username,
     password: req.body.password,
     email: req.body.email,
-    //id: $oid=>to_string
   })
-  .then(console.log(User))
-  .then(user => res.status(201).json(user.serialize()))
+
+  .then(User => res.status(201).json(User.serialize()))
 
   .catch(err => {
-    console.err(err);
+    console.error(err);
     res.status(500).json({message: 'error'});
   });
   });
 
-app.put('/user', jsonParser, (req, res) => {  
-  const {_id} = req.params;
- const toUpdate = {'username': req.body.username, 
- 'password': req.body.password};
+app.put('/user/:id', (req, res, next) => {
+var id = User.findOne({}, {_id: 1})._id
+  const toUpdate = {};
+  const updateableFields = ['username', 'password'];
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      toUpdate[field] = req.body[field];
+    }
+  });
+ 
+  User.findByIdAndUpdate({$set: toUpdate})
+   //.then(User => res.status(204).end())
+      .then(User => res.json(user.serialize()))
+    .catch(err => res.status(500).json({message: 'Internal server error'}));
+});
+
+
+
+/*
+app.put('/user/:id', jsonParser, (req, res) => {  
+ // const {id} = req.params;
+ const toUpdate = {};
   const updateableFields = ['username', 'password'];
 
   updateableFields.forEach(field => {
@@ -109,25 +123,13 @@ app.put('/user', jsonParser, (req, res) => {
       toUpdate[field] = req.body[field];
     }
   });
+
 User
-  .update({
-    username: req.body.username,
-    password: req.body.password
-  })
-  .then(user => res.status(201).json(user.serialize()))
-
-  .catch(err => {
-    console.err(err);
-    res.status(500).json({message: 'error'});
-  });
-  });
-
-/*
-  User
-    .findByIdAndUpdate(req.params.id, {$set: toUpdate})
-    .then(user => res.status(204).end())
-    .catch(err => res.status(500).json({message: "did not update"}));
+  .findByIdAndUpdate(req.params.id, {$set: toUpdate})
+  .then(user => res.json(user.serialize()))
+  .catch(err => res.status(500).json({message: 'error'}));
 });
+
 /*
 // the user would actually make a request
 // to one of the IDs, like `/9920711`. `studentId`
@@ -147,11 +149,29 @@ app.get('/:id', (req, res) => {
   res.json(requestedData);
 });
 */
-  app.delete('/users/:id', (req, res) => {
-    console.log(`Deleted User \`${req.params.id}\``);
+
+/*
+
+app.delete('/users/:id', (req, res, next) => {
+  const id = req.params.id;
+  // Using promises
+  User.findByIdAndRemove(id)
+    .then(count => {
+      if (count) {
+        res.status(204).end();
+      } else {
+        next();
+      }
+    })
+    .catch(next);
+});
+*/
+  app.delete('/user/:id', (req, res) => {
+      //const id = req.params.id;
+      //  const {id} = req.params;
       User
        .findByIdAndRemove(req.params.id)
-       .then(user => res.status(204).end())
+       .then(User => res.status(204).end())
        .catch(err => res.status(500).json({message: "Internal server error"}));
   });
 
@@ -169,6 +189,7 @@ process.exit(1);
 
 let server;
 function runServer() {
+  process.setMaxListeners(0);
   return new Promise((resolve, reject) => {
     mongoose.connect(DATABASE_URL, err => {
       if (err) {
@@ -205,4 +226,4 @@ if (require.main === module) {
   runServer().catch(err => console.error(err));
 }
 
-module.exports = {app, runServer, closeServer};
+module.exports = {server};
