@@ -1,13 +1,12 @@
-'use strict';
+//'use strict';
 /*jshint esversion: 6 */
 /*jshint node: true */
-
+const bcrypt = require('bcryptjs');
 const mongoose = require("mongoose");
-//const uuid = require('uuid');
 
 mongoose.Promise = global.Promise;
 
-const UserSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
   // id: {
     //  type: String
    //},
@@ -23,29 +22,31 @@ const UserSchema = mongoose.Schema({
    email: {
       type: String,
       required: true
-   }, 
+   }
 });
   
+// userSchema.virtual("id").get(function() {
+//   return `${this.user.id}`;
+//});
 
-UserSchema.methods.serialize = function () {
+
+userSchema.methods.serialize = function () {
    return {
       id: this._id,
       username: this.username,
       password: this.password,
       email: this.email
    };
-//   this.user[user.id]=user;
-  // return user;
 };
 
-UserSchema.methods.validatePassword = function (password) {
+userSchema.methods.validatePassword = function (password) {
    return bcrypt.compare(password, this.password);
 };
 
-UserSchema.statics.hashPassword = function (password) {
+userSchema.statics.hashPassword = function (password) {
    return bcrypt.hash(password, 10);
 };
 
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = {User};

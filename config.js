@@ -1,5 +1,5 @@
 'use strict';
-exports.DATABASE_URL=process.env.DATABASE_URL || global.DATABASE_URL || "mongodb://localhost/users";
+exports.DATABASE_URL=process.env.DATABASE_URL || global.DATABASE_URL || "mongodb://localhost/user";
 //mbarker1221:shompin1@ds131698.mlab.com:31698/users";
 //exports.TEST_DATABASE_URL=process.env.TEST_DATABASE_URL || global.TEST_DATABASE_URL || "mongodb://localhost/users";
 //mbarker1221:shompin1@ds131698.mlab.com:31698/mockUsers";
@@ -7,7 +7,7 @@ exports.PORT=process.env.PORT || 8080;
 exports.JWT_SECRET="C20FE91EBF6958C4C6E673A23C58C3AB6B55C5A768FB0E245B511DB203C2A019";
 exports.JWT_EXPIRY=process.env.JWT_EXPIRY || '7d';
 exports.base=process.env.base || "mongodb://localhost:8080/ds131698.mlab.com:31698/users";
-exports.serverBase=process.env.serverBase || "http://localhost:8080/user";
+exports.serverBase=process.env.serverBase || "http://localhost:8080/users";
 exports.clientBase=process.env.clientBase || "mongodb://localhost:8080/mbarker1221:shompin1@ds131698.mlab.com:31698/users";
 exports.USER_URL=process.env.USER_URL || "./server";
 exports.EVENT_URL=process.env.EVENT_URL || "http://api.eventful.com/json/events/search?app_key=c7nd5jGWK8tkcThz&category=music&l=";

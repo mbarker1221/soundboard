@@ -128,7 +128,7 @@
             <form class="signInForm" name="signInForm" id="siinF" action="#" onsubmit="return false">
               <br><br><br>
               <h2>Sign In</h2><br><br>
-                <input class="input" type="text" name="un" placeholder="Enter username" id="userName" required/><br><br>
+                <input class="input" type="text" name="un" placeholder="Enter username" id="userName" autofocus/><br><br>
                 <input class="input" type="password" name="pw" placeholder="Enter password" id="userPass" required/><br><br>
                   <button class="buttonOne button" id="submitUser" type="submit" onclick="toggleOldUser()">submit</button><br><br><br><br>
             </form>
@@ -143,10 +143,11 @@
             <div class="inside">            
               <h2></h2>                
                 <ul class="profile_display">
-                  <li class="hello head">Hello, </li>
-                  <li><span id="hello"></span></li>
-                  <li class="appMail">Email: </li>
-                  <li><span id="appMail"></span></li>
+                  <li class="uNe">Hello, ${displayName}</li>
+                  <li><span id="uNe"></span></li>
+                  <li class="eMl">Email: </li>
+                  <li><span id="eMl"></span></li>
+                  <li>`$(displayName)`</li>
                 </ul>
             </div>
 
@@ -154,7 +155,7 @@
                <div class = "notifyContainer">     
                 <form class = "editProfile" name="edit" id="editRender" action="#" onsubmit="return false">
                   <label class="labelTwo">To edit or delete your profile click</label>
-                    <button class="buttonOne button" id="editMyProfile" type="submit" onclick="editMyProfile()">here</button><br><br><br>
+                    <button class="buttonOne button" id="editMyProfile" type="submit" onclick="showProPage()">here</button><br><br><br>
                 </form>
               </div>
              
@@ -172,9 +173,9 @@
           <div class = "inside">
             <form class="eForm" name="eForm" id="edit" action="#" onsubmit="return false">
                <label>please re enter your username and password so we know it's you</label>
-                   <input class="input" type="text" name="you" id="you" placeholder="new username" /><br><br><br>
-                  <input class="input" type="text" name="youPass" id="youPass" placeholder="new password" /><br><br><br>
-                <button class="buttonOne button" id="getMyProfile" type="submit" onclick="getMyProfile()">update</button><br><br><br>
+                   <input class="input" type="text" name="you" id="you" placeholder="your username" autofocus/><br><br><br>
+                  <input class="input" type="text" name="youPass" id="youPass" placeholder="your password" /><br><br><br>
+                <button class="buttonOne button" id="getMyProfile" type="submit" onclick="locateMyProfile()">update</button><br><br><br>
             </form>
           </div>
         </div>
@@ -182,14 +183,14 @@
 
         <section class = "updatePage" id="updatePage">
           <form class="uForm" name="uForm" id="update" action="#" onsubmit="return false">
-            <label class="labelTwo">enter new username and password</label><br><br><br>
-              <input class="input" type="text" name="newU" id="newU" placeholder="new username" /><br><br><br>
+            <label class="labelTwo">To change your login credentials, enter new username and password here:  </label><br><br><br>
+              <input class="input" type="text" name="newU" id="newU" placeholder="new username" autofocus/><br><br><br>
               <input class="input" type="text" name="newPass" id="newPass" placeholder="new password" /><br><br><br>
-              <button class="buttonOne button" id="updateMyProfile" type="submit" onclick="updateMyProfile()">update</button><br><br><br>
+              <button class="buttonOne button" id="updateMyProfile" type="submit" onclick="upU()">update</button><br><br><br>
           </form>
           <form class = "dForm" name = "dForm" id= "delete" action = "#" onsubmit ="return false">
-              <label class = "labelTwo">Delete my profile</label>
-                <button class="buttonOne button" id="dele" type="submit" onclick="app.deleteById()">delete</button><br><br><br>
+              <label class = "labelTwo">To delete your profile, click </label>
+                <button class="buttonOne button" id="dele" type="submit" onclick="delProfile()">here</button><br><br><br>
           </form> 
         </section>
 
@@ -198,8 +199,10 @@
         </section>
 
     </main>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-      <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+     <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
       <script src="index.js"></script>
   </body>
 </html>          
