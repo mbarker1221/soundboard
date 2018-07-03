@@ -66,11 +66,17 @@ app.get('/user', (req, res) => {
         }
       });
     User
-      .find(filters)
-      .then(user => res.json(user.map(User => User.serialize())))
+      .find(filters, {_id:1})
+      .then(User => res.json(User.map(User => User.serialize())))
       //.then(user => res.status(201).json(user.serialize()))
       //var id = require('mongodb').ObjectID
-  
+   /* return {
+       id: this._id,
+      username: this.username,
+      password: this.password,
+      email: this.email
+     }
+      */
       .catch(err => {
         console.error(err);
         res.status(500).json({message: "something is seriously wrong"});
@@ -94,8 +100,8 @@ app.post('/user', jsonParser, (req, res) => {
   });
   });
 
-app.put('/user/:id', (req, res, next) => {
-var id = User.findOne({}, {_id: 1})._id
+app.put('/user', (req, res, next) => {
+var id = User.findOne({}, {_id: 1})._id;
   const toUpdate = {};
   const updateableFields = ['username', 'password'];
   updateableFields.forEach(field => {
@@ -103,10 +109,12 @@ var id = User.findOne({}, {_id: 1})._id
       toUpdate[field] = req.body[field];
     }
   });
- 
-  User.findByIdAndUpdate({$set: toUpdate})
+ User.updateOne (
+  {_id: id},
+  {$set: toUpdate})
+  //User.findByIdAndUpdate({$set: toUpdate})
    //.then(User => res.status(204).end())
-      .then(User => res.json(user.serialize()))
+      .then(User => res.json(User.serialize()))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
